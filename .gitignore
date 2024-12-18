@@ -1,0 +1,14 @@
+.vscode
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+*.out
+*.log
+*.tmp
+*.swp
+*.bak
+*.dSYM/
+*.DS_Store
+*.directory
