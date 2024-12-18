@@ -7,21 +7,28 @@ NAME = cub3d
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-CFILES = main.c src/check_file_line.c src/check_map.c src/map.c src/open_and_init.c src/texture_color.c src/utils.c
+SRC_DIR = cub3D/src/
+
+CFILES = $(addprefix $(SRC_DIR), \
+		main.c check_file_line.c check_map.c \
+		map.c open_and_init.c texture_color.c \
+		utils.c \
+)
+
 OFILES = $(CFILES:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OFILES)
-	($(MAKE) -C ./libft)
-	$(CC) $(CFLAGS) -o $@ $^ ./libft/libft.a
+	($(MAKE) -C ./cub3D/lib)
+	$(CC) $(CFLAGS) -o $@ $^ ./cub3D/lib/libft.a
 
 clean:
-	($(MAKE) -C ./libft clean)
+	($(MAKE) -C ./cub3D/lib clean)
 	rm -f $(OFILES)
 
 fclean: clean
-	($(MAKE) -C ./libft fclean)
+	($(MAKE) -C ./cub3D/lib fclean)
 	rm -f $(NAME)
 
 re: fclean all

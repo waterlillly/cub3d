@@ -10,7 +10,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include "libft/libft.h"
+# include "cub3D/lib/libft.h"
 
 typedef struct s_pars
 {
