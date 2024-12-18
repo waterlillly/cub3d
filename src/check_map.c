@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 bool	check_top_bot(char *s, t_pars *pars)
 {

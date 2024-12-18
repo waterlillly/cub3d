@@ -21,7 +21,6 @@ int	main(int ac, char **av)
 			i = -1;
 			while (pars.map[++i])
 				printf("|%s|\n", pars.map[i]);
-			//ft_print_array_fd(pars.map, 1);
 		}
 	}
 	err(NULL, &pars);

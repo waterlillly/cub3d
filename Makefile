@@ -7,7 +7,7 @@ NAME = cub3d
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-CFILES = main.c check_file_line.c check_map.c map.c open_and_init.c texture_color.c utils.c
+CFILES = main.c src/check_file_line.c src/check_map.c src/map.c src/open_and_init.c src/texture_color.c src/utils.c
 OFILES = $(CFILES:.c=.o)
 
 all: $(NAME)

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 char	**modify_line(char *line, t_pars *pars)
 {
@@ -55,11 +55,9 @@ bool	check_line(char *line, t_pars *pars)
 		if (is_empty(line))
 			return (true);
 		split = modify_line(line, pars);
-		if (split[0] && split[1] && is_texture(split[0])
-			&& (col_count >= 2 || col_count == 0))
+		if (split[0] && split[1] && is_texture(split[0]))
 			return (check_texture_element(split, &tex_count, pars));
-		else if (split[0] && split[1] && is_color(split[0])
-			&& (tex_count >= 4 || tex_count == 0))
+		else if (split[0] && split[1] && is_color(split[0]))
 			return (check_color_element(split, &col_count, pars));
 		else
 			return (false);

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	check_input_file(char *file, t_pars *pars)
 {

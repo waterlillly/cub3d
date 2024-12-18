@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 bool	check_player(int *player, t_pars *pars)
 {
