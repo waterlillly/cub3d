@@ -16,21 +16,20 @@ void args_handler(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	t_pars		pars;
+	// t_pars		pars;
 	t_cub		cub;
 	t_player	player;
 	// int		i;
-	// bool	done;
 
 	/******MO******/
 	args_handler(ac, av);
 
 	/******LI******/
-	ft_bzero(&pars, sizeof(t_pars *));
-	init_struct(&pars);
-	if (ac == 2 && av[1])
-	{
-		check_input_file(av[1], &pars);
+	//ft_bzero(&pars, sizeof(t_pars *));
+	//init_struct(&pars);
+	//if (ac == 2 && av[1])
+	//{
+		//check_input_file(av[1], &pars);
 		// if (pars.colors)
 		// 	ft_print_array_fd(pars.colors, 1);
 		// ft_putendl_fd("", 1);
@@ -43,13 +42,13 @@ int	main(int ac, char **av)
 		// 	while (pars.map[++i])
 		// 		printf("|%s|\n", pars.map[i]);
 		// }
-	}
+	// }
 	ft_bzero(&player, sizeof(t_player));
 	init_player(&player);
 	ft_bzero(&cub, sizeof(t_cub));
 	init_cub(&cub);
 	render(&cub);
-	cast_rays(&pars, &player);
+	cast_rays(&player);
 	mlx_loop(cub.mlx_con);
 	//err(NULL, &pars);
 	return (0);

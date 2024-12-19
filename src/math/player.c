@@ -14,8 +14,20 @@ void	move_player(t_player *player, float xd, float yd)
 	player->y += yd;
 }
 
-void	cast_rays(t_pars *pars, t_player *player)
+void	cast_rays(t_player *player)
 {
+	int map[10][10] = {
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	};
 	const int num_rays = WIDTH;
 	const float fov = 3.14159265358979323846 / 3.0; // 60 degrees
 	const float delta_angle = fov / num_rays;
@@ -36,7 +48,7 @@ void	cast_rays(t_pars *pars, t_player *player)
 			int map_y = (int)(player->y + ray_y * distance);
 			if (map_x >= 0 && map_x < WIDTH && map_y >= 0 && map_y < HEIGHT)
 			{
-				if (pars->map[map_y][map_x] == 1)
+				if (map[map_y][map_x] == 1)
 					hit = 1;
 			}
 			else

@@ -73,7 +73,7 @@ float		scale(float i, t_map map);
 /*player.c*/
 void		init_player(t_player *player);
 void		move_player(t_player *player, float xd, float yd);
-void		cast_rays(t_pars *pars, t_player *player);
+void		cast_rays(t_player *player);
 
 /*calc.c*/
 void		error_exit(char *s, t_cub *cub);
