@@ -16,7 +16,7 @@ CFILES = $(addprefix $(SRC_DIR), \
 		utils.c \
 ) $(addprefix $(MATH_DIR), \
 		calc.c mlx_events.c pixel.c \
-		scale.c \
+		scale.c player.c \
 )
 
 OFILES = $(CFILES:.c=.o)

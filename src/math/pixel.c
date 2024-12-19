@@ -10,17 +10,12 @@ static void	create_pixel(int x, int y, t_img *img, int color)
 
 void	pixel(int x, int y, t_cub *cub)
 {
-	//int			i;
-	//int			color;
 	t_complex	z;
 	t_complex	c;
 
-	//i = 0;
 	ft_bzero(&c, (sizeof(t_complex)));
 	z.x = (scale(x, map_values((WIDTH / 2) * -1, (WIDTH / 2), 0, WIDTH))) + cub->x_move;
 	z.y = (scale(y, map_values((HEIGHT / 2), (HEIGHT / 2) * -1, 0, HEIGHT))) + cub->y_move;
-	// z.x = (scale(x, map_values(-2, +2, 0, WIDTH))) + cub->x_move;
-	// z.y = (scale(y, map_values(+2, -2, 0, HEIGHT))) + cub->y_move;
 	create_pixel(x, y, &(cub->img), 0x000000);
 }
 
