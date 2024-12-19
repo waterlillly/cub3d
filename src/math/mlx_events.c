@@ -33,18 +33,10 @@ int	key_press(int key, t_cub *cub)
 	return (0);
 }
 
-int	mouse_moves(int button, int x, int y, t_cub *cub)
+int handle_mouse_move(int x, int y, void *param)
 {
-	if (button == Button5)
-	{
-		cub->x_move -= (x - WIDTH / 2) * (1 / (WIDTH / 2));
-		cub->y_move += (y - HEIGHT / 2) * (1 / (HEIGHT / 2));
-	}
-	else if (button == Button4)
-	{
-		cub->x_move += (x - WIDTH / 2) * (1 / (WIDTH / 2));
-		cub->y_move -= (y - HEIGHT / 2) * (1 / (HEIGHT / 2));
-	}
-	render(cub);
+	(void)x;
+	(void)y;
+	(void)param;
 	return (0);
 }

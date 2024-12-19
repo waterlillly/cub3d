@@ -4,8 +4,8 @@ void	init_player(t_player *player)
 {
 	player->dir = 'N';//or anything else
 	player->view = 0.0f;//facing forward
-	player->x = 0.0;
-	player->y = 0.0;
+	player->x = 3.0;
+	player->y = 7.0;
 }
 
 void	move_player(t_player *player, float xd, float yd)
@@ -14,7 +14,7 @@ void	move_player(t_player *player, float xd, float yd)
 	player->y += yd;
 }
 
-void	cast_rays(t_player *player)
+void	cast_rays(t_player *player)//int map_width and map_height = 10
 {
 	int map[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -28,8 +28,8 @@ void	cast_rays(t_player *player)
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
-	const int num_rays = WIDTH;
-	const float fov = 3.14159265358979323846 / 3.0; // 60 degrees
+	const int num_rays = 10;
+	const float fov = 3.14159265358979323846 / 2.0; // 60 degrees
 	const float delta_angle = fov / num_rays;
 	float angle = player->view - (fov / 2.0);
 
@@ -44,9 +44,9 @@ void	cast_rays(t_player *player)
 		while (!hit)
 		{
 			distance += 0.1f;
-			int map_x = (int)(player->x + ray_x * distance);
-			int map_y = (int)(player->y + ray_y * distance);
-			if (map_x >= 0 && map_x < WIDTH && map_y >= 0 && map_y < HEIGHT)
+			int map_x = player->x + ray_x * distance;
+			int map_y = player->y + ray_y * distance;
+			if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
 			{
 				if (map[map_y][map_x] == 1)
 					hit = 1;

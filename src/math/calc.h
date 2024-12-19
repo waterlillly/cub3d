@@ -64,6 +64,7 @@ int			render(t_cub *cub);
 /*mlx_events.c*/
 void		close_and_exit(t_cub *cub);
 int			key_press(int key, t_cub *cub);
+int 		handle_mouse_move(int x, int y, void *param);
 int			mouse_moves(int button, int x, int y, t_cub *cub);
 
 /*complex_values.c*/

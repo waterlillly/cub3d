@@ -23,7 +23,8 @@ void	init_data(t_cub *cub)
 void	init_events(t_cub *cub)
 {
 	mlx_hook(cub->mlx_win, KeyPress, KeyPressMask, key_press, cub);
-	mlx_mouse_hook(cub->mlx_win, mouse_moves, cub);
+	//mlx_mouse_hook(cub->mlx_win, mouse_moves, cub);
+	mlx_hook(cub->mlx_win, 6, PointerMotionMask, handle_mouse_move, NULL);
 	mlx_hook(cub->mlx_win, DestroyNotify, StructureNotifyMask, exit_success, cub);
 }
 
