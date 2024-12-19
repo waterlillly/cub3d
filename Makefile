@@ -13,7 +13,7 @@ SRC_DIR = src/
 CFILES = $(addprefix $(SRC_DIR), \
 		main.c check_file_line.c check_map.c \
 		map.c open_and_init.c texture_color.c \
-		utils.c \
+		utils.c args_handler.c map_validator.c \
 ) $(addprefix $(MATH_DIR), \
 		calc.c mlx_events.c pixel.c \
 		scale.c player.c \

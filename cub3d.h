@@ -1,6 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#include "src/math/calc.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
@@ -21,6 +22,7 @@ typedef struct s_pars
 	char	player;
 	int		map_len;
 }			t_pars;
+
 
 /*UTILS*/
 int		err(char *s, t_pars *pars);
@@ -58,5 +60,10 @@ void	check_file(int fd, t_pars *pars);
 /*OPEN AND INIT*/
 void	check_input_file(char *file, t_pars *pars);
 void	init_struct(t_pars *pars);
+
+
+/*ARGS-PARSING*/
+void args_handler(int ac, char **av);
+void mapValidator(t_pars *pars, char *av);
 
 #endif
