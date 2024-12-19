@@ -3,16 +3,18 @@
 
 int	main(int ac, char **av)
 {
-	t_pars	pars;
+	//t_pars	pars;
 	t_cub	cub;
 	// int		i;
 	// bool	done;
 
-	ft_bzero(&pars, sizeof(t_pars *));
-	init_struct(&pars);
-	if (ac == 2 && av[1])
-	{
-		check_input_file(av[1], &pars);
+	(void)ac;
+	(void)av;
+	//ft_bzero(&pars, sizeof(t_pars *));
+	//init_struct(&pars);
+	//if (ac == 2 && av[1])
+	//{
+		//check_input_file(av[1], &pars);
 		// if (pars.colors)
 		// 	ft_print_array_fd(pars.colors, 1);
 		// ft_putendl_fd("", 1);
@@ -25,7 +27,7 @@ int	main(int ac, char **av)
 		// 	while (pars.map[++i])
 		// 		printf("|%s|\n", pars.map[i]);
 		// }
-	}
+	//}
 	// done = false;
 	// while (!done)
 	// {
@@ -34,6 +36,6 @@ int	main(int ac, char **av)
 	init_cub(&cub);
 	render(&cub);
 	mlx_loop(cub.mlx_con);
-	err(NULL, &pars);
+	//err(NULL, &pars);
 	return (0);
 }

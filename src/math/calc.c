@@ -36,6 +36,7 @@ void	init_events(t_cub *cub)
 
 void	init_cub(t_cub *cub)
 {
+	cub->name = "cub3d";
 	cub->mlx_con = mlx_init();
 	if (!cub->mlx_con)
 		error_exit("Error: mlx_con\n", NULL);
