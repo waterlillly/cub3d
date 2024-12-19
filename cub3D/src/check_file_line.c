@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../cub3d.h"
 
 char	**modify_line(char *line, t_pars *pars)
 {
