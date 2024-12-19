@@ -7,14 +7,16 @@ CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-SRC_DIR = src/
+MATH_DIR = cub3d/src/math/
+SRC_DIR = cub3d/src/
 
 CFILES = $(addprefix $(SRC_DIR), \
 		main.c check_file_line.c check_map.c \
 		map.c open_and_init.c texture_color.c \
 		utils.c \
-		math/calc.c math/scale.c \
-		math/mlx_events.c math/pixel.c \
+), $(addprefix $(MATH_DIR), \
+		math/vec.c math/vec2.c math/vec3.c \
+		math/vec4.c math/mat4.c \
 )
 
 OFILES = $(CFILES:.c=.o)
