@@ -1,15 +1,13 @@
 #include "../cub3d.h"
 
-void mapValidator(t_pars *pars, char *av)
+void mapValidator(t_game *game, char *av)
 {
-    (void)pars;
-    printf("path: %s\n", av);
-    pars->map = malloc(sizeof(char *) * 10);
-    pars->map[0] = ft_strdup("11111");
-    pars->map[1] = ft_strdup("10001");
-    printf("map: %s\n", pars->map[0]);
-    printf("map: %s\n", pars->map[1]);
+	//read a map from a file
+	char	*map_temp;
 
+	read_file(game, av, &map_temp);
+	printf("Map: %s\n", map_temp);
+	printf("Map rows: %d\n", game->count_map_rows);
 }
 
 /*
