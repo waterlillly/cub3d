@@ -5,6 +5,8 @@
 #  define BUFFER_SIZE 10
 # endif
 
+//************* INCLUDES *************
+
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
@@ -12,16 +14,65 @@
 # include <stdbool.h>
 # include "lib/libft.h"
 
+//************** MACROS **************
+
+# define NORTH_PLAYER			'N'
+# define SOUTH_PLAYER			'S'
+# define EAST_PLAYER			'E'
+# define WEST_PLAYER			'W'
+
+# define NORTH_TEXTURE			'NO'
+# define SOUTH_TEXTURE			'SO'
+# define WEST_TEXTURE			'WE'
+# define EAST_TEXTURE			'EA'
+
+# define FLOOR					'F'
+# define CEILING				'C'
+
+//** ERROR MESSAGES **
+
+# define ERROR "Error"
+# define MALLOC_FAILED "Malloc failed"
+# define MAP_FILE_NOT_FOUND "Map file not found"
+# define INVALID_EXTENSION_CUB "Invalid extension OR no extension. Please provide a .cub file"
+# define INVALID_EXTENSION_XPM "Invalid extension OR no extension. Please provide a .xpm file"
+# define ERROR_PLAYER "More or less than one player on the map"
+# define ERROR_INVALID_CHAR "Invalid character in the map"
+# define ERROR_MAP "Invalid map"
+# define ERROR_TEXTURE "Invalid texture"
+# define ERROR_COLOR "Invalid color"
+# define ERROR_FILE "Invalid file"
+# define ERROR_ARGS "Invalid arguments OR Invalid number of arguments"
+# define ERROR_MAP_LAST "Map is not the last in the file"
+# define ERROR_MAP_NOT_SURROUNDED "Map is not surrounded by walls"
+# define ERROR_MAP_EMPTY_LINE "Empty line in the map"
+# define ERROR_PLAYER_ORIENTATION "Invalid player orientation"
+
+
+//************** STRUCTS **************
 typedef struct s_game
 {
 	char	**map;
-	int		count_map_rows;
+	char	**file_data;
+	int		map_alloc;
+	int		num_of_rows;
+	int		num_of_columns;
+	int		num_of_player;
+	int		num_of_orientations;
+
+	int 	exit_status;
 }			t_game;
 
-void args_handler(int ac, char **av);
+//************** PROTOTYPES ************
+
+void args_handler(int ac, char **av, t_game *game);
 void mapValidator(t_game *game, char *av);
 char	*ft_strappend(char **s1, const char *s2);
 void read_file(t_game *game, char *av, char **map_temp);
+void initialization_of_vars(t_game *game);
+char	**msimic_split(char const *s, char c);
+void	ft_error_msg_free_exit(char *msg, t_game *game);
+void get_map(t_game *game, char *av);
 
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
