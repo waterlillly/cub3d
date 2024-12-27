@@ -4,7 +4,7 @@ void read_file(t_game *game, char *av, char **map_temp){
     char	*line_temp;
 	int		fd;
 
-    printf("\nREADING MAP FILE\n");
+    ft_putstr_fd("\nREADING MAP FILE\n", 1);//printf was giving some weird errors
     fd = open(av, O_RDONLY);
 	if (fd == -1)
         ft_error_msg_free_exit(MALLOC_FAILED, game);
@@ -18,10 +18,11 @@ void read_file(t_game *game, char *av, char **map_temp){
 		if (line_temp == NULL)
 			break ;
 		*map_temp = ft_strappend(map_temp, line_temp);
+		free(line_temp);//added this
 		if (*map_temp == NULL)
             ft_error_msg_free_exit(MALLOC_FAILED, game);
 		game->num_of_rows++;
 	}
-    printf("\nCLOSING FILE\n\n");
+    ft_putstr_fd("\nCLOSING FILE\n\n", 1);
 	close(fd);
 }
