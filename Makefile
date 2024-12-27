@@ -11,13 +11,15 @@ MATH_DIR = src/math/
 SRC_DIR = src/
 
 CFILES = $(addprefix $(SRC_DIR), \
-		main.c check_file_line.c check_map.c \
+		main.c \
+) $(addprefix $(MATH_DIR), \
+		calc.c pixel.c \
+		player.c exit.c \
+)
+
+#check_file_line.c check_map.c \
 		map.c open_and_init.c texture_color.c \
 		utils.c \
-) $(addprefix $(MATH_DIR), \
-		calc.c mlx_events.c pixel.c \
-		scale.c player.c \
-)
 
 OFILES = $(CFILES:.c=.o)
 

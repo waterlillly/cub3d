@@ -1,61 +1,51 @@
-#include "calc.h"
+#include "../../cub3d.h"
 
-void	init_player(t_player *player)
+void	init_player(t_game *game)
 {
-	player->dir = 'N';//or anything else
-	player->view = 0.0f;//facing forward
-	player->x = 3.0;
-	player->y = 7.0;
+	ft_bzero(game->player, sizeof(t_player));
+	game->player->p_x = 3.0;
+	game->player->p_y = 7.0;
+	game->player->dir_x = 0.0;
+	game->player->dir_y = 0.0;
+	game->player->move_speed = 1.2;
 }
 
-void	move_player(t_player *player, float xd, float yd)
+bool is_walkable(char **map, int x, int y)
 {
-	player->x += xd;
-	player->y += yd;
+	return (map[y][x] == '0');
 }
 
-void	cast_rays(t_player *player)//int map_width and map_height = 10
+void	move_player(t_game *game, int key)
 {
-	int map[10][10] = {
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-	const int num_rays = 10;
-	const float fov = 3.14159265358979323846 / 2.0; // 60 degrees
-	const float delta_angle = fov / num_rays;
-	float angle = player->view - (fov / 2.0);
+	float	new_x;
+	float	new_y;
 
-	int	i;
-	i = 0;
-	while (i < num_rays)
+	if (key == XK_Escape)
+		exit_success(game);
+	if (key == XK_Up)
 	{
-		float ray_x = cos(angle);
-		float ray_y = sin(angle);
-		float distance = 0;
-		int hit = 0;
-		while (!hit)
-		{
-			distance += 0.1f;
-			int map_x = player->x + ray_x * distance;
-			int map_y = player->y + ray_y * distance;
-			if (map_x >= 0 && map_x < 10 && map_y >= 0 && map_y < 10)
-			{
-				if (map[map_y][map_x] == 1)
-					hit = 1;
-			}
-			else
-				break ;
-		}
-		printf("Ray %d hit at distance %.2f\n", i, distance);
-		angle += delta_angle;
-		i++;
+		new_x = game->player->p_x + game->player->dir_x * game->player->move_speed;
+		new_y = game->player->p_y + game->player->dir_y * game->player->move_speed;
 	}
+	else if (key == XK_Down)
+	{
+		new_x = game->player->p_x - game->player->dir_x * game->player->move_speed;
+		new_y = game->player->p_y - game->player->dir_y * game->player->move_speed;
+	}
+	else if (key == XK_Left)
+	{
+		new_x = game->player->p_x - game->player->dir_y * game->player->move_speed;
+		new_y = game->player->p_y + game->player->dir_x * game->player->move_speed;
+	}
+	else if (key == XK_Right)
+	{
+		new_x = game->player->p_x + game->player->dir_y * game->player->move_speed;
+		new_y = game->player->p_y - game->player->dir_x * game->player->move_speed;
+	}
+	else
+		return ;
+	if (is_walkable(game->map, (int)new_x, (int)game->player->p_y))
+		game->player->p_x = new_x;
+	if (is_walkable(game->map, (int)game->player->p_x, (int)new_y))
+		game->player->p_y = new_y;
 }
