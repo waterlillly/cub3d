@@ -13,7 +13,7 @@ SRC_DIR = src/
 CFILES = $(addprefix $(SRC_DIR), \
 		main.c \
 ) $(addprefix $(MATH_DIR), \
-		calc.c pixel.c \
+		init_cub.c pixel.c \
 		player.c exit.c \
 )
 

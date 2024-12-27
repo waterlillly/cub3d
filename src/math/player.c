@@ -2,7 +2,10 @@
 
 void	init_player(t_game *game)
 {
-	ft_bzero(game->player, sizeof(t_player));
+	t_player	player;
+
+	ft_bzero(&player, sizeof(t_player));
+	game->player = &player;
 	game->player->p_x = 3.0;
 	game->player->p_y = 7.0;
 	game->player->dir_x = 0.0;
@@ -15,13 +18,13 @@ bool is_walkable(char **map, int x, int y)
 	return (map[y][x] == '0');
 }
 
-void	move_player(t_game *game, int key)
+int	move_player(t_game *game, int key)
 {
 	float	new_x;
 	float	new_y;
 
 	if (key == XK_Escape)
-		exit_success(game);
+		return (exit_success(game));
 	if (key == XK_Up)
 	{
 		new_x = game->player->p_x + game->player->dir_x * game->player->move_speed;
@@ -43,9 +46,10 @@ void	move_player(t_game *game, int key)
 		new_y = game->player->p_y - game->player->dir_x * game->player->move_speed;
 	}
 	else
-		return ;
+		return (1);
 	if (is_walkable(game->map, (int)new_x, (int)game->player->p_y))
 		game->player->p_x = new_x;
 	if (is_walkable(game->map, (int)game->player->p_x, (int)new_y))
 		game->player->p_y = new_y;
+	return (0);
 }

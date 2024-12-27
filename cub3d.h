@@ -115,7 +115,7 @@ void	ft_error_msg_free_exit(char *msg, t_game *game);
 void	get_map(t_game *game, char *av);
 
 /*exit.c*/
-void		destroy_mlx(t_game *game);
+void		destroy_mlx(t_cub *cub);
 void		exit_failure(char *s, t_game *game);
 int			exit_success(t_game *game);
 
@@ -126,14 +126,13 @@ int			render(t_game *game);
 /*mlx_events.c*/
 //int			key_press(int key, t_cub *cub);
 
-
 /*player.c*/
 void		init_player(t_game *game);
 bool 		is_walkable(char **map, int x, int y);
-void		move_player(t_game *game, int key);
+int			move_player(t_game *game, int key);
 //void		cast_rays(t_player *player);
 
-/*calc.c*/
+/*init_cub.c*/
 void		init_events(t_cub *cub);
 void		init_cub(t_game *game);
 
