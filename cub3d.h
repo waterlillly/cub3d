@@ -17,7 +17,9 @@
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
 # include <X11/ap_keysym.h>
-# include <mlx.h>
+# include "minilibx-linux/mlx_int.h"//for mlx@home
+# include "minilibx-linux/mlx.h"//for mlx@home
+//# include <mlx.h>
 # include <errno.h>
 # include <error.h>
 # include "lib/libft.h"
@@ -71,21 +73,21 @@ typedef struct s_player
     float	move_speed;
 }			t_player;
 
-typedef struct s_img
+typedef struct s_image
 {
 	void	*img_ptr;
 	char	*pxl_ptr;
 	int		bpp;
 	int		endian;
 	int		len;
-}				t_img;
+}				t_image;
 
 typedef struct s_cub
 {
 	char		*name;
 	void		*mlx_con;
 	void		*mlx_win;
-	t_img		img;
+	t_image		img;
 	t_player	*player;
 }			t_cub;
 
