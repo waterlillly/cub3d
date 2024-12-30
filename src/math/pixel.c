@@ -1,42 +1,30 @@
 #include "../../cub3d.h"
 
-// static void	create_pixel(int x, int y, t_img *img, int color)
-// {
-	// int	offset;
+void	draw_background(t_game *game)
+{
+	int	x;
+	int	y;
 
-	// offset = (y * img->len) + (x * (img->bpp / 8));
-	// *(unsigned int *)(img->pxl_ptr + offset) = color;
-// }
+	y = 0;
+	while (y < game->cub->screen_height)
+	{
+		x = 0;
+		while (x < game->cub->screen_width)
+		{
+			mlx_put_image_to_window(game->cub->mlx_con, game->cub->mlx_win, game->cub->bg_img, x, y);
+			x += game->cub->bg_width;
+		}
+		y += game->cub->bg_height;
+	}
+}
 
-// void	pixel(int x, int y, t_cub *cub)
-// {
-	// t_complex	z;
-	// t_complex	c;
-
-	// ft_bzero(&c, (sizeof(t_complex)));
-	// z.x = (scale(x, map_values((WIDTH / 2) * -1, (WIDTH / 2), 0, WIDTH)))
-	// 	+ cub->x_move;
-	// z.y = (scale(y, map_values((HEIGHT / 2), (HEIGHT / 2) * -1, 0, HEIGHT)))
-	// 	+ cub->y_move;
-// 	create_pixel(x, y, &(cub->img), 0x000000);
-// }
-
-// int	render(t_cub *cub)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	y = 0;
-// 	while (y < HEIGHT)
-// 	{
-// 		x = 0;
-// 		while (x < WIDTH)
-// 		{
-// 			pixel(x, y, cub);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	mlx_put_image_to_window(cub->mlx_con, cub->mlx_win, cub->img.img_ptr, 0, 0);
-// 	return (0);
-// }
+int	render_scene(t_game *game)
+{
+	//mlx_clear_window(cub->mlx_con, cub->mlx_win);
+	//load_background(game, game->bg_file);
+	draw_background(game);
+	mlx_pixel_put(game->cub->mlx_con, game->cub->mlx_win,
+		game->cub->screen_width / 2, game->cub->screen_height / 2, 0xFF0000);
+	//mlx_put_image_to_window(game->cub->mlx_con, game->cub->mlx_win, game->cub->img.img_ptr, 0, 0);
+	return (0);
+}

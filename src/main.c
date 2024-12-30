@@ -22,12 +22,10 @@ int	main(void)//(int ac, char **av)
 
 	/******LI******/
 	ft_bzero(&game, sizeof(t_game));
-	init_player(&game);
 	init_cub(&game);
-	//puts("DONE");
 	//render(&game);
 	//cast_rays(&game);
-	mlx_loop(game.cub->mlx_con);
+	//mlx_loop(game.cub->mlx_con);
 	//err(NULL, &pars);
 	return (0);
 }

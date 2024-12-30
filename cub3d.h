@@ -19,7 +19,7 @@
 # include <X11/ap_keysym.h>
 # include "minilibx-linux/mlx_int.h"//for mlx@home
 # include "minilibx-linux/mlx.h"//for mlx@home
-//# include <mlx.h>
+//# include <mlx.h>//for mlx@school
 # include <errno.h>
 # include <error.h>
 # include "lib/libft.h"
@@ -38,9 +38,6 @@
 
 # define FLOOR					'F'
 # define CEILING				'C'
-
-# define WIDTH					500
-# define HEIGHT					500
 
 //** ERROR MESSAGES **
 
@@ -84,9 +81,14 @@ typedef struct s_image
 
 typedef struct s_cub
 {
-	char		*name;
 	void		*mlx_con;
 	void		*mlx_win;
+	void		*bg_img;
+	int			screen_height;
+	int			screen_width;
+	char		*bg_file;
+	int			bg_height;
+	int			bg_width;
 	t_image		img;
 	t_player	*player;
 }			t_cub;
@@ -121,58 +123,33 @@ void		destroy_mlx(t_cub *cub);
 void		exit_failure(char *s, t_game *game);
 int			exit_success(t_game *game);
 
-/*pixel.c*/
-void		pixel(int x, int y, t_game *game);
-int			render(t_game *game);
-
-/*mlx_events.c*/
-//int			key_press(int key, t_cub *cub);
-
 /*player.c*/
 void		init_player(t_game *game);
 bool 		is_walkable(char **map, int x, int y);
-int			move_player(t_game *game, int key);
-//void		cast_rays(t_player *player);
+void		move_player(t_player *player, char **map, float new_x, float new_y);
 
 /*init_cub.c*/
-void		init_events(t_cub *cub);
+void		load_background(t_game *game);
+void		init_mlx(t_game *game);
 void		init_cub(t_game *game);
 
-///*UTILS*/
-//int		err(char *s, t_pars *pars);
-//bool	rest_space(char *s, int start);
-//bool	check_spaces(char *line);
-//bool	only_digits(char *s);
-//
-///*CHECK MAP*/
-//bool	check_top_bot(char *s, t_pars *pars);
-//bool	check_bot(t_pars *pars);
-//bool	check_top(t_pars *pars);
-//bool	check_sides(char *s, int *player, t_pars *pars, int x);
-//bool	valid_symbol(int i, int *player, t_pars *pars, int x);
-//
-///*MAP*/
-//bool	valid_map(t_pars *pars);
-//bool	add_to_map(char *line, t_pars *pars);
-//int		find_max_len(t_pars *pars);
-//void	modify_map(t_pars *pars);
-//
-///*TEXTURE COLOR*/
-//bool	is_texture(char *line);
-////bool	check_path(char *trim);
-//bool	is_color(char *trim);
-//bool	check_rgb(char *trim);
-//bool	check_color_element(char **split, int *col_count, t_pars *pars);
-//bool	check_texture_element(char **split, int *tex_count, t_pars *pars);
-//
-///*CHECK FILE LINE*/
-//char	**modify_line(char *line, t_pars *pars);
-//bool	is_empty(char *s);
-//bool	check_line(char *line, t_pars *pars);
-//void	check_file(int fd, t_pars *pars);
-//
-///*OPEN AND INIT*/
-//void	check_input_file(char *file, t_pars *pars);
-//void	init_struct(t_pars *pars);
+/*screen.c*/
+int			screen(t_cub *cub);
+
+/*mlx_events.c*/
+int			handle_keypress(int keycode, t_game *game);
+void		center_mouse(t_cub *cub);
+int			handle_mouse_move(int x, int y, t_game *game);
+int			mlx_handler(t_game *game);
+
+/*pixel.c*/
+void		draw_background(t_game *game);
+int			render_scene(t_game *game);
+
+/*movement.c*/
+void		move_forward(t_game *game, char **map);
+void		move_backward(t_game *game, char **map);
+void		move_left(t_game *game, char **map);
+void		move_right(t_game *game, char **map);
 
 #endif

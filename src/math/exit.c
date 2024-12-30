@@ -3,13 +3,15 @@
 
 void	exit_failure(char *s, t_game *game)
 {
-	ft_putstr_fd(s, STDERR_FILENO);
+	ft_putendl_fd(s, STDERR_FILENO);
+	//mlx_mouse_show(game->cub->mlx_con, game->cub->mlx_win);
 	destroy_mlx(game->cub);
 	exit(EXIT_FAILURE);
 }
 
 int	exit_success(t_game *game)
 {
+	//mlx_mouse_show(game->cub->mlx_con, game->cub->mlx_win);
 	destroy_mlx(game->cub);
 	exit(EXIT_SUCCESS);
 }

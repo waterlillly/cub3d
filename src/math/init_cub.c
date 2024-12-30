@@ -1,32 +1,52 @@
 #include "../../cub3d.h"
 
-void	init_events(t_cub *cub)
+void load_background(t_game *game)
 {
-	mlx_hook(cub->mlx_win, KeyPress, KeyPressMask, move_player, cub);
-	//mlx_mouse_hook(cub->mlx_win, mouse_moves, cub);
-	//mlx_hook(cub->mlx_win, 6, PointerMotionMask, handle_mouse_move, NULL);
-	mlx_hook(cub->mlx_win, DestroyNotify, StructureNotifyMask, exit_success, cub);
-	//ft_putendl_fd("init_events done", 1);
+	if (access(game->cub->bg_file, F_OK) == -1)
+		exit_failure("Error: background file not found", game);
+	game->cub->bg_img = mlx_xpm_file_to_image(game->cub->mlx_con,
+		game->cub->bg_file, &game->cub->bg_width, &game->cub->bg_height);
+	if (!game->cub->bg_img)
+		exit_failure("Error: mlx_xpm_file_to_image", game);
+}
+
+void	init_mlx(t_game *game)
+{
+	game->cub->mlx_win = mlx_new_window(game->cub->mlx_con,
+		game->cub->screen_width, game->cub->screen_height, "cub3d");
+	if (!game->cub->mlx_win)
+		exit_failure("Error: mlx_new_window", game);
+	game->cub->img.img_ptr = mlx_new_image(game->cub->mlx_con,
+		game->cub->screen_width, game->cub->screen_height);
+	if (!game->cub->img.img_ptr)
+		exit_failure("Error: mlx_new_image", game);
+	game->cub->img.pxl_ptr = mlx_get_data_addr(game->cub->img.img_ptr, &game->cub->img.bpp,
+			&game->cub->img.len, &game->cub->img.endian);
+	if (!game->cub->img.pxl_ptr)
+		exit_failure("Error: mlx_get_data_addr", game);
+	load_background(game);
 }
 
 void	init_cub(t_game *game)
 {
-	t_cub	cub;
+	t_cub	*cub;
 
-	ft_bzero(&cub, sizeof(t_cub));
-	game->cub = &cub;
-	game->cub->name = "cub3d";
+	cub = ft_calloc(1, sizeof(t_cub));
+	if (!cub)
+		exit_failure("Error: ft_calloc", game);
+	ft_bzero(cub, sizeof(t_cub));
+	game->cub = cub;
 	game->cub->mlx_con = mlx_init();
 	if (!game->cub->mlx_con)
-		exit_failure("Error: mlx_con\n", game);
-	game->cub->mlx_win = mlx_new_window(game->cub->mlx_con, WIDTH, HEIGHT, game->cub->name);
-	if (!game->cub->mlx_win)
-		exit_failure("Error: mlx_new_window\n", game);
-	game->cub->img.img_ptr = mlx_new_image(game->cub->mlx_con, WIDTH, HEIGHT);
-	if (!game->cub->img.img_ptr)
-		exit_failure("Error: mlx_new_image\n", game);
-	game->cub->img.pxl_ptr = mlx_get_data_addr(game->cub->img.img_ptr, &game->cub->img.bpp,
-			&game->cub->img.len, &game->cub->img.endian);
-	//ft_putendl_fd("init_cub done", 1);
-	init_events(game->cub);
+		exit_failure("Error: mlx_con", game);
+	if (screen(game->cub) == 1)
+		exit_failure("Error: screen", game);
+	game->cub->bg_file = "assets/background/white_bg.xpm";
+	init_mlx(game);
+	init_player(game);
+	render_scene(game);
+	if (mlx_handler(game) != 0)
+		exit_failure("Error: mlx_handler", game);
+	if (mlx_loop(game->cub->mlx_con) != 0)
+		exit_failure("Error: mlx_loop", game);
 }
