@@ -15,17 +15,13 @@
 
 int	main(void)//(int ac, char **av)
 {
-	t_game		game;
+	t_game	game;
 
-	/******MO******/
-	//args_handler(ac, av);
-
-	/******LI******/
 	ft_bzero(&game, sizeof(t_game));
 	init_cub(&game);
-	//render(&game);
-	//cast_rays(&game);
-	//mlx_loop(game.cub->mlx_con);
-	//err(NULL, &pars);
+	render(&game);
+	if (mlx_handler(&game) != 0)
+		exit_failure("Error: mlx_handler", &game);
+	mlx_loop(game.cub.mlx_con);
 	return (0);
 }

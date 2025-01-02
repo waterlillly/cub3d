@@ -5,6 +5,7 @@
 #  define BUFFER_SIZE 10
 # endif
 
+
 //************* INCLUDES *************
 
 # include <unistd.h>
@@ -39,6 +40,12 @@
 # define FLOOR					'F'
 # define CEILING				'C'
 
+# define WIN_HEIGHT	800
+# define WIN_WIDTH	800
+# define TILE_SIZE	80
+# define MAP_HEIGHT	10 //
+# define MAP_WIDTH	10 //
+
 //** ERROR MESSAGES **
 
 # define ERROR "Error"
@@ -63,11 +70,11 @@
 
 typedef struct s_player
 {
-	float	p_x;
-    float	p_y;
-    float	dir_x;
-    float	dir_y;
-    float	move_speed;
+	int	p_x;
+    int	p_y;
+    int	dir_x;
+    int	dir_y;
+    int	move_speed;
 }			t_player;
 
 typedef struct s_image
@@ -84,13 +91,11 @@ typedef struct s_cub
 	void		*mlx_con;
 	void		*mlx_win;
 	void		*bg_img;
-	int			screen_height;
-	int			screen_width;
 	char		*bg_file;
 	int			bg_height;
 	int			bg_width;
 	t_image		img;
-	t_player	*player;
+	t_player	player;
 }			t_cub;
 
 typedef struct s_game
@@ -103,20 +108,20 @@ typedef struct s_game
 	int			num_of_player;
 	int			num_of_orientations;
 	int 		exit_status;
-	t_player	*player;
-	t_cub		*cub;
+	t_player	player;
+	t_cub		cub;
 }			t_game;
 
 //************** PROTOTYPES ************
 
-void	args_handler(int ac, char **av, t_game *game);
-void	mapValidator(t_game *game, char *av);
-char	*ft_strappend(char **s1, const char *s2);
-void	read_file(t_game *game, char *av, char **map_temp);
-void	initialization_of_vars(t_game *game);
-char	**msimic_split(char const *s, char c);
-void	ft_error_msg_free_exit(char *msg, t_game *game);
-void	get_map(t_game *game, char *av);
+// void	args_handler(int ac, char **av, t_game *game);
+// void	mapValidator(t_game *game, char *av);
+// char	*ft_strappend(char **s1, const char *s2);
+// void	read_file(t_game *game, char *av, char **map_temp);
+// void	initialization_of_vars(t_game *game);
+// char	**msimic_split(char const *s, char c);
+// void	ft_error_msg_free_exit(char *msg, t_game *game);
+// void	get_map(t_game *game, char *av);
 
 /*exit.c*/
 void		destroy_mlx(t_cub *cub);
@@ -125,16 +130,14 @@ int			exit_success(t_game *game);
 
 /*player.c*/
 void		init_player(t_game *game);
-bool 		is_walkable(char **map, int x, int y);
-void		move_player(t_player *player, char **map, float new_x, float new_y);
+bool		is_wall(t_game *game, int x, int y);
+bool		move_player(t_game *game, int new_x, int new_y);
 
 /*init_cub.c*/
-void		load_background(t_game *game);
+// void		load_background(t_game *game);
 void		init_mlx(t_game *game);
+void		init_map(t_game *game);
 void		init_cub(t_game *game);
-
-/*screen.c*/
-int			screen(t_cub *cub);
 
 /*mlx_events.c*/
 int			handle_keypress(int keycode, t_game *game);
@@ -143,13 +146,15 @@ int			handle_mouse_move(int x, int y, t_game *game);
 int			mlx_handler(t_game *game);
 
 /*pixel.c*/
-void		draw_background(t_game *game);
-int			render_scene(t_game *game);
+void		put_my_pixel(t_game *game, int x, int y, int color);
+void		render_map(t_game *game);
+void		render_player(t_game *game);
+int			render(t_game *game);
 
 /*movement.c*/
-void		move_forward(t_game *game, char **map);
-void		move_backward(t_game *game, char **map);
-void		move_left(t_game *game, char **map);
-void		move_right(t_game *game, char **map);
+void		move_forward(t_game *game);
+void		move_backward(t_game *game);
+void		move_left(t_game *game);
+void		move_right(t_game *game);
 
 #endif
