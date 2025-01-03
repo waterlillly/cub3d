@@ -5,6 +5,10 @@
 #  define BUFFER_SIZE 10
 # endif
 
+#  ifndef M_PI
+#   define M_PI 3.14159265358979323846
+#  endif
+
 
 //************* INCLUDES *************
 
@@ -40,11 +44,18 @@
 # define FLOOR					'F'
 # define CEILING				'C'
 
-# define WIN_HEIGHT	800
-# define WIN_WIDTH	800
-# define TILE_SIZE	80
-# define MAP_HEIGHT	10 //
-# define MAP_WIDTH	10 //
+# define WIN_HEIGHT				500
+# define WIN_WIDTH				500
+# define TILE_SIZE				50
+# define MAP_HEIGHT				10 //
+# define MAP_WIDTH				10 //
+# define FOV					90 * (M_PI / 180)
+# define NUM_RAYS				WIN_WIDTH
+
+# define FLOOR_COLOR			0x000000 //BLACK
+# define CEILING_COLOR			0xFFFFFF //WHITE
+# define WALL_COLOR				0x0000FF //BLUE
+# define PLAYER_COLOR			0xFF0000 //RED
 
 //** ERROR MESSAGES **
 
@@ -70,20 +81,21 @@
 
 typedef struct s_player
 {
-	int	p_x;
-    int	p_y;
-    int	dir_x;
-    int	dir_y;
-    int	move_speed;
+	double		p_x;
+	double		p_y;
+	double		fov;
+	double		angle;
+	double		move_speed;
+	double		turn_speed;
 }			t_player;
 
 typedef struct s_image
 {
-	void	*img_ptr;
-	char	*pxl_ptr;
-	int		bpp;
-	int		endian;
-	int		len;
+	void		*img_ptr;
+	char		*pxl_ptr;
+	int			bpp;
+	int			endian;
+	int			len;
 }				t_image;
 
 typedef struct s_cub
@@ -108,7 +120,6 @@ typedef struct s_game
 	int			num_of_player;
 	int			num_of_orientations;
 	int 		exit_status;
-	t_player	player;
 	t_cub		cub;
 }			t_game;
 
@@ -124,37 +135,27 @@ typedef struct s_game
 // void	get_map(t_game *game, char *av);
 
 /*exit.c*/
-void		destroy_mlx(t_cub *cub);
 void		exit_failure(char *s, t_game *game);
 int			exit_success(t_game *game);
 
-/*player.c*/
-void		init_player(t_game *game);
-bool		is_wall(t_game *game, int x, int y);
-bool		move_player(t_game *game, int new_x, int new_y);
-
-/*init_cub.c*/
-// void		load_background(t_game *game);
-void		init_mlx(t_game *game);
-void		init_map(t_game *game);
+/*init.c*/
 void		init_cub(t_game *game);
 
 /*mlx_events.c*/
-int			handle_keypress(int keycode, t_game *game);
-void		center_mouse(t_cub *cub);
-int			handle_mouse_move(int x, int y, t_game *game);
-int			mlx_handler(t_game *game);
-
-/*pixel.c*/
 void		put_my_pixel(t_game *game, int x, int y, int color);
-void		render_map(t_game *game);
-void		render_player(t_game *game);
-int			render(t_game *game);
+int			mlx_handler(t_game *game);
 
 /*movement.c*/
 void		move_forward(t_game *game);
 void		move_backward(t_game *game);
-void		move_left(t_game *game);
-void		move_right(t_game *game);
+void		turn_left(t_game *game);
+void		turn_right(t_game *game);
+
+/*raycasting.c*/
+bool		is_wall(t_game *game, double new_x, double new_y);
+void		raycasting(t_game *game);
+
+/*minimap.c*/
+void		render_minimap(t_game *game);
 
 #endif

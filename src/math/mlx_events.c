@@ -1,6 +1,17 @@
 #include "../../cub3d.h"
 
-int handle_keypress(int keycode, t_game *game)
+void	put_my_pixel(t_game *game, int x, int y, int color)
+{
+	char	*dest;
+
+	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
+	{
+		dest = game->cub.img.pxl_ptr + (y * game->cub.img.len + x * (game->cub.img.bpp / 8));
+		*(unsigned int *)dest = color;
+	}
+}
+
+static int handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == XK_Escape || keycode == 17)
 		exit_success(game);
@@ -9,52 +20,45 @@ int handle_keypress(int keycode, t_game *game)
 	else if (keycode == XK_S || keycode == XK_s || keycode == XK_Down)
 		move_backward(game);
 	else if (keycode == XK_A || keycode == XK_a || keycode == XK_Left)
-		move_left(game);
+		turn_left(game);
 	else if (keycode == XK_D || keycode == XK_d || keycode == XK_Right)
-		move_right(game);
-	render(game);
+		turn_right(game);
 	return (0);
 }
 
-void center_mouse(t_cub *cub)//???
+static void	clear_frame(t_game *game)
 {
-	int	center_x;
-	int	center_y;
+	int	x;
+	int	y;
 
-	center_x = WIN_WIDTH / 2;
-	center_y = WIN_HEIGHT / 2;
-	mlx_mouse_move(cub->mlx_con, cub->mlx_win, center_x, center_y);
+	y = 0;
+	mlx_clear_window(game->cub.mlx_con, game->cub.mlx_win);
+	while (y < WIN_HEIGHT)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			put_my_pixel(game, x, y, FLOOR_COLOR);
+			x++;
+		}
+		y++;
+	}
 }
 
-int handle_mouse_move(int x, int y, t_game *game)
+static int	render(t_game *game)
 {
-	mlx_mouse_get_pos(game->cub.mlx_con, game->cub.mlx_win,
-		(int *)WIN_WIDTH, (int *)WIN_HEIGHT);//idk
-	if (x < WIN_WIDTH / 2)
-	{
-		ft_putendl_fd("Rotating left...", 1);
-		//rotate left
-	}
-	else if (x > WIN_WIDTH / 2)
-	{
-		ft_putendl_fd("Rotating right...", 1);
-		//rotate right
-	}
-	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)//???
-	{
-		ft_putendl_fd("Recentering mouse...", 1);
-		center_mouse(&(*game).cub);
-	}
-	render(game);
+	clear_frame(game);
+	raycasting(game);
+	render_minimap(game);
+	mlx_put_image_to_window(game->cub.mlx_con, game->cub.mlx_win, game->cub.img.img_ptr, 0, 0);
 	return (0);
 }
 
 int mlx_handler(t_game *game)
 {
-	//mlx_mouse_hide(game->cub->mlx_con, game->cub->mlx_win);//doesn't work?
-	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
-	mlx_hook(game->cub.mlx_win, MotionNotify, 0, handle_mouse_move, game);//doesnt work yet
-	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask, exit_success, game);
 	mlx_loop_hook(game->cub.mlx_con, render, game);
+	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask, exit_success, game);
+	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
+	// mlx_key_hook(game->cub.mlx_win, handle_keypress, game);
 	return (0);
 }

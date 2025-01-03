@@ -13,8 +13,9 @@ SRC_DIR = src/
 CFILES = $(addprefix $(SRC_DIR), \
 		main.c \
 ) $(addprefix $(MATH_DIR), \
-		init_cub.c mlx_events.c pixel.c \
-		player.c exit.c movement.c\
+		init.c mlx_events.c \
+		exit.c movement.c \
+		raycasting.c minimap.c \
 )
 
 #check_file_line.c check_map.c \

@@ -1,22 +1,7 @@
 
 #include "../../cub3d.h"
 
-void	exit_failure(char *s, t_game *game)
-{
-	ft_putendl_fd(s, STDERR_FILENO);
-	//mlx_mouse_show(game->cub->mlx_con, game->cub->mlx_win);
-	destroy_mlx(&(*game).cub);
-	exit(EXIT_FAILURE);
-}
-
-int	exit_success(t_game *game)
-{
-	//mlx_mouse_show(game->cub->mlx_con, game->cub->mlx_win);
-	destroy_mlx(&(*game).cub);
-	exit(EXIT_SUCCESS);
-}
-
-void	destroy_mlx(t_cub *cub)
+static void	destroy_mlx(t_cub *cub)
 {
 	if (cub->mlx_con)
 		mlx_destroy_image(cub->mlx_con, cub->img.img_ptr);
@@ -27,4 +12,19 @@ void	destroy_mlx(t_cub *cub)
 		mlx_destroy_display(cub->mlx_con);
 		free(cub->mlx_con);
 	}
+}
+
+void	exit_failure(char *s, t_game *game)
+{
+	ft_putendl_fd(s, STDERR_FILENO);
+	ft_free_2d(game->map);
+	destroy_mlx(&(*game).cub);
+	exit(EXIT_FAILURE);
+}
+
+int	exit_success(t_game *game)
+{
+	ft_free_2d(game->map);
+	destroy_mlx(&(*game).cub);
+	exit(EXIT_SUCCESS);
 }

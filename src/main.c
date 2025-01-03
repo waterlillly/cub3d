@@ -19,7 +19,6 @@ int	main(void)//(int ac, char **av)
 
 	ft_bzero(&game, sizeof(t_game));
 	init_cub(&game);
-	render(&game);
 	if (mlx_handler(&game) != 0)
 		exit_failure("Error: mlx_handler", &game);
 	mlx_loop(game.cub.mlx_con);

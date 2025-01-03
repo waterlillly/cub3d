@@ -1,5 +1,6 @@
-*to do*
+**TO-DO**
 
-fix map checking: invalid if space inside map!
+*Lilly*
 
-fix leaks
+-solve rescaling problem
+-rgb floor and ceiling color calculation
