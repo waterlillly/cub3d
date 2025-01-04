@@ -6,7 +6,7 @@ void	put_my_pixel(t_game *game, int x, int y, int color)
 
 	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
 	{
-		dest = game->cub.img.img_addr + (y * game->cub.img.len + x * (game->cub.img.bpp / 8));
+		dest = game->cub.img.addr + (y * game->cub.img.len + x * (game->cub.img.bpp / 8));
 		*(unsigned int *)dest = color;
 	}
 }
@@ -15,13 +15,13 @@ static int handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == XK_Escape || keycode == 17)
 		exit_success(game);
-	else if (keycode == XK_W || keycode == XK_w || keycode == XK_Up)
+	if (keycode == XK_W || keycode == XK_w || keycode == XK_Up)
 		move_forward(game);
-	else if (keycode == XK_S || keycode == XK_s || keycode == XK_Down)
+	if (keycode == XK_S || keycode == XK_s || keycode == XK_Down)
 		move_backward(game);
-	else if (keycode == XK_A || keycode == XK_a || keycode == XK_Left)
+	if (keycode == XK_A || keycode == XK_a || keycode == XK_Left)
 		turn_left(game);
-	else if (keycode == XK_D || keycode == XK_d || keycode == XK_Right)
+	if (keycode == XK_D || keycode == XK_d || keycode == XK_Right)
 		turn_right(game);
 	return (0);
 }
@@ -50,7 +50,7 @@ static int	render(t_game *game)
 	clear_frame(game);
 	raycasting(game);
 	render_minimap(game);
-	mlx_put_image_to_window(game->cub.mlx_con, game->cub.mlx_win, game->cub.img.img_ptr, 0, 0);
+	mlx_put_image_to_window(game->cub.mlx_con, game->cub.mlx_win, game->cub.img.img, 0, 0);
 	return (0);
 }
 
@@ -59,6 +59,5 @@ int mlx_handler(t_game *game)
 	mlx_loop_hook(game->cub.mlx_con, render, game);
 	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask, exit_success, game);
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
-	// mlx_key_hook(game->cub.mlx_win, handle_keypress, game);
 	return (0);
 }

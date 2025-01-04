@@ -22,9 +22,9 @@
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
 # include <X11/ap_keysym.h>
-// # include "minilibx-linux/mlx_int.h"//for mlx@home
-// # include "minilibx-linux/mlx.h"//for mlx@home
-# include <mlx.h>//for mlx@school
+# include "minilibx-linux/mlx_int.h"//for mlx@home
+# include "minilibx-linux/mlx.h"//for mlx@home
+// # include <mlx.h>//for mlx@school
 # include <errno.h>
 # include <error.h>
 # include "lib/libft.h"
@@ -91,11 +91,14 @@ typedef struct s_player
 
 typedef struct s_image
 {
-	void		*img_ptr;
-	char		*img_addr;
+	char		*name;
+	void		*img;
+	char		*addr;
 	int			bpp;
-	int			endian;
 	int			len;
+	int			endian;
+	int			width;
+	int			height;
 }				t_image;
 
 typedef struct s_cub
@@ -106,43 +109,24 @@ typedef struct s_cub
 	t_player	player;
 }			t_cub;
 
-typedef struct s_txt_data
+typedef struct s_textures
 {
-	char		*txt_file;
-	void		*txt_img;
-	char		*txt_addr;
-	int			bpp;
-	int			endian;
-	int			len;
-	int			txt_height;
-	int			txt_width;
-}				t_txt_data;
-
-typedef struct s_txt
-{
-	t_txt_data	wall;
-	t_txt_data	ceiling;
-	t_txt_data	floor;
-}				t_txt;
+	t_image		north;
+	t_image		south;
+	t_image		east;
+	t_image		west;
+}				t_textures;
 
 typedef struct s_raycast
 {
-	double		distance;
-	double		corrected_distance;
-	int			col;
+	t_image		texture;
+	double		dist;
+	double		correct_dist;
 	int			start;
 	int			end;
 	int			wall_height;
 	double		ray_angle;
-	bool		crash;
-	int			map[2];//map[x,y]
-	int			tex[2];//tex[x,y]
-	double		side_dist[2];
-	double		delta_dist[2];
 	double		tex_pos;
-	double		wall_x;
-	int			color;
-	double		step;
 	int			side;
 }				t_raycast;
 
@@ -156,7 +140,7 @@ typedef struct s_game
 	int			num_of_player;
 	int			num_of_orientations;
 	int 		exit_status;
-	t_txt		txt;
+	t_textures	txt;
 	t_cub		cub;
 	t_raycast	rays;
 }			t_game;

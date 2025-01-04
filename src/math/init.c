@@ -1,15 +1,15 @@
 #include "../../cub3d.h"
 
-static void load_texture(t_txt_data *texture, t_game *game)
+static void load_texture(t_image *txt, t_game *game)
 {
-	if (access(texture->txt_file, F_OK) == -1)
+	if (access(txt->name, F_OK))
 		exit_failure("Error: texture not found", game);
-	texture->txt_img = mlx_xpm_file_to_image(game->cub.mlx_con,
-		texture->txt_file, &texture->txt_width, &texture->txt_height);
-	if (!texture->txt_img)
+	txt->img = mlx_xpm_file_to_image(game->cub.mlx_con,
+		txt->name, &txt->width, &txt->height);
+	if (!txt->img)
 		exit_failure("Error: mlx_xpm_file_to_image", game);
-	texture->txt_addr = mlx_get_data_addr(texture->txt_img, texture->bpp, texture->len, texture->endian);
-	if (!texture->txt_addr)
+	txt->addr = mlx_get_data_addr(txt->img, &txt->bpp, &txt->len, &txt->endian);
+	if (!txt->addr)
 		exit_failure("Error: mlx_get_data_addr", game);
 }
 
@@ -32,9 +32,15 @@ static void	init_map(t_game *game)
 
 static void	init_textures(t_game *game)
 {
-	ft_bzero(&game->txt, sizeof(t_txt));
-	game->txt.wall.txt_file = "assets/textures/wall_moon_texture.xpm";
-	load_texture(&game->txt.wall, game);
+	ft_bzero(&game->txt, sizeof(t_textures));
+	game->txt.north.name = "assets/textures/wall_moon_texture.xpm";
+	game->txt.south.name = "assets/textures/wall_moon_texture.xpm";
+	game->txt.east.name = "assets/textures/pattern.xpm";
+	game->txt.west.name = "assets/textures/pattern.xpm";
+	load_texture(&game->txt.north, game);
+	load_texture(&game->txt.south, game);
+	load_texture(&game->txt.east, game);
+	load_texture(&game->txt.west, game);
 }
 
 static void	init_mlx(t_game *game)
@@ -43,13 +49,13 @@ static void	init_mlx(t_game *game)
 		WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	if (!game->cub.mlx_win)
 		exit_failure("Error: mlx_new_window", game);
-	game->cub.img.img_ptr = mlx_new_image(game->cub.mlx_con,
+	game->cub.img.img = mlx_new_image(game->cub.mlx_con,
 		WIN_WIDTH, WIN_HEIGHT);
-	if (!game->cub.img.img_ptr)
+	if (!game->cub.img.img)
 		exit_failure("Error: mlx_new_image", game);
-	game->cub.img.img_addr = mlx_get_data_addr(game->cub.img.img_ptr, &game->cub.img.bpp,
+	game->cub.img.addr = mlx_get_data_addr(game->cub.img.img, &game->cub.img.bpp,
 			&game->cub.img.len, &game->cub.img.endian);
-	if (!game->cub.img.img_addr)
+	if (!game->cub.img.addr)
 		exit_failure("Error: mlx_get_data_addr", game);
 }
 

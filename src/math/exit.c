@@ -6,7 +6,7 @@
 static void	destroy_mlx(t_cub *cub)
 {
 	if (cub->mlx_con)
-		mlx_destroy_image(cub->mlx_con, cub->img.img_ptr);
+		mlx_destroy_image(cub->mlx_con, cub->img.img);
 	if (cub->mlx_win)
 		mlx_destroy_window(cub->mlx_con, cub->mlx_win);
 	if (cub->mlx_con)
