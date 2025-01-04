@@ -6,7 +6,7 @@ void	put_my_pixel(t_game *game, int x, int y, int color)
 
 	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
 	{
-		dest = game->cub.img.pxl_ptr + (y * game->cub.img.len + x * (game->cub.img.bpp / 8));
+		dest = game->cub.img.img_addr + (y * game->cub.img.len + x * (game->cub.img.bpp / 8));
 		*(unsigned int *)dest = color;
 	}
 }

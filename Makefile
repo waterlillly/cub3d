@@ -28,8 +28,9 @@ all: $(NAME)
 
 $(NAME): $(OFILES)
 	($(MAKE) -C ./lib)
-	$(CC) $(OFILES) ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(OFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(NAME)
 #for @school: use ./lib/libft.a -lmlx -lXext -lX11 -lm -o
+#for @home: use ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o
 
 clean:
 	($(MAKE) -C ./lib clean)

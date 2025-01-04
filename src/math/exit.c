@@ -1,6 +1,8 @@
 
 #include "../../cub3d.h"
 
+//TODO: free textures
+
 static void	destroy_mlx(t_cub *cub)
 {
 	if (cub->mlx_con)

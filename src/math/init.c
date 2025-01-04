@@ -1,14 +1,17 @@
 #include "../../cub3d.h"
 
-// static void load_background(t_game *game)
-// {
-// 	if (access(game->cub.bg_file, F_OK) == -1)
-// 		exit_failure("Error: background file not found", game);
-// 	game->cub.bg_img = mlx_xpm_file_to_image(game->cub.mlx_con,
-// 		game->cub.bg_file, &game->cub.bg_width, &game->cub.bg_height);
-// 	if (!game->cub.bg_img)
-// 		exit_failure("Error: mlx_xpm_file_to_image", game);
-// }
+static void load_texture(t_txt_data *texture, t_game *game)
+{
+	if (access(texture->txt_file, F_OK) == -1)
+		exit_failure("Error: texture not found", game);
+	texture->txt_img = mlx_xpm_file_to_image(game->cub.mlx_con,
+		texture->txt_file, &texture->txt_width, &texture->txt_height);
+	if (!texture->txt_img)
+		exit_failure("Error: mlx_xpm_file_to_image", game);
+	texture->txt_addr = mlx_get_data_addr(texture->txt_img, texture->bpp, texture->len, texture->endian);
+	if (!texture->txt_addr)
+		exit_failure("Error: mlx_get_data_addr", game);
+}
 
 static void	init_map(t_game *game)
 {
@@ -27,6 +30,13 @@ static void	init_map(t_game *game)
 	game->map[9] = ft_strdup("1111111111");
 }
 
+static void	init_textures(t_game *game)
+{
+	ft_bzero(&game->txt, sizeof(t_txt));
+	game->txt.wall.txt_file = "assets/textures/wall_moon_texture.xpm";
+	load_texture(&game->txt.wall, game);
+}
+
 static void	init_mlx(t_game *game)
 {
 	game->cub.mlx_win = mlx_new_window(game->cub.mlx_con,
@@ -37,11 +47,10 @@ static void	init_mlx(t_game *game)
 		WIN_WIDTH, WIN_HEIGHT);
 	if (!game->cub.img.img_ptr)
 		exit_failure("Error: mlx_new_image", game);
-	game->cub.img.pxl_ptr = mlx_get_data_addr(game->cub.img.img_ptr, &game->cub.img.bpp,
+	game->cub.img.img_addr = mlx_get_data_addr(game->cub.img.img_ptr, &game->cub.img.bpp,
 			&game->cub.img.len, &game->cub.img.endian);
-	if (!game->cub.img.pxl_ptr)
+	if (!game->cub.img.img_addr)
 		exit_failure("Error: mlx_get_data_addr", game);
-	// load_background(game);
 }
 
 static void	init_player(t_game *game)
@@ -50,7 +59,7 @@ static void	init_player(t_game *game)
 	game->cub.player.p_y = TILE_SIZE * 3;//TODO: get actual y starting position!
 	game->cub.player.angle = M_PI / 4;
 	game->cub.player.fov = M_PI / 3;
-	game->cub.player.move_speed = 5;
+	game->cub.player.move_speed = 3;
 	game->cub.player.turn_speed = 0.05;
 }
 
@@ -59,8 +68,9 @@ void	init_cub(t_game *game)
 	game->cub.mlx_con = mlx_init();
 	if (!game->cub.mlx_con)
 		exit_failure("Error: mlx_con", game);
-	// game->cub.bg_file = "assets/background/white_bg.xpm";
+	ft_bzero(&game->rays, sizeof(t_raycast));
 	init_map(game);
 	init_mlx(game);
+	init_textures(game);
 	init_player(game);
 }

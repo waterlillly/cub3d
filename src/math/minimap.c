@@ -28,5 +28,5 @@ void	render_minimap(t_game *game)
 		}
 	}
 	put_my_pixel(game, game->cub.player.p_x / TILE_SIZE * (TILE_SIZE / 4),
-		game->cub.player.p_y / TILE_SIZE * (TILE_SIZE / 4), PLAYER_COLOR);
+		game->cub.player.p_y / TILE_SIZE * (TILE_SIZE / 4), PLAYER_COLOR);//TODO: make player bigger& add direction
 }
