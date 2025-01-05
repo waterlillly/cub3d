@@ -22,9 +22,9 @@
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
 # include <X11/ap_keysym.h>
-# include "minilibx-linux/mlx_int.h"//for mlx@home
-# include "minilibx-linux/mlx.h"//for mlx@home
-// # include <mlx.h>//for mlx@school
+// # include "minilibx-linux/mlx_int.h"//for mlx@home
+// # include "minilibx-linux/mlx.h"//for mlx@home
+# include <mlx.h>//for mlx@school
 # include <errno.h>
 # include <error.h>
 # include "lib/libft.h"
@@ -46,11 +46,10 @@
 
 # define WIN_HEIGHT				500
 # define WIN_WIDTH				500
-# define TILE_SIZE				50
+# define TILE_SIZE				10
 # define MAP_HEIGHT				10 //
 # define MAP_WIDTH				10 //
 # define FOV					90 * (M_PI / 180)
-# define NUM_RAYS				WIN_WIDTH
 
 # define FLOOR_COLOR			0x000000 //BLACK
 # define CEILING_COLOR			0xFFFFFF //WHITE
@@ -127,6 +126,10 @@ typedef struct s_raycast
 	int			wall_height;
 	double		ray_angle;
 	double		tex_pos;
+	int			step[2];
+	int			map[2];
+	double		side_dist[2];
+	double		delta_dist[2];
 	int			side;
 }				t_raycast;
 
@@ -170,6 +173,8 @@ int			mlx_handler(t_game *game);
 /*movement.c*/
 void		move_forward(t_game *game);
 void		move_backward(t_game *game);
+void		move_left(t_game *game);
+void		move_right(t_game *game);
 void		turn_left(t_game *game);
 void		turn_right(t_game *game);
 

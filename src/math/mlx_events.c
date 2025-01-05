@@ -15,13 +15,17 @@ static int handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == XK_Escape || keycode == 17)
 		exit_success(game);
-	if (keycode == XK_W || keycode == XK_w || keycode == XK_Up)
+	if (keycode == XK_W || keycode == XK_w)
 		move_forward(game);
-	if (keycode == XK_S || keycode == XK_s || keycode == XK_Down)
+	if (keycode == XK_S || keycode == XK_s)
 		move_backward(game);
-	if (keycode == XK_A || keycode == XK_a || keycode == XK_Left)
+	if (keycode == XK_A || keycode == XK_a)
+		move_left(game);
+	if (keycode == XK_D || keycode == XK_d)
+		move_right(game);
+	if (keycode == XK_Left)
 		turn_left(game);
-	if (keycode == XK_D || keycode == XK_d || keycode == XK_Right)
+	if (keycode == XK_Right)
 		turn_right(game);
 	return (0);
 }

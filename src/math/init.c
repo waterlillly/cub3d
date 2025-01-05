@@ -33,8 +33,8 @@ static void	init_map(t_game *game)
 static void	init_textures(t_game *game)
 {
 	ft_bzero(&game->txt, sizeof(t_textures));
-	game->txt.north.name = "assets/textures/wall_moon_texture.xpm";
-	game->txt.south.name = "assets/textures/wall_moon_texture.xpm";
+	game->txt.north.name = "assets/textures/pattern.xpm";
+	game->txt.south.name = "assets/textures/pattern.xpm";
 	game->txt.east.name = "assets/textures/pattern.xpm";
 	game->txt.west.name = "assets/textures/pattern.xpm";
 	load_texture(&game->txt.north, game);
