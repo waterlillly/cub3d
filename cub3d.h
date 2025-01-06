@@ -43,9 +43,10 @@
 # define FLOOR					'F'
 # define CEILING				'C'
 
-# define WIN_HEIGHT				500
-# define WIN_WIDTH				500
-# define TILE_SIZE				10
+# define WIN_HEIGHT				640
+# define WIN_WIDTH				640
+# define TILE_SIZE				64
+# define MINIMAP_SIZE			TILE_SIZE / 5
 # define MAP_HEIGHT				10 //
 # define MAP_WIDTH				10 //
 # define FOV					90 * (M_PI / 180)
@@ -170,6 +171,9 @@ void		put_my_pixel(t_game *game, int x, int y, int color);
 int			mlx_handler(t_game *game);
 
 /*movement.c*/
+bool		is_wall(t_game *game, double new_x, double new_y);
+bool		corner(t_game *game, double new_x, double new_y);
+bool		crash(t_game *game, double new_x, double new_y);
 void		move_forward(t_game *game);
 void		move_backward(t_game *game);
 void		move_left(t_game *game);
@@ -178,7 +182,6 @@ void		turn_left(t_game *game);
 void		turn_right(t_game *game);
 
 /*raycasting.c*/
-bool		is_wall(t_game *game, double new_x, double new_y);
 void		raycasting(t_game *game);
 
 /*minimap.c*/

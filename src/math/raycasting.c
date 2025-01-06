@@ -1,5 +1,11 @@
 #include "../../cub3d.h"
 
+/*
+	fabs: returns absolute value of a floating point number
+	ceil: returns smallest integral value which is not less than argument
+	floor: returns largest integral value which is not greater than argument
+*/
+
 static void calc_side_dist(t_game *game)
 {
 	game->rays.delta_dist[0] = fabs(1 / cos(game->rays.ray_angle));
@@ -97,18 +103,6 @@ static void	cast_ray(t_game *game, int x)
 		put_my_pixel(game, x, game->rays.start, *(unsigned int *)color);
 		game->rays.start++;
 	}
-}
-
-bool	is_wall(t_game *game, double new_x, double new_y)
-{
-	int	x;
-	int	y;
-
-	x = (int)new_x;
-	y = (int)new_y;
-	if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
-		return (true);
-	return (game->map[y][x] == '1');
 }
 
 static bool	test_crash(t_game *game, int x)

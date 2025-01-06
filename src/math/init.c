@@ -65,7 +65,7 @@ static void	init_player(t_game *game)
 	game->cub.player.p_y = TILE_SIZE * 3;//TODO: get actual y starting position!
 	game->cub.player.angle = M_PI / 4;
 	game->cub.player.fov = M_PI / 3;
-	game->cub.player.move_speed = 1;
+	game->cub.player.move_speed = 5;
 	game->cub.player.turn_speed = 0.05;
 }
 
