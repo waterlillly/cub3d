@@ -51,10 +51,13 @@
 # define MAP_WIDTH				10 //
 # define FOV					90 * (M_PI / 180)
 
-# define FLOOR_COLOR			0x000000 //BLACK
-# define CEILING_COLOR			0xFFFFFF //WHITE
-# define PLAYER_COLOR			0x0000FF //BLUE
-# define WALL_COLOR				0xFF0000 //RED
+# define BLACK					0x000000
+# define WHITE					0xFFFFFF
+# define BLUE					0x0000FF
+# define RED					0xFF0000
+# define GUNMETAL				0x2C3539
+# define DEEPSPACE				0x1B263B
+# define CHARCOAL				0x36454F
 
 //** ERROR MESSAGES **
 

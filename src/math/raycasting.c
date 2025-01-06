@@ -83,26 +83,47 @@ static int	calc_wall(t_game *game)
 	return ((int)(wall_x * game->rays.texture.width));
 }
 
+static void	draw_floor_ceiling(t_game *game, int x)
+{
+	int	i;
+
+	i = game->rays.end;
+	while (i < WIN_HEIGHT)
+	{
+		put_my_pixel(game, x, i, BLACK);
+		i++;
+	}
+	i = 0;
+	while (i < game->rays.start)
+	{
+		put_my_pixel(game, x, i, DEEPSPACE);
+		i++;
+	}
+}
+
 static void	cast_ray(t_game *game, int x)
 {
 	unsigned char	*color;
 	int				tex_x;
 	int				tex_y;
 	double			step;
+	int				y;
 
 	tex_x = calc_wall(game);
 	step = 1.0 * game->rays.texture.height / game->rays.wall_height;
 	game->rays.tex_pos = (game->rays.start - WIN_HEIGHT / 2 + game->rays.wall_height / 2) * step;
-	while (game->rays.start <= game->rays.end)
+	y = game->rays.start;
+	while (y <= game->rays.end)
 	{
 		tex_y = (int)game->rays.tex_pos % game->rays.texture.height;
 		game->rays.tex_pos += step;
 		color = (unsigned char *)game->rays.texture.addr +
 				(tex_y * game->rays.texture.len) + 
 				(tex_x * (game->rays.texture.bpp / 8));
-		put_my_pixel(game, x, game->rays.start, *(unsigned int *)color);
-		game->rays.start++;
+		put_my_pixel(game, x, y, *(unsigned int *)color);
+		y++;
 	}
+	draw_floor_ceiling(game, x);
 }
 
 static bool	test_crash(t_game *game, int x)
@@ -112,7 +133,7 @@ static bool	test_crash(t_game *game, int x)
 
 	ray_x = game->cub.player.p_x + cos(game->rays.ray_angle) * game->rays.dist;
 	ray_y = game->cub.player.p_y + sin(game->rays.ray_angle) * game->rays.dist;
-	if (is_wall(game, ray_x / TILE_SIZE, ray_y / TILE_SIZE))
+	if (is_wall(game, ray_x, ray_y))
 		return (cast_ray(game, x), true);
 	return (false);
 }

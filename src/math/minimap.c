@@ -15,7 +15,7 @@ static void	render_mini_player(t_game *game)
 		while (++x < MINIMAP_SIZE / 2)
 		{
 			put_my_pixel(game, (game->cub.player.p_x / TILE_SIZE * MINIMAP_SIZE) - MINIMAP_SIZE / 4 + x,
-				(game->cub.player.p_y / TILE_SIZE * MINIMAP_SIZE) - MINIMAP_SIZE / 4 + y, PLAYER_COLOR);
+				(game->cub.player.p_y / TILE_SIZE * MINIMAP_SIZE) - MINIMAP_SIZE / 4 + y, BLUE);
 		}
 	}
 	arrow_x = (game->cub.player.p_x / TILE_SIZE * MINIMAP_SIZE) + cos(game->cub.player.angle) * MINIMAP_SIZE;
@@ -23,9 +23,9 @@ static void	render_mini_player(t_game *game)
 	t = 0.0;
 	while (t <= 1.0)
 	{
-		x = (int)((game->cub.player.p_x / TILE_SIZE * MINIMAP_SIZE) + t * (arrow_x - (game->cub.player.p_x / TILE_SIZE * MINIMAP_SIZE)));
-		y = (int)((game->cub.player.p_y / TILE_SIZE * MINIMAP_SIZE) + t * (arrow_y - (game->cub.player.p_y / TILE_SIZE * MINIMAP_SIZE)));
-		put_my_pixel(game, x, y, PLAYER_COLOR);
+		x = floor((game->cub.player.p_x / TILE_SIZE * MINIMAP_SIZE) + t * (arrow_x - (game->cub.player.p_x / TILE_SIZE * MINIMAP_SIZE)));
+		y = floor((game->cub.player.p_y / TILE_SIZE * MINIMAP_SIZE) + t * (arrow_y - (game->cub.player.p_y / TILE_SIZE * MINIMAP_SIZE)));
+		put_my_pixel(game, x, y, BLUE);
 		t += 0.01;
 	}
 }
@@ -44,9 +44,9 @@ void	render_minimap(t_game *game)
 		x = -1;
 		while (++x < MAP_WIDTH)
 		{
-			color = CEILING_COLOR;
+			color = WHITE;
 			if (game->map[y][x] == '1')
-				color = FLOOR_COLOR;
+				color = BLACK;
 			py = -1;
 			while (++py < MINIMAP_SIZE)
 			{

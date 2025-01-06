@@ -42,7 +42,7 @@ static void	clear_frame(t_game *game)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			put_my_pixel(game, x, y, FLOOR_COLOR);
+			put_my_pixel(game, x, y, BLACK);
 			x++;
 		}
 		y++;
