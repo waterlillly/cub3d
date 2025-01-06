@@ -15,7 +15,7 @@ static void load_texture(t_image *txt, t_game *game)
 
 static void	init_map(t_game *game)
 {
-	game->map = ft_calloc(MAP_HEIGHT, sizeof(char *));
+	game->map = ft_calloc(MAP_HEIGHT + 1, sizeof(char *));
 	if (!game->map)
 		exit_failure("Error: ft_calloc", game);
 	game->map[0] = ft_strdup("1111111111");
@@ -65,7 +65,7 @@ static void	init_player(t_game *game)
 	game->cub.player.p_y = TILE_SIZE * 3;//TODO: get actual y starting position!
 	game->cub.player.angle = M_PI / 4;
 	game->cub.player.fov = M_PI / 3;
-	game->cub.player.move_speed = 3;
+	game->cub.player.move_speed = 1;
 	game->cub.player.turn_speed = 0.05;
 }
 

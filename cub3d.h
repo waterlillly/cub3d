@@ -9,7 +9,6 @@
 #   define M_PI 3.14159265358979323846
 #  endif
 
-
 //************* INCLUDES *************
 
 # include <unistd.h>
@@ -53,8 +52,8 @@
 
 # define FLOOR_COLOR			0x000000 //BLACK
 # define CEILING_COLOR			0xFFFFFF //WHITE
-# define WALL_COLOR				0x0000FF //BLUE
-# define PLAYER_COLOR			0xFF0000 //RED
+# define PLAYER_COLOR			0x0000FF //BLUE
+# define WALL_COLOR				0xFF0000 //RED
 
 //** ERROR MESSAGES **
 
