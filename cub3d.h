@@ -97,6 +97,7 @@ typedef struct s_player
 	double		angle;
 	double		move_speed;
 	double		turn_speed;
+
 }			t_player;
 
 typedef struct s_image
@@ -133,6 +134,7 @@ typedef struct s_raycast
 	int			map[2];
 	double		side_dist[2];
 	double		delta_dist[2];
+	double		ray_dir[2];
 	int			side;
 }				t_raycast;
 
