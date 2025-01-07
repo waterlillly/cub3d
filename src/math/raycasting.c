@@ -83,7 +83,7 @@ static int	calc_wall(t_game *game)
 	return ((int)(wall_x * game->rays.texture.width));
 }
 
-static void	draw_floor_ceiling(t_game *game, int x)
+static void	floor_ceiling(t_game *game, int x)
 {
 	int	i;
 
@@ -123,7 +123,7 @@ static void	cast_ray(t_game *game, int x)
 		put_my_pixel(game, x, y, *(unsigned int *)color);
 		y++;
 	}
-	draw_floor_ceiling(game, x);
+	floor_ceiling(game, x);
 }
 
 static bool	test_crash(t_game *game, int x)
