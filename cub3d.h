@@ -14,7 +14,18 @@
 # include <stdbool.h>
 # include "lib/libft.h"
 
-//************** MACROS **************
+//************** ENUMS *************** enum is a user-defined data type that consists of integral constants. It is a way to assign names to integral constants which makes a program easy to read and maintain.
+
+enum output
+{
+	SUCC = 0,
+	FAIL = 1,
+	ERR = 2,
+	BREAK = 3,
+	CONT = 4
+};
+
+//************** MACROS ************** Macros are a piece of code in a program which has a name. When the program is compiled, the name is replaced with the actual code. There are two types of macros: object-like macros and function-like macros.
 
 # define NORTH_PLAYER			'N'
 # define SOUTH_PLAYER			'S'
@@ -26,8 +37,8 @@
 # define WEST_TEXTURE			'WE'
 # define EAST_TEXTURE			'EA'
 
-# define FLOOR					'F'
-# define CEILING				'C'
+# define WALL					'1'
+# define FLOOR					'0'
 
 # define WINDOW_WIDTH			640
 # define WINDOW_HEIGHT			480
@@ -51,8 +62,12 @@
 # define ERROR_MAP_EMPTY_LINE "Empty line in the map"
 # define ERROR_PLAYER_ORIENTATION "Invalid player orientation"
 
+#define SPACE ' '
+#define TAB '\t'
+#define NEWLINE '\n'
 
-//************** STRUCTS **************
+//************** STRUCTS ************** A structure in C is a collection of variables of different data types. These variables are known as members. You can refer to a structure as a single variable, and it can hold multiple variables of different data types.
+
 typedef struct s_texture
 {
 	char	*north;
@@ -60,6 +75,13 @@ typedef struct s_texture
 	char	*west;
 	char	*east;
 }		t_texture;
+
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	char	orientation;
+}		t_player;
 
 typedef struct s_game
 {
@@ -86,7 +108,7 @@ typedef struct s_game
 	int 	exit_status;
 }			t_game;
 
-//************** PROTOTYPES ************
+//************** PROTOTYPES ************ Prototypes are the declarations of functions that tell the compiler about the type of the value returned by the function and the number and type of arguments.
 
 void args_handler(int ac, char **av, t_game *game);
 void mapValidator(t_game *game, char **av);
@@ -97,7 +119,7 @@ char	**msimic_split(char const *s, char c);
 void	ft_error_msg_free_exit(char *msg, t_game *game);
 void get_map(t_game *game, char *path);
 char	*ft_strjoin_gnl(char *s1, char *s2);
-
+int file_data(t_game *game, char **map);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
 //bool	rest_space(char *s, int start);
