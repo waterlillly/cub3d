@@ -50,15 +50,15 @@ static void	get_direction(t_game *game)
 {
 	if (game->rays.side == 0)
 	{
-		game->rays.texture = game->txt.west;
+		game->rays.texture = game->txts[WEST];
 		if (cos(game->rays.ray_angle) > 0)
-			game->rays.texture = game->txt.east;
+			game->rays.texture = game->txts[EAST];
 	}
 	else
 	{
-		game->rays.texture = game->txt.north;
+		game->rays.texture = game->txts[NORTH];
 		if (sin(game->rays.ray_angle) > 0)
-			game->rays.texture = game->txt.south;
+			game->rays.texture = game->txts[SOUTH];
 	}
 }
 
@@ -80,7 +80,7 @@ static int	calc_wall(t_game *game)
 		wall_x = game->cub.player.p_y + game->rays.dist * sin(game->rays.ray_angle);
 	wall_x -= floor(wall_x);
 	get_direction(game);
-	return ((int)(wall_x * game->rays.texture.width));
+	return ((int)floor(wall_x * game->rays.texture.width));
 }
 
 static void	floor_ceiling(t_game *game, int x)
@@ -144,6 +144,7 @@ void	raycasting(t_game *game)
 	int		x;
 
 	x = 0;
+	ft_bzero(&game->rays, sizeof(t_raycast));
 	game->rays.ray_angle = game->cub.player.angle - (game->cub.player.fov / 2);
 	while (x < WIN_WIDTH)
 	{

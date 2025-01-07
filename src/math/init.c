@@ -1,16 +1,23 @@
 #include "../../cub3d.h"
 
-static void load_texture(t_image *txt, t_game *game)
+static void load_textures(t_game *game)
 {
-	if (access(txt->name, F_OK))
-		exit_failure("Error: texture not found", game);
-	txt->img = mlx_xpm_file_to_image(game->cub.mlx_con,
-		txt->name, &txt->width, &txt->height);
-	if (!txt->img)
-		exit_failure("Error: mlx_xpm_file_to_image", game);
-	txt->addr = mlx_get_data_addr(txt->img, &txt->bpp, &txt->len, &txt->endian);
-	if (!txt->addr)
-		exit_failure("Error: mlx_get_data_addr", game);
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (access(game->txts[i].name, F_OK))
+			exit_failure("Error: texture not found", game);
+		game->txts[i].img = mlx_xpm_file_to_image(game->cub.mlx_con,
+			game->txts[i].name, &game->txts[i].width, &game->txts[i].height);
+		if (!game->txts[i].img)
+			exit_failure("Error: mlx_xpm_file_to_image", game);
+		game->txts[i].addr = mlx_get_data_addr(game->txts[i].img, &game->txts[i].bpp, &game->txts[i].len, &game->txts[i].endian);
+		if (!game->txts[i].addr)
+			exit_failure("Error: mlx_get_data_addr", game);
+		i++;
+	}
 }
 
 static void	init_map(t_game *game)
@@ -32,15 +39,11 @@ static void	init_map(t_game *game)
 
 static void	init_textures(t_game *game)
 {
-	ft_bzero(&game->txt, sizeof(t_textures));
-	game->txt.north.name = "assets/textures/pattern.xpm";
-	game->txt.south.name = "assets/textures/pattern.xpm";
-	game->txt.east.name = "assets/textures/pattern.xpm";
-	game->txt.west.name = "assets/textures/pattern.xpm";
-	load_texture(&game->txt.north, game);
-	load_texture(&game->txt.south, game);
-	load_texture(&game->txt.east, game);
-	load_texture(&game->txt.west, game);
+	game->txts[NORTH].name = "assets/textures/pattern.xpm";
+	game->txts[SOUTH].name = "assets/textures/pattern.xpm";
+	game->txts[EAST].name = "assets/textures/moon.xpm";
+	game->txts[WEST].name = "assets/textures/moon.xpm";
+	load_textures(game);
 }
 
 static void	init_mlx(t_game *game)
@@ -64,7 +67,7 @@ static void	init_player(t_game *game)
 	game->cub.player.p_x = TILE_SIZE * 5;//TODO: get actual x starting position!
 	game->cub.player.p_y = TILE_SIZE * 3;//TODO: get actual y starting position!
 	game->cub.player.angle = M_PI / 4;
-	game->cub.player.fov = M_PI / 3;
+	game->cub.player.fov = FOV;
 	game->cub.player.move_speed = 5;
 	game->cub.player.turn_speed = 0.05;
 }

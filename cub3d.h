@@ -81,6 +81,14 @@
 
 //************** STRUCTS **************
 
+enum e_num_txts
+{
+	NORTH = 0,
+	SOUTH = 1,
+	EAST = 2,
+	WEST = 3
+};
+
 typedef struct s_player
 {
 	double		p_x;
@@ -111,14 +119,6 @@ typedef struct s_cub
 	t_player	player;
 }			t_cub;
 
-typedef struct s_textures
-{
-	t_image		north;
-	t_image		south;
-	t_image		east;
-	t_image		west;
-}				t_textures;
-
 typedef struct s_raycast
 {
 	t_image		texture;
@@ -146,7 +146,7 @@ typedef struct s_game
 	int			num_of_player;
 	int			num_of_orientations;
 	int 		exit_status;
-	t_textures	txt;
+	t_image		txts[4];
 	t_cub		cub;
 	t_raycast	rays;
 }			t_game;
