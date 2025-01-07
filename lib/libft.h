@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:53:55 by lbaumeis          #+#    #+#             */
-/*   Updated: 2024/11/19 20:11:25 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:23:33 by msimic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ bool	ft_strnstr_bool(const char *big, const char *lil, int start, int len);
 void	ft_print_array_fd(char **arr, int fd);
 
 char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*ft_buf(char *buf, int *x);
 char	*ft_next(char *buf, int fd);
 char	*ft_rest(int x, char *buf);

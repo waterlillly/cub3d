@@ -29,6 +29,9 @@
 # define FLOOR					'F'
 # define CEILING				'C'
 
+# define WINDOW_WIDTH			640
+# define WINDOW_HEIGHT			480
+
 //** ERROR MESSAGES **
 
 # define ERROR "Error"
@@ -50,15 +53,35 @@
 
 
 //************** STRUCTS **************
+typedef struct s_texture
+{
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+}		t_texture;
+
 typedef struct s_game
 {
 	char	**map;
-	char	**file_data;
+	char	**file;
+	char	*path;
+	int		fd;
+	int		line_count;
 	int		map_alloc;
 	int		num_of_rows;
 	int		num_of_columns;
 	int		num_of_player;
 	int		num_of_orientations;
+
+	int		win_width;
+	int		win_height;
+
+	int		**texture_px;
+	int		**texture;
+
+	//structs
+	t_texture	texture_info;
 
 	int 	exit_status;
 }			t_game;
@@ -66,13 +89,14 @@ typedef struct s_game
 //************** PROTOTYPES ************
 
 void args_handler(int ac, char **av, t_game *game);
-void mapValidator(t_game *game, char *av);
+void mapValidator(t_game *game, char **av);
 char	*ft_strappend(char **s1, const char *s2);
 void read_file(t_game *game, char *av, char **map_temp);
 void initialization_of_vars(t_game *game);
 char	**msimic_split(char const *s, char c);
 void	ft_error_msg_free_exit(char *msg, t_game *game);
-void get_map(t_game *game, char *av);
+void get_map(t_game *game, char *path);
+char	*ft_strjoin_gnl(char *s1, char *s2);
 
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);

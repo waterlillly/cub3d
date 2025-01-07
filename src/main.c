@@ -9,9 +9,9 @@ int	main(int ac, char **av)
 		ft_error_msg_free_exit(MALLOC_FAILED, game);
 	game->map_alloc = 0;
 
-	args_handler(ac, av, game);
-	get_map(game, av[1]);
 	initialization_of_vars(game);
+	args_handler(ac, av, game);
+	mapValidator(game, av);
 
 	free(game);
 }

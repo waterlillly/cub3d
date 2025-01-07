@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Run the make command
+make
 make clean
 
 # Check if make was successful

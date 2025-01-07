@@ -9,7 +9,7 @@ if [ $? -eq 0 ]; then
     # clear
     echo "Running the cub3d program..."
     echo ""
-    ./cub3d assets/maps/valid/valid.cub
+    valgrind --leak-check=full ./cub3d assets/maps/valid/valid.cub
 else
     echo "Make command failed."
 fi
