@@ -1,10 +1,10 @@
 #include "../cub3d.h"
 
 void read_file(t_game *game, char *av, char **map_temp){
-    char	*line_temp;
+    printf("read_file\n");
+	char	*line_temp;
 	int		fd;
 
-    ft_putstr_fd("\nREADING MAP FILE\n", 1);//printf was giving some weird errors
     fd = open(av, O_RDONLY);
 	if (fd == -1)
         ft_error_msg_free_exit(MALLOC_FAILED, game);

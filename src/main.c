@@ -2,6 +2,7 @@
 
 int	main(int ac, char **av)
 {
+	printf("main\n");
 	t_game	*game;
 
 	game = malloc(sizeof(t_game));

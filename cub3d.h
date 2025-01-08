@@ -27,10 +27,10 @@ enum output
 
 //************** MACROS ************** Macros are a piece of code in a program which has a name. When the program is compiled, the name is replaced with the actual code. There are two types of macros: object-like macros and function-like macros.
 
-# define NORTH_PLAYER			'N'
-# define SOUTH_PLAYER			'S'
-# define EAST_PLAYER			'E'
-# define WEST_PLAYER			'W'
+# define NORTH_PLAYER			0 //N
+# define SOUTH_PLAYER			1 //S
+# define EAST_PLAYER			2 //E
+# define WEST_PLAYER			3 //W
 
 # define NORTH_TEXTURE			'NO'
 # define SOUTH_TEXTURE			'SO'
@@ -66,6 +66,10 @@ enum output
 #define TAB '\t'
 #define NEWLINE '\n'
 
+//************** MACRO FUNCTIONS ************** Macro functions are a piece of code in a program which has a name. When the program is compiled, the name is replaced with the actual code. There are two types of macros: object-like macros and function-like macros.
+
+#define ASCII_PRINT(c) (((c) >= 33 && (c) <= 126) ? 1 : 0)
+
 //************** STRUCTS ************** A structure in C is a collection of variables of different data types. These variables are known as members. You can refer to a structure as a single variable, and it can hold multiple variables of different data types.
 
 typedef struct s_texture
@@ -80,7 +84,7 @@ typedef struct s_player
 {
 	int		x;
 	int		y;
-	char	orientation;
+	int	orientation;
 }		t_player;
 
 typedef struct s_game
@@ -119,7 +123,8 @@ char	**msimic_split(char const *s, char c);
 void	ft_error_msg_free_exit(char *msg, t_game *game);
 void get_map(t_game *game, char *path);
 char	*ft_strjoin_gnl(char *s1, char *s2);
-int file_data(t_game *game, char **map);
+int file_data(t_game *game, char **file_data);
+void free_array(void **array);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
 //bool	rest_space(char *s, int start);

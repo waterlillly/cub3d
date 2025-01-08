@@ -3,6 +3,7 @@
 
 static void	ft_free_game(char *msg, t_game *game)
 {
+	printf("ft_free_game\n");
 	int	str;
 
 	if (game->map_alloc == 1)
@@ -22,6 +23,7 @@ static void	ft_free_game(char *msg, t_game *game)
 
 void	ft_error_msg_free_exit(char *msg, t_game *game)
 {
+	printf("ft_error_msg_free_exit\n");
 	ft_free_game(msg, game);
 	exit(1);
 }

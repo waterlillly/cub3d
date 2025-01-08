@@ -2,6 +2,7 @@
 
 void args_handler(int ac, char **av, t_game *game)
 {
+	printf("args_handler\n");
 	int arg_len;
 	int fd;
 

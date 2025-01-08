@@ -2,6 +2,7 @@
 
 static void init_texture(t_texture *texture)
 {
+    printf("init_texture\n");
     texture->north = NULL;
     texture->south = NULL;
     texture->west = NULL;
@@ -10,6 +11,7 @@ static void init_texture(t_texture *texture)
 
 void initialization_of_vars(t_game *game)
 {
+    printf("initialization_of_vars\n");
     game->win_height = WINDOW_HEIGHT;
     game->win_width = WINDOW_WIDTH;
     game->map = NULL;

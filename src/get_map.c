@@ -1,7 +1,8 @@
 #include "../cub3d.h"
 
-static void free_array(void **array)
+void free_array(void **array)
 {
+	printf("free_array\n");
 	size_t i = 0;
 
 	while (array[i] != NULL)
@@ -17,6 +18,7 @@ static void free_array(void **array)
 
 static int line_count(t_game *game, char *path)
 {
+	printf("line_count\n");
 	int	fd;
 	int line_count;
 	char *line;
@@ -41,6 +43,7 @@ static int line_count(t_game *game, char *path)
 
 static void get2D_array(t_game *game)
 {
+	printf("get2D_array\n");
 	int i = 0;
 	int row = 0;
 	size_t column = 0;
@@ -67,6 +70,7 @@ static void get2D_array(t_game *game)
 
 void get_map(t_game *game, char *path)
 {
+	printf("get_map\n");
 	game->line_count = line_count(game, path);
 	game->path = path;
 	game->file = malloc(sizeof(char *) * (game->line_count + 1));
@@ -79,9 +83,8 @@ void get_map(t_game *game, char *path)
 	}
 	else
 	{
-		printf("else\n");
 		get2D_array(game);
 		close(game->fd);
 	}
-	// free game->file out of scope
+	// free game->file out of scope 
 }

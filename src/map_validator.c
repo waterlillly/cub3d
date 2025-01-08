@@ -13,6 +13,8 @@ surrounded by walls.
 
 void mapValidator(t_game *game, char **av)
 {
-	get_map(game, av[1]); //  1,445 allocs, 1,420 frees
-	
+	printf("mapValidator\n");
+	get_map(game, av[1]);
+	file_data(game, game->file);
+	free_array((void **)game->file);
 }
