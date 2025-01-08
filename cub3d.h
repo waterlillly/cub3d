@@ -93,7 +93,6 @@ typedef struct s_player
 {
 	double		p_x;
 	double		p_y;
-	double		fov;
 	double		angle;
 	double		move_speed;
 	double		turn_speed;
@@ -147,6 +146,7 @@ typedef struct s_game
 	int			num_of_columns;
 	int			num_of_player;
 	int			num_of_orientations;
+	int			p_orientation;
 	int 		exit_status;
 	t_image		txts[4];
 	t_cub		cub;
@@ -169,6 +169,7 @@ void		exit_failure(char *s, t_game *game);
 int			exit_success(t_game *game);
 
 /*init.c*/
+double		normalize_angle(double angle);
 void		init_cub(t_game *game);
 
 /*mlx_events.c*/

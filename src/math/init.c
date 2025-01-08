@@ -62,12 +62,41 @@ static void	init_mlx(t_game *game)
 		exit_failure("Error: mlx_get_data_addr", game);
 }
 
+double	normalize_angle(double angle)
+{
+	if (angle < 2 * M_PI)
+	{
+		while (angle < 2 * M_PI)
+			angle += 2 * M_PI;
+	}
+	else if (angle > 2 * M_PI)
+	{
+		while (angle > 2 * M_PI)
+			angle -= 2 * M_PI;
+	}
+	return (angle);
+}
+
+static void	get_orientation(t_game *game)
+{
+	if (game->p_orientation == NORTH)
+		game->cub.player.angle = 3 * M_PI / 2;//270.0;
+	else if (game->p_orientation == SOUTH)
+		game->cub.player.angle = M_PI / 2;//90.0;
+	else if (game->p_orientation == EAST)
+		game->cub.player.angle = 2 * M_PI;//0.0;
+	else if (game->p_orientation == WEST)
+		game->cub.player.angle = M_PI;//180.0;
+	// game->cub.player.angle *= (M_PI / 180.0);
+	game->cub.player.angle = normalize_angle(game->cub.player.angle);
+}
+
 static void	init_player(t_game *game)
 {
 	game->cub.player.p_x = TILE_SIZE * 5;//TODO: get actual x starting position!
-	game->cub.player.p_y = TILE_SIZE * 3;//TODO: get actual y starting position!
-	game->cub.player.angle = M_PI / 4;
-	game->cub.player.fov = FOV;
+	game->cub.player.p_y = TILE_SIZE * 5;//TODO: get actual y starting position!
+	game->p_orientation = SOUTH;//TODO: get actual direction
+	get_orientation(game);
 	game->cub.player.move_speed = 5;
 	game->cub.player.turn_speed = 0.05;
 }

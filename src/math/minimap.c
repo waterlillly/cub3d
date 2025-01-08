@@ -25,7 +25,7 @@ static void	render_mini_player(t_game *game)
 	{
 		x = floor((game->cub.player.p_x / TILE_SIZE * MINIMAP_SIZE) + t * (arrow_x - (game->cub.player.p_x / TILE_SIZE * MINIMAP_SIZE)));
 		y = floor((game->cub.player.p_y / TILE_SIZE * MINIMAP_SIZE) + t * (arrow_y - (game->cub.player.p_y / TILE_SIZE * MINIMAP_SIZE)));
-		put_my_pixel(game, x, y, BLUE);
+		put_my_pixel(game, x, y, RED);
 		t += 0.01;
 	}
 }
