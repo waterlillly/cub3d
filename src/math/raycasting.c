@@ -26,15 +26,15 @@ static void	floor_ceiling(t_game *game, int x)
 
 static void calc_side_dist(t_game *game)
 {
-	static int	o = 0;
+	// static int	o = 0;
 
 	game->rays.delta_dist[0] = fabs(1 / game->rays.ray_dir[0]);
 	game->rays.delta_dist[1] = fabs(1 / game->rays.ray_dir[1]);
-	if (o % 500 == 0)
-	{
-		printf("ray_angle: %f\n", game->rays.ray_angle);
-		printf("ray_dir_x: %f --- ray_dir_y: %f\n", game->rays.ray_dir[0], game->rays.ray_dir[1]);
-	}
+	// if (o % 500 == 0)
+	// {
+	// 	printf("ray_angle: %f\n", game->rays.ray_angle);
+	// 	printf("ray_dir_x: %f --- ray_dir_y: %f\n", game->rays.ray_dir[0], game->rays.ray_dir[1]);
+	// }
 	if (game->rays.ray_dir[0] < 0)
 	{
 		game->rays.step[0] = -1;
@@ -55,21 +55,21 @@ static void calc_side_dist(t_game *game)
 		game->rays.step[1] = 1;
         game->rays.side_dist[1] = (game->rays.map[1] + 1.0 - game->cub.player.p_y) * game->rays.delta_dist[1];
 	}
-	if (o % 500 == 0)
-	{
-		printf("step_x: %d --- step_y: %d\n", game->rays.step[0], game->rays.step[1]);
-		printf("side_dist_x: %f --- side_dist_y: %f\n", game->rays.side_dist[0], game->rays.side_dist[1]);
-	}
-	o++;
+	// if (o % 500 == 0)
+	// {
+	// 	printf("step_x: %d --- step_y: %d\n", game->rays.step[0], game->rays.step[1]);
+	// 	printf("side_dist_x: %f --- side_dist_y: %f\n", game->rays.side_dist[0], game->rays.side_dist[1]);
+	// }
+	// o++;
 }
 
 static void	get_direction(t_game *game)
 {
-	static int	o = 0;
+	// static int	o = 0;
 
-	if (o % 500 == 0)
-		printf("side: %d\n\n", game->rays.side);
-	o++;
+	// if (o % 500 == 0)
+	// 	printf("side: %d\n\n", game->rays.side);
+	// o++;
 	if (game->rays.side == 0)
 	{
 		game->rays.texture = game->txts[WEST];
@@ -125,7 +125,7 @@ static int	calc_wall(t_game *game)
 	if (game->rays.side == 0)
 		wall_x = game->cub.player.p_y + game->rays.dist * game->rays.ray_dir[1];
 	wall_x -= floor(wall_x);
-	return ((int)wall_x * game->rays.texture.width);
+	return (wall_x * game->rays.texture.width);
 }
 
 static void	cast_ray(t_game *game, int x)
@@ -135,9 +135,18 @@ static void	cast_ray(t_game *game, int x)
 	int				tex_y;
 	double			step;
 	int				y;
+	static int		o = 0;
 
 	tex_x = calc_wall(game);
 	step = 1.0 * game->rays.texture.height / game->rays.wall_height;
+	if (o % 10000 == 0)
+	{
+		printf("STEP: %f\n", step);
+		printf("Distance: %f\n", game->rays.dist);
+    	printf("Ray Angle: %f\n", game->rays.ray_angle);
+    	printf("Correct Distance: %f\n\n", game->rays.correct_dist);
+	}
+	o++;
 	game->rays.tex_pos = (game->rays.start - WIN_HEIGHT / 2 + game->rays.wall_height / 2) * step;
 	y = game->rays.start;
 	while (y < game->rays.end)
@@ -185,18 +194,18 @@ void	raycasting(t_game *game)
 
 	x = 0;
 	game->rays.ray_angle = game->cub.player.angle - (FOV / 2);
-	game->rays.ray_angle = normalize_angle(game->rays.ray_angle);
+	normalize_angle(game->rays.ray_angle);
 	while (x < WIN_WIDTH)
 	{
 		game->rays.dist = 0;
 		crash = false;
-		while (!crash && game->rays.dist <= WIN_WIDTH)
+		while (!crash && game->rays.dist < WIN_WIDTH)
 		{
 			game->rays.dist += 0.1;
 			crash = test_crash(game, x);
 		}
 		game->rays.ray_angle += FOV / WIN_WIDTH;
-		game->rays.ray_angle = normalize_angle(game->rays.ray_angle);
+		normalize_angle(game->rays.ray_angle);
 		x++;
 	}
 }

@@ -62,7 +62,7 @@ static void	init_mlx(t_game *game)
 		exit_failure("Error: mlx_get_data_addr", game);
 }
 
-double	normalize_angle(double angle)
+void	normalize_angle(double angle)
 {
 	if (angle < 2 * M_PI)
 	{
@@ -74,7 +74,6 @@ double	normalize_angle(double angle)
 		while (angle > 2 * M_PI)
 			angle -= 2 * M_PI;
 	}
-	return (angle);
 }
 
 static void	get_orientation(t_game *game)
@@ -88,7 +87,7 @@ static void	get_orientation(t_game *game)
 	else if (game->p_orientation == WEST)
 		game->cub.player.angle = M_PI;//180.0;
 	// game->cub.player.angle *= (M_PI / 180.0);
-	game->cub.player.angle = normalize_angle(game->cub.player.angle);
+	normalize_angle(game->cub.player.angle);
 }
 
 static void	init_player(t_game *game)

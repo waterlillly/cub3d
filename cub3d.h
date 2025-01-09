@@ -130,6 +130,7 @@ typedef struct s_raycast
 	double		ray_angle;
 	double		tex_pos;
 	int			step[2];
+	double		s;
 	int			map[2];
 	double		side_dist[2];
 	double		delta_dist[2];
@@ -169,7 +170,7 @@ void		exit_failure(char *s, t_game *game);
 int			exit_success(t_game *game);
 
 /*init.c*/
-double		normalize_angle(double angle);
+void		normalize_angle(double angle);
 void		init_cub(t_game *game);
 
 /*mlx_events.c*/
