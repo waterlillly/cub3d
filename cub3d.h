@@ -113,10 +113,11 @@ typedef struct s_image
 
 typedef struct s_cub
 {
-	void		*mlx_con;
-	void		*mlx_win;
-	t_image		img;
-	t_player	player;
+	void			*mlx_con;
+	void			*mlx_win;
+	unsigned int	buffer[WIN_HEIGHT][WIN_WIDTH];
+	t_image			img;
+	t_player		player;
 }			t_cub;
 
 typedef struct s_raycast
@@ -129,12 +130,14 @@ typedef struct s_raycast
 	int			wall_height;
 	double		ray_angle;
 	double		tex_pos;
-	int			step[2];
 	double		s;
+	double		wall_x;
+	int			step[2];
 	int			map[2];
 	double		side_dist[2];
 	double		delta_dist[2];
 	double		ray_dir[2];
+	int			tex[2];
 	int			side;
 }				t_raycast;
 
@@ -174,7 +177,6 @@ void		normalize_angle(double angle);
 void		init_cub(t_game *game);
 
 /*mlx_events.c*/
-void		put_my_pixel(t_game *game, int x, int y, int color);
 int			mlx_handler(t_game *game);
 
 /*movement.c*/
@@ -187,6 +189,8 @@ void		turn_left(t_game *game);
 void		turn_right(t_game *game);
 
 /*raycasting.c*/
+void		put_my_pixel(t_game *game, int x, int y, int color);
+void		buffer_to_image(t_game *game);
 void		raycasting(t_game *game);
 
 /*minimap.c*/

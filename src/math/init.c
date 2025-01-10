@@ -1,5 +1,16 @@
 #include "../../cub3d.h"
 
+static void	check_texture(t_game *game, int i)
+{
+	if (game->txts[i].width != game->txts[i].height)
+	{
+		ft_putstr_fd(game->txts[i].name, 2);
+		exit_failure(" does not have the same width and height", game);
+	}
+	if (game->txts[i].bpp != 32)
+		exit_failure("Error: Texture format not supported (must be 32bpp)", game);
+}
+
 static void load_textures(t_game *game)
 {
 	int	i;
@@ -16,6 +27,8 @@ static void load_textures(t_game *game)
 		game->txts[i].addr = mlx_get_data_addr(game->txts[i].img, &game->txts[i].bpp, &game->txts[i].len, &game->txts[i].endian);
 		if (!game->txts[i].addr)
 			exit_failure("Error: mlx_get_data_addr", game);
+		check_texture(game, i);
+		// swap_texture_xy(game, i);
 		i++;
 	}
 }
@@ -39,10 +52,10 @@ static void	init_map(t_game *game)
 
 static void	init_textures(t_game *game)
 {
-	game->txts[NORTH].name = "assets/textures/pattern.xpm";
-	game->txts[SOUTH].name = "assets/textures/pattern.xpm";
-	game->txts[EAST].name = "assets/textures/moon.xpm";
-	game->txts[WEST].name = "assets/textures/moon.xpm";
+	game->txts[NORTH].name = "assets/textures/texture.xpm";
+	game->txts[SOUTH].name = "assets/textures/texture.xpm";
+	game->txts[EAST].name = "assets/textures/texture.xpm";
+	game->txts[WEST].name = "assets/textures/texture.xpm";
 	load_textures(game);
 }
 
