@@ -6,7 +6,7 @@
 # endif
 
 #  ifndef M_PI
-#   define M_PI 3.14159265358979323846
+#   define M_PI 3.14159265358979323846f
 #  endif
 
 //************* INCLUDES *************
@@ -77,7 +77,6 @@
 # define ERROR_MAP_NOT_SURROUNDED "Map is not surrounded by walls"
 # define ERROR_MAP_EMPTY_LINE "Empty line in the map"
 # define ERROR_PLAYER_ORIENTATION "Invalid player orientation"
-
 
 //************** STRUCTS **************
 
@@ -158,15 +157,6 @@ typedef struct s_game
 }			t_game;
 
 //************** PROTOTYPES ************
-
-// void	args_handler(int ac, char **av, t_game *game);
-// void	mapValidator(t_game *game, char *av);
-// char	*ft_strappend(char **s1, const char *s2);
-// void	read_file(t_game *game, char *av, char **map_temp);
-// void	initialization_of_vars(t_game *game);
-// char	**msimic_split(char const *s, char c);
-// void	ft_error_msg_free_exit(char *msg, t_game *game);
-// void	get_map(t_game *game, char *av);
 
 /*exit.c*/
 void		exit_failure(char *s, t_game *game);

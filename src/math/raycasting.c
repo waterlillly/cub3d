@@ -40,25 +40,19 @@ static void calc_side_dist(t_game *game)
 {
 	game->rays.delta_dist[0] = fabs(1 / game->rays.ray_dir[0]);
 	game->rays.delta_dist[1] = fabs(1 / game->rays.ray_dir[1]);
+	game->rays.step[0] = 1;
+	game->rays.side_dist[0] = (game->rays.map[0] + 1.0 - game->cub.player.p_x) * game->rays.delta_dist[0];
 	if (game->rays.ray_dir[0] < 0)
 	{
 		game->rays.step[0] = -1;
 		game->rays.side_dist[0] = (game->cub.player.p_x - game->rays.map[0]) * game->rays.delta_dist[0];
 	}
-	else
-	{
-		game->rays.step[0] = 1;
-		game->rays.side_dist[0] = (game->rays.map[0] + 1.0 - game->cub.player.p_x) * game->rays.delta_dist[0];
-	}
+	game->rays.step[1] = 1;
+	game->rays.side_dist[1] = (game->rays.map[1] + 1.0 - game->cub.player.p_y) * game->rays.delta_dist[1];
 	if (game->rays.ray_dir[1] < 0)
 	{
 		game->rays.step[1] = -1;
 		game->rays.side_dist[1] = (game->cub.player.p_y - game->rays.map[1]) * game->rays.delta_dist[1];
-	}
-	else
-	{
-		game->rays.step[1] = 1;
-		game->rays.side_dist[1] = (game->rays.map[1] + 1.0 - game->cub.player.p_y) * game->rays.delta_dist[1];
 	}
 }
 
@@ -120,8 +114,9 @@ static void	calc_wall(t_game *game)
 
 static void	cast_ray(t_game *game, int x)
 {
-	unsigned char	*color;
+	unsigned int	color;
 	int				y;
+	int				d;
 	
 	game->rays.s = 1.0 * game->rays.texture.height / game->rays.wall_height;
 	game->rays.tex_pos = (game->rays.start - WIN_HEIGHT / 2 + game->rays.wall_height / 2) * game->rays.s;
@@ -173,5 +168,5 @@ void	raycasting(t_game *game)
 		game->rays.ray_angle += FOV / WIN_WIDTH;
 		normalize_angle(game->rays.ray_angle);
 	}
-	buffer_to_image(game);
+	// buffer_to_image(game);
 }

@@ -10,13 +10,15 @@ CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux #-fsanitize=address
 MATH_DIR = src/math/
 SRC_DIR = src/
 
-CFILES = $(addprefix $(SRC_DIR), \
-		main.c \
-) $(addprefix $(MATH_DIR), \
-		init.c mlx_events.c \
-		exit.c movement.c \
-		raycasting.c minimap.c \
-)
+CFILES = newtry/main1.c newtry/exit1.c newtry/init1.c newtry/mlx_events1.c newtry/minimap1.c newtry/movement1.c newtry/raycasting1.c newtry/utils1.c
+
+# CFILES = $(addprefix $(SRC_DIR), \
+# 		main.c \
+# ) $(addprefix $(MATH_DIR), \
+# 		init.c mlx_events.c \
+# 		exit.c movement.c \
+# 		raycasting.c minimap.c \
+# )
 
 #check_file_line.c check_map.c \
 		map.c open_and_init.c texture_color.c \

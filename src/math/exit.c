@@ -1,4 +1,3 @@
-
 #include "../../cub3d.h"
 
 static void	destroy_mlx(t_game *game)

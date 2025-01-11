@@ -28,7 +28,6 @@ static void load_textures(t_game *game)
 		if (!game->txts[i].addr)
 			exit_failure("Error: mlx_get_data_addr", game);
 		check_texture(game, i);
-		// swap_texture_xy(game, i);
 		i++;
 	}
 }
@@ -52,10 +51,10 @@ static void	init_map(t_game *game)
 
 static void	init_textures(t_game *game)
 {
-	game->txts[NORTH].name = "assets/textures/texture.xpm";
-	game->txts[SOUTH].name = "assets/textures/texture.xpm";
-	game->txts[EAST].name = "assets/textures/texture.xpm";
-	game->txts[WEST].name = "assets/textures/texture.xpm";
+	game->txts[NORTH].name = "assets/textures/moon.xpm";
+	game->txts[SOUTH].name = "assets/textures/moon.xpm";
+	game->txts[EAST].name = "assets/textures/moon.xpm";
+	game->txts[WEST].name = "assets/textures/moon.xpm";
 	load_textures(game);
 }
 
