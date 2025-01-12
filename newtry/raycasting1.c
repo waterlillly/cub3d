@@ -49,121 +49,121 @@ static void	floor_ceiling(t_game *game, int x)
 		put_my_pixel(game, x, i, BLUE);
 }
 
-void	calc_side_dist(t_ray *ray)
+void	calc_side_dist(t_game *game)
 {
 	/* calculate deltadist */
-	ray->deltadist.x = fabs(ray->dir.x);
-	if (ray->deltadist.x < 1e-20)
-		ray->deltadist.x = 1e30;
+	game->ray.deltadist.x = fabs(game->ray.dir.x);
+	if (game->ray.deltadist.x < 1e-20)
+		game->ray.deltadist.x = 1e30;
 	else
-		ray->deltadist.x = fabs(1.0 / ray->dir.x);
-	ray->deltadist.y = fabs(ray->dir.y);
-	if (ray->deltadist.y < 1e-20)
-		ray->deltadist.y = 1e30;
+		game->ray.deltadist.x = fabs(1.0 / game->ray.dir.x);
+	game->ray.deltadist.y = fabs(game->ray.dir.y);
+	if (game->ray.deltadist.y < 1e-20)
+		game->ray.deltadist.y = 1e30;
 	else
-		ray->deltadist.y = fabs(1.0 / ray->dir.y);
+		game->ray.deltadist.y = fabs(1.0 / game->ray.dir.y);
 	/* calculate sidedist + step */
-	ray->step.x = 1;
-	ray->sidedist.x = (ceil(ray->pos.x) - ray->pos.x) * ray->deltadist.x;
-	// ray->sidedist.x = ray->deltadist.x * ((int)ray->pos.x + 1.0 - ray->pos.x);
-	if (ray->dir.x < 0)
+	game->ray.step.x = 1;
+	game->ray.sidedist.x = (ceil(game->ray.pos.x) - game->ray.pos.x) * game->ray.deltadist.x;
+	// game->ray.sidedist.x = game->ray.deltadist.x * ((int)game->ray.pos.x + 1.0 - game->ray.pos.x);
+	if (game->ray.dir.x < 0)
 	{
-		ray->step.x = -1;
-		ray->sidedist.x = (ray->pos.x - floor(ray->pos.x)) * ray->deltadist.x;
-		// ray->sidedist.x = ray->deltadist.x * (ray->pos.x - (int)ray->pos.x);
+		game->ray.step.x = -1;
+		game->ray.sidedist.x = (game->ray.pos.x - floor(game->ray.pos.x)) * game->ray.deltadist.x;
+		// game->ray.sidedist.x = game->ray.deltadist.x * (game->ray.pos.x - (int)game->ray.pos.x);
 	}
-	ray->step.y = 1;
-	ray->sidedist.y = (ceil(ray->pos.y) - ray->pos.y) * ray->deltadist.y;
-	// ray->sidedist.y = ray->deltadist.y * ((int)ray->pos.y + 1.0 - ray->pos.y);
-	if (ray->dir.y < 0)
+	game->ray.step.y = 1;
+	game->ray.sidedist.y = (ceil(game->ray.pos.y) - game->ray.pos.y) * game->ray.deltadist.y;
+	// game->ray.sidedist.y = game->ray.deltadist.y * ((int)game->ray.pos.y + 1.0 - game->ray.pos.y);
+	if (game->ray.dir.y < 0)
 	{
-		ray->step.y = -1;
-		ray->sidedist.y = (ray->pos.y - floor(ray->pos.y)) * ray->deltadist.y;
-		// ray->sidedist.y = ray->deltadist.y * (ray->pos.y - (int)ray->pos.y);
+		game->ray.step.y = -1;
+		game->ray.sidedist.y = (game->ray.pos.y - floor(game->ray.pos.y)) * game->ray.deltadist.y;
+		// game->ray.sidedist.y = game->ray.deltadist.y * (game->ray.pos.y - (int)game->ray.pos.y);
 	}
 }
 
-void	get_direction(t_ray *ray, t_game *game)
+void	get_direction(t_game *game)
 {
-	if (ray->side == 0)
+	if (game->ray.side == 0)
 	{
-		ray->texture = game->textures[WEST];
-		if (ray->dir.x > 0)
-			ray->texture = game->textures[EAST];
+		game->ray.texture = game->textures[WEST];
+		if (game->ray.dir.x > 0)
+			game->ray.texture = game->textures[EAST];
 	}
 	else
 	{
-		ray->texture = game->textures[NORTH];
-		if (ray->dir.y > 0)
-			ray->texture = game->textures[SOUTH];
+		game->ray.texture = game->textures[NORTH];
+		if (game->ray.dir.y > 0)
+			game->ray.texture = game->textures[SOUTH];
 	}
 	/* avoid fisheye effect by using the corrected distance based on
 		side == 0 -> ray hit vertical wall
 		side == 1 -> ray hit horizontal wall */
-	if (ray->side == 0)
+	if (game->ray.side == 0)
 	{
-		ray->correct_dist = (ray->pos.x - game->player.pos.x + (1 - ray->step.x) / 2) / ray->dir.x;
-		// ray->correct_dist = (ray->sidedist.x - ray->deltadist.x);
-		ray->wall_x = ray->pos.y + ray->correct_dist * ray->dir.y;
+		game->ray.correct_dist = (game->ray.pos.x - game->player.pos.x + (1 - game->ray.step.x) / 2) / game->ray.dir.x;
+		// game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x);
+		game->ray.wall_x = game->ray.pos.y + game->ray.correct_dist * game->ray.dir.y;
 	}
 	else
 	{
-		ray->correct_dist = (ray->pos.y - game->player.pos.y + (1 - ray->step.y) / 2) / ray->dir.y;
-		// ray->correct_dist = (ray->sidedist.y - ray->deltadist.y);
-		ray->wall_x = ray->pos.x + ray->correct_dist * ray->dir.x;
+		game->ray.correct_dist = (game->ray.pos.y - game->player.pos.y + (1 - game->ray.step.y) / 2) / game->ray.dir.y;
+		// game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y);
+		game->ray.wall_x = game->ray.pos.x + game->ray.correct_dist * game->ray.dir.x;
 	}
-	ray->wall_x -= floor(ray->wall_x);
+	game->ray.wall_x -= floor(game->ray.wall_x);
 }
 
-void calc_side(t_game *game, t_ray *ray)
+void calc_side(t_game *game)
 {
 	while (true)
 	{
-		if (ray->sidedist.x < ray->sidedist.y)
+		if (game->ray.sidedist.x < game->ray.sidedist.y)
 		{
-			ray->sidedist.x += ray->deltadist.x;
-			ray->pos.x += ray->step.x;
-			ray->side = 0;
+			game->ray.sidedist.x += game->ray.deltadist.x;
+			game->ray.pos.x += game->ray.step.x;
+			game->ray.side = 0;
 		}
 		else
 		{
-			ray->sidedist.y += ray->deltadist.y;
-			ray->pos.y += ray->step.y;
-			ray->side = 1;
+			game->ray.sidedist.y += game->ray.deltadist.y;
+			game->ray.pos.y += game->ray.step.y;
+			game->ray.side = 1;
 		}
-		// if (is_wall(game, ray->pos.x, ray->pos.y))
-		if (crashed(game, ray->pos.x, ray->pos.y))
+		// if (is_wall(game, game->ray.pos.x, game->ray.pos.y))
+		if (crashed(game, game->ray.pos.x, game->ray.pos.y))
 			break ;
 	}
 }
 
-void calc_wall(t_ray *ray)
+void calc_wall(t_game *game)
 {
-	ray->wall_height = WIN_HEIGHT / ray->correct_dist;
-	ray->bot = WIN_HEIGHT / 2 - ray->wall_height / 2;
-	if (ray->bot < 0)
-		ray->bot = 0;
-	ray->top = WIN_HEIGHT / 2 + ray->wall_height / 2;
-	if (ray->top >= WIN_HEIGHT)
-		ray->top = WIN_HEIGHT - 1;
+	game->ray.wall_height = WIN_HEIGHT / game->ray.correct_dist;
+	game->ray.bot = WIN_HEIGHT / 2 - game->ray.wall_height / 2;
+	if (game->ray.bot < 0)
+		game->ray.bot = 0;
+	game->ray.top = WIN_HEIGHT / 2 + game->ray.wall_height / 2;
+	if (game->ray.top >= WIN_HEIGHT)
+		game->ray.top = WIN_HEIGHT - 1;
 }
 
-void	cast_ray(t_game *game, t_ray *ray, int x)
+void	cast_ray(t_game *game, int x)
 {
 	int		y;
 	int		d;
 
-	ray->tex.x = (int)(ray->wall_x * ray->texture.width);
-	if ((ray->side == 0 && ray->dir.x > 0) || (ray->side == 1 && ray->dir.y < 0))
-		ray->tex.x = ray->texture.width - ray->tex.x - 1;
-	y = ray->bot;
-	while (y < ray->top)
+	game->ray.tex.x = (int)(game->ray.wall_x * game->ray.texture.width);
+	if ((game->ray.side == 0 && game->ray.dir.x > 0) || (game->ray.side == 1 && game->ray.dir.y < 0))
+		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
+	y = game->ray.bot;
+	while (y < game->ray.top)
 	{
-		d = (y * 256) - (WIN_HEIGHT * 128) + (ray->wall_height * 128);
-		ray->tex.y = ((d * ray->texture.height) / ray->wall_height) / 256;
-		ray->color = *(unsigned int *)(ray->texture.addr + 
-				(ray->tex.y * ray->texture.len + ray->tex.x * (ray->texture.bpp / 8)));
-		put_my_pixel(game, x, y, ray->color);
+		d = (y * 256) - (WIN_HEIGHT * 128) + (game->ray.wall_height * 128);
+		game->ray.tex.y = ((d * game->ray.texture.height) / game->ray.wall_height) / 256;
+		game->ray.color = *(unsigned int *)(game->ray.texture.addr + 
+				(game->ray.tex.y * game->ray.texture.len + game->ray.tex.x * (game->ray.texture.bpp / 8)));
+		put_my_pixel(game, x, y, game->ray.color);
 		y++;
 	}
 }
@@ -175,16 +175,16 @@ void raycasting(t_game *game)
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
-		game->ray.camera = 2.0 * x / WIN_WIDTH - 1;
-		game->ray.dir.x = game->player.dir.x + game->player.plane.x * game->ray.camera;
-		game->ray.dir.y = game->player.dir.y + game->player.plane.y * game->ray.camera;
+		game->camera = 2.0 * x / WIN_WIDTH - 1;
+		game->ray.dir.x = game->player.dir.x + game->plane.x * game->camera;
+		game->ray.dir.y = game->player.dir.y + game->plane.y * game->camera;
 		game->ray.pos = game->player.pos;
-		calc_side_dist(&game->ray);
-		calc_side(game, &game->ray);
-		get_direction(&game->ray, game);
-		calc_wall(&game->ray);
+		calc_side_dist(game);
+		calc_side(game);;
+		get_direction(game);
+		calc_wall(game);
 		floor_ceiling(game, x);
-		cast_ray(game, &game->ray, x);
+		cast_ray(game, x);
 		x++;
 	}
 }
