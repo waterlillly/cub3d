@@ -89,17 +89,18 @@ void	get_orientation(t_game *game)
 		angle = 0.0;//2 * M_PI;//
 	else if (game->data.p_orientation == WEST)
 		angle = 180.0;//M_PI;//
-	game->player.dir = angle_to_vector(angle);
+	game->player.dir = normalize(angle_to_vector(angle));
 }
 
 void	init_player(t_game *game)
 {
+	// ft_bzero(&game->ray, sizeof(t_ray));
 	game->player.pos.x = 5 * TILE_SIZE;//TODO: get actual x starting position!
 	game->player.pos.y = 5 * TILE_SIZE;//TODO: get actual y starting position!
 	game->data.p_orientation = SOUTH;//TODO: get actual direction
 	get_orientation(game);
-	game->player.plane.x = 0.0;
-	game->player.plane.y = tan(FOV / 2.0);//0.66;
+	game->plane.x = 0.0;
+	game->plane.y = tan(FOV / 2.0);//0.66;
 	game->player.move_speed = 5;
 	game->player.turn_speed = 0.05;
 }
