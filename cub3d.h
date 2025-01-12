@@ -68,7 +68,6 @@ enum output
 
 //************** MACRO FUNCTIONS ************** Macro functions are a piece of code in a program which has a name. When the program is compiled, the name is replaced with the actual code. There are two types of macros: object-like macros and function-like macros.
 
-#define ASCII_PRINT(c) (((c) >= 33 && (c) <= 126) ? 1 : 0)
 
 //************** STRUCTS ************** A structure in C is a collection of variables of different data types. These variables are known as members. You can refer to a structure as a single variable, and it can hold multiple variables of different data types.
 
@@ -125,6 +124,9 @@ void get_map(t_game *game, char *path);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 int file_data(t_game *game, char **file_data);
 void free_array(void **array);
+int add_texture(t_texture *Itex, char *line, int row);
+int add_color(t_game *game, t_texture *Itex, char *line, int column);
+int ft_map_crating(t_game *game, char **file, int row);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
 //bool	rest_space(char *s, int start);

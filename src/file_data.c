@@ -1,33 +1,5 @@
 #include "../cub3d.h"
 
-static int add_texture(t_texture *Itex, char *line, int row)
-{
-    printf("add_texture\n");
-    (void)Itex;
-    (void)line;
-    (void)row;
-    return (ERR);
-}
-
-static int add_color(t_game *game, t_texture *Itex, char *line, int column)
-{
-    printf("add_color\n");
-    (void)game;
-    (void)Itex;
-    (void)line;
-    (void)column;
-    return (ERR);
-}
-
-static int ft_map_crating(t_game *game, char **file, int row)
-{
-    printf("ft_map_crating\n");
-    (void)game;
-    (void)file;
-    (void)row;
-    return (ERR);
-}
-
 static  int ascii_print(char c)
 {
     printf("ascii_print\n");

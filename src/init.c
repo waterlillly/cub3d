@@ -24,5 +24,7 @@ void initialization_of_vars(t_game *game)
 	game->num_of_columns = 0;
 	game->num_of_player = 0;
 	game->num_of_orientations = 0;
-    init_texture(&game->texture_info);
+
+    //INIT STRUCTS
+    init_texture(&game->Itex);
 }
