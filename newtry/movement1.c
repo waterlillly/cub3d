@@ -70,6 +70,7 @@ void	turn_left(t_game *game)
 
 	game->player.dir = normalize(game->player.dir);
 	angle = vector_to_angle(game->player.dir) - game->player.turn_speed;
+	// game->player.dir = angle_to_vector(angle);
 	game->player.dir = normalize(angle_to_vector(angle));
 }
 
@@ -79,5 +80,6 @@ void	turn_right(t_game *game)
 
 	game->player.dir = normalize(game->player.dir);
 	angle = vector_to_angle(game->player.dir) + game->player.turn_speed;
+	// game->player.dir = angle_to_vector(angle);
 	game->player.dir = normalize(angle_to_vector(angle));
 }
