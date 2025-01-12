@@ -6,7 +6,7 @@
 # endif
 
 #  ifndef M_PI
-#   define M_PI 3.14159265358979323846f
+#   define M_PI 3.14159265358979323846
 #  endif
 
 //************* INCLUDES *************
@@ -21,9 +21,9 @@
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
 # include <X11/ap_keysym.h>
-// # include "minilibx-linux/mlx_int.h"//for mlx@home
-// # include "minilibx-linux/mlx.h"//for mlx@home
-# include <mlx.h>//for mlx@school
+# include "minilibx-linux/mlx_int.h"//for mlx@home
+# include "minilibx-linux/mlx.h"//for mlx@home
+// # include <mlx.h>//for mlx@school
 # include <errno.h>
 # include <error.h>
 # include "lib/libft.h"

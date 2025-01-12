@@ -17,9 +17,9 @@
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
 # include <X11/ap_keysym.h>
-# include "minilibx-linux/mlx_int.h"//for mlx@home
-# include "minilibx-linux/mlx.h"//for mlx@home
-// # include <mlx.h>//for mlx@school
+// # include "minilibx-linux/mlx_int.h"//for mlx@home
+// # include "minilibx-linux/mlx.h"//for mlx@home
+# include <mlx.h>//for mlx@school
 # include <errno.h>
 # include <error.h>
 # include "lib/libft.h"
@@ -68,7 +68,6 @@ typedef struct s_player
 	t_dvec		plane;
 	double		move_speed;
 	double		turn_speed;
-
 }			t_player;
 
 typedef struct s_image
@@ -99,7 +98,6 @@ typedef struct s_ray
     t_dvec			pos;
     t_dvec			deltadist;
     t_dvec			sidedist;
-    t_ivec			ipos;
     t_ivec			step;
 	t_ivec			tex;
     double			correct_dist;
@@ -181,7 +179,7 @@ void	raycasting(t_game *game);
 t_dvec	normalize(t_dvec vec);
 double	vector_to_angle(t_dvec vec);
 t_dvec	angle_to_vector(double angle);
-bool	crashed(t_game *game, int x, int y);
+bool	crashed(t_game *game, double x1, double y1);
 
 // /* minimap1.c */
 void	render_mini_player(t_game *game);

@@ -35,10 +35,14 @@ t_dvec	angle_to_vector(double angle)
 	return (normalize(result));
 }
 
-bool	crashed(t_game *game, int x, int y)
+bool	crashed(t_game *game, double x1, double y1)
 {
+	int	x;
+	int	y;
+
+	x = x1;
+	y = y1;
 	if (x < 0 || x >= MAP_SIZE || y < 0 || y >= MAP_SIZE)
 		return (true);
 	return (game->map[y][x] == '1');
-	// return (g_map[y * MAP_SIZE + x] == 1);
 }

@@ -99,7 +99,7 @@ void	init_player(t_game *game)
 	game->data.p_orientation = SOUTH;//TODO: get actual direction
 	get_orientation(game);
 	game->player.plane.x = 0.0;
-	game->player.plane.y = 0.66;
+	game->player.plane.y = tan(FOV / 2.0);//0.66;
 	game->player.move_speed = 5;
 	game->player.turn_speed = 0.05;
 }

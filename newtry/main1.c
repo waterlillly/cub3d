@@ -8,7 +8,6 @@ int	main(void)
 	init_cub(&game);
 	if (mlx_handler(&game) != 0)
 		exit_failure("Error: mlx_handler", &game);
-	render(&game);
 	mlx_loop(game.cub.mlx_con);
 	return (exit_success(&game));
 }
