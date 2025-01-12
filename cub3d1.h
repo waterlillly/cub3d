@@ -65,7 +65,6 @@ typedef struct s_player
 {
 	t_dvec		pos;
 	t_dvec		dir;
-	t_dvec		plane;
 	double		move_speed;
 	double		turn_speed;
 }			t_player;
@@ -93,7 +92,6 @@ typedef struct s_cub
 typedef struct s_ray
 {
 	t_image			texture;
-	double			camera;
     t_dvec			dir;
     t_dvec			pos;
     t_dvec			deltadist;
@@ -128,6 +126,8 @@ typedef struct s_game
 	t_cub		cub;
 	t_player	player;
 	t_ray		ray;
+	double		camera;
+	t_dvec		plane;
 	int 		exit_status;
 }			t_game;
 
@@ -168,11 +168,11 @@ void	turn_right(t_game *game);
 // void	draw_vertical_line(t_game *game, int x, t_ray *ray);
 void	put_my_pixel(t_game *game, int x, int y, int color);
 void	buffer_to_image(t_game *game);
-void	calc_side_dist(t_ray *ray);
-void	get_direction(t_ray *ray, t_game *game);
-void	calc_side(t_game *game, t_ray *ray);
-void	calc_wall(t_ray *ray);
-void	cast_ray(t_game *game, t_ray *ray, int x);
+void	calc_side_dist(t_game *game);
+void	get_direction(t_game *game);
+void	calc_side(t_game *game);
+void	calc_wall(t_game *game);
+void	cast_ray(t_game *game, int x);
 void	raycasting(t_game *game);
 
 /* utils1.c */
