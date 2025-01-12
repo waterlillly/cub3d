@@ -107,7 +107,7 @@ typedef struct s_game
 	int		**texture;
 
 	//structs
-	t_texture	texture_info;
+	t_texture	Itex;
 
 	int 	exit_status;
 }			t_game;
