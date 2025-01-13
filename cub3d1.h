@@ -98,6 +98,7 @@ typedef struct s_ray
     t_dvec			sidedist;
     t_ivec			step;
 	t_ivec			tex;
+	double			tex_pos;
     double			correct_dist;
     unsigned int	color;
     int				wall_height;
@@ -176,7 +177,7 @@ void	cast_ray(t_game *game, int x);
 void	raycasting(t_game *game);
 
 /* utils1.c */
-t_dvec	normalize(t_dvec vec);
+t_dvec	norm(t_dvec vec);
 double	vector_to_angle(t_dvec vec);
 t_dvec	angle_to_vector(double angle);
 bool	crashed(t_game *game, double x1, double y1);

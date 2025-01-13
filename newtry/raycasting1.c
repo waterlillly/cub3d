@@ -52,34 +52,34 @@ static void	floor_ceiling(t_game *game, int x)
 void	calc_side_dist(t_game *game)
 {
 	/* calculate deltadist */
-	game->ray.deltadist.x = fabs(game->ray.dir.x);
-	if (game->ray.deltadist.x < 1e-20)
+	if (game->ray.dir.x == 0)
 		game->ray.deltadist.x = 1e30;
 	else
 		game->ray.deltadist.x = fabs(1.0 / game->ray.dir.x);
-	game->ray.deltadist.y = fabs(game->ray.dir.y);
-	if (game->ray.deltadist.y < 1e-20)
+	if (game->ray.dir.y == 0)
 		game->ray.deltadist.y = 1e30;
 	else
 		game->ray.deltadist.y = fabs(1.0 / game->ray.dir.y);
 	/* calculate sidedist + step */
-	game->ray.step.x = 1;
-	game->ray.sidedist.x = (ceil(game->ray.pos.x) - game->ray.pos.x) * game->ray.deltadist.x;
-	// game->ray.sidedist.x = game->ray.deltadist.x * ((int)game->ray.pos.x + 1.0 - game->ray.pos.x);
 	if (game->ray.dir.x < 0)
 	{
 		game->ray.step.x = -1;
-		game->ray.sidedist.x = (game->ray.pos.x - floor(game->ray.pos.x)) * game->ray.deltadist.x;
-		// game->ray.sidedist.x = game->ray.deltadist.x * (game->ray.pos.x - (int)game->ray.pos.x);
+		game->ray.sidedist.x = (game->ray.pos.x - (int)game->ray.pos.x) * game->ray.deltadist.x;
 	}
-	game->ray.step.y = 1;
-	game->ray.sidedist.y = (ceil(game->ray.pos.y) - game->ray.pos.y) * game->ray.deltadist.y;
-	// game->ray.sidedist.y = game->ray.deltadist.y * ((int)game->ray.pos.y + 1.0 - game->ray.pos.y);
+	else
+	{
+		game->ray.step.x = 1;
+		game->ray.sidedist.x = ((int)game->ray.pos.x + 1 - game->ray.pos.x) * game->ray.deltadist.x;
+	}
 	if (game->ray.dir.y < 0)
 	{
 		game->ray.step.y = -1;
-		game->ray.sidedist.y = (game->ray.pos.y - floor(game->ray.pos.y)) * game->ray.deltadist.y;
-		// game->ray.sidedist.y = game->ray.deltadist.y * (game->ray.pos.y - (int)game->ray.pos.y);
+		game->ray.sidedist.y = (game->ray.pos.y - (int)game->ray.pos.y) * game->ray.deltadist.y;
+	}
+	else
+	{
+		game->ray.step.y = 1;
+		game->ray.sidedist.y = ((int)game->ray.pos.y + 1 - game->ray.pos.y) * game->ray.deltadist.y;
 	}
 }
 
@@ -87,15 +87,15 @@ void	get_direction(t_game *game)
 {
 	if (game->ray.side == 0)
 	{
-		game->ray.texture = game->textures[WEST];
+		game->ray.texture = game->textures[NORTH];
 		if (game->ray.dir.x > 0)
-			game->ray.texture = game->textures[EAST];
+			game->ray.texture = game->textures[SOUTH];
 	}
 	else
 	{
-		game->ray.texture = game->textures[NORTH];
+		game->ray.texture = game->textures[WEST];
 		if (game->ray.dir.y > 0)
-			game->ray.texture = game->textures[SOUTH];
+			game->ray.texture = game->textures[EAST];
 	}
 	/* avoid fisheye effect by using the corrected distance based on
 		side == 0 -> ray hit vertical wall
@@ -152,10 +152,13 @@ void	cast_ray(t_game *game, int x)
 {
 	int		y;
 	int		d;
+	// double	step;
 
-	game->ray.tex.x = (int)(game->ray.wall_x * game->ray.texture.width);
+	game->ray.tex.x = (int)(game->ray.wall_x * (double)game->ray.texture.width);
 	if ((game->ray.side == 0 && game->ray.dir.x > 0) || (game->ray.side == 1 && game->ray.dir.y < 0))
-		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
+		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;//for correctly mapping and mirroring texture if needed
+	// step = 1.0 * game->ray.texture.height / game->ray.wall_height;
+	// game->ray.tex_pos = (game->ray.bot - WIN_HEIGHT / 2 + game->ray.wall_height / 2) * step;
 	y = game->ray.bot;
 	while (y < game->ray.top)
 	{
@@ -163,6 +166,9 @@ void	cast_ray(t_game *game, int x)
 		game->ray.tex.y = ((d * game->ray.texture.height) / game->ray.wall_height) / 256;
 		game->ray.color = *(unsigned int *)(game->ray.texture.addr + 
 				(game->ray.tex.y * game->ray.texture.len + game->ray.tex.x * (game->ray.texture.bpp / 8)));
+		// game->ray.tex.y = (int)game->ray.tex_pos & (game->ray.texture.height - 1);//cast texture to int and protect from overflow
+		// game->ray.tex_pos += step;
+		// game->ray.color = game->ray.texture.addr[game->ray.texture.height * game->ray.tex.y + game->ray.tex.x];
 		put_my_pixel(game, x, y, game->ray.color);
 		y++;
 	}

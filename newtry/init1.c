@@ -78,29 +78,50 @@ void	init_mlx(t_game *game)
 	then normalize it and store it as the player direction */
 void	get_orientation(t_game *game)
 {
-	double	angle;
+	// double	angle;
 
-	angle = 0.0;
+	// angle = 0.0;
+	// if (game->data.p_orientation == NORTH)
+	// 	angle = 90.0;
+	// else if (game->data.p_orientation == SOUTH)
+	// 	angle = 270.0;
+	// else if (game->data.p_orientation == EAST)
+	// 	angle = 0.0;
+	// else if (game->data.p_orientation == WEST)
+	// 	angle = 180.0;
+	// game->player.dir = angle_to_vector(angle);
 	if (game->data.p_orientation == NORTH)
-		angle = 270.0;//3 * M_PI / 2;//
+	{
+		game->player.dir.x = 0;
+		game->player.dir.y = -1;
+	}
 	else if (game->data.p_orientation == SOUTH)
-		angle = 90.0;//M_PI / 2;//
+	{
+		game->player.dir.x = 0;
+		game->player.dir.y = 1;
+	}
 	else if (game->data.p_orientation == EAST)
-		angle = 0.0;//2 * M_PI;//
+	{
+		game->player.dir.x = 1;
+		game->player.dir.y = 0;
+	}
 	else if (game->data.p_orientation == WEST)
-		angle = 180.0;//M_PI;//
-	game->player.dir = normalize(angle_to_vector(angle));
+	{
+		game->player.dir.x = -1;
+		game->player.dir.y = 0;
+	}
+	game->player.dir = norm(game->player.dir);
 }
+
 
 void	init_player(t_game *game)
 {
-	// ft_bzero(&game->ray, sizeof(t_ray));
 	game->player.pos.x = 5 * TILE_SIZE;//TODO: get actual x starting position!
 	game->player.pos.y = 5 * TILE_SIZE;//TODO: get actual y starting position!
-	game->data.p_orientation = SOUTH;//TODO: get actual direction
+	game->data.p_orientation = EAST;//TODO: get actual direction
 	get_orientation(game);
 	game->plane.x = 0.0;
-	game->plane.y = tan(FOV / 2.0);//0.66;
+	game->plane.y = tan(FOV / 2.0);
 	game->player.move_speed = 5;
 	game->player.turn_speed = 0.05;
 }

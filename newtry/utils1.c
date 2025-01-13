@@ -3,7 +3,7 @@
 /* Normalize a vector
 	= scaling it to the length of 1 (unit vector) while keeping its direction
 	length gets the actual length of the given vector */
-t_dvec	normalize(t_dvec vec)
+t_dvec	norm(t_dvec vec)
 {
 	double	length;
 	t_dvec	result;
@@ -18,10 +18,10 @@ t_dvec	normalize(t_dvec vec)
 double	vector_to_angle(t_dvec vec)
 {
 	double	result;
-	t_dvec	norm;
+	t_dvec	n;
 
-	norm = normalize(vec);
-	result = atan2(norm.y, norm.x);
+	n = norm(vec);
+	result = atan2(n.y, n.x);
 	return (result);
 }
 
@@ -32,7 +32,7 @@ t_dvec	angle_to_vector(double angle)
 
 	result.x = cos(angle);
 	result.y = sin(angle);
-	return (normalize(result));
+	return (norm(result));
 }
 
 bool	crashed(t_game *game, double x1, double y1)
