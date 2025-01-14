@@ -102,14 +102,14 @@ void	get_direction(t_game *game)
 		side == 1 -> ray hit horizontal wall */
 	if (game->ray.side == 0)
 	{
-		game->ray.correct_dist = (game->ray.pos.x - game->player.pos.x + (1 - game->ray.step.x) / 2) / game->ray.dir.x;
-		// game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x);
+		// game->ray.correct_dist = (game->ray.pos.x - game->player.pos.x + (1 - game->ray.step.x) / 2) / game->ray.dir.x;
+		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x);
 		game->ray.wall_x = game->ray.pos.y + game->ray.correct_dist * game->ray.dir.y;
 	}
 	else
 	{
-		game->ray.correct_dist = (game->ray.pos.y - game->player.pos.y + (1 - game->ray.step.y) / 2) / game->ray.dir.y;
-		// game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y);
+		// game->ray.correct_dist = (game->ray.pos.y - game->player.pos.y + (1 - game->ray.step.y) / 2) / game->ray.dir.y;
+		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y);
 		game->ray.wall_x = game->ray.pos.x + game->ray.correct_dist * game->ray.dir.x;
 	}
 	game->ray.wall_x -= floor(game->ray.wall_x);

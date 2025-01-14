@@ -64,14 +64,14 @@ void	move_right(t_game *game)
 		game->player.pos.y = new_y;
 }
 
-// static void	rotate_plane(t_game *game, double angle)
-// {
-// 	double	old_plane_x;
+static void	rotate_plane(t_game *game, double angle)
+{
+	double	old_plane_x;
 
-// 	old_plane_x = game->plane.x;
-// 	game->plane.x = old_plane_x * cos(angle) - game->plane.y * sin(angle);
-// 	game->plane.y = old_plane_x * sin(angle) + game->plane.y * cos(angle);
-// }
+	old_plane_x = game->plane.x;
+	game->plane.x = old_plane_x * angle - game->plane.y * angle;
+	game->plane.y = old_plane_x * angle + game->plane.y * angle;
+}
 
 void	turn_left(t_game *game)
 {
@@ -79,9 +79,9 @@ void	turn_left(t_game *game)
 
 	angle = vector_to_angle(game->player.dir) - game->player.turn_speed;
 	game->player.dir = angle_to_vector(angle);
-	// rotate_plane(game, -game->player.turn_speed);
-	game->plane.x *= cos(game->player.turn_speed) - game->plane.y * sin(game->player.turn_speed);
-	game->plane.y = game->plane.x * sin(game->player.turn_speed) + game->plane.y * cos(game->player.turn_speed);
+	rotate_plane(game, -game->player.turn_speed);
+	// game->plane.x *= cos(game->player.turn_speed) - game->plane.y * sin(game->player.turn_speed);
+	// game->plane.y = game->plane.x * sin(game->player.turn_speed) + game->plane.y * cos(game->player.turn_speed);
 }
 
 void	turn_right(t_game *game)
@@ -90,7 +90,7 @@ void	turn_right(t_game *game)
 
 	angle = vector_to_angle(game->player.dir) + game->player.turn_speed;
 	game->player.dir = angle_to_vector(angle);
-	// rotate_plane(game, game->player.turn_speed);
-	game->plane.x *= cos(game->player.turn_speed) - game->plane.y * sin(game->player.turn_speed);
-	game->plane.y = game->plane.x * sin(game->player.turn_speed) + game->plane.y * cos(game->player.turn_speed);
+	rotate_plane(game, game->player.turn_speed);
+	// game->plane.x *= cos(game->player.turn_speed) - game->plane.y * sin(game->player.turn_speed);
+	// game->plane.y = game->plane.x * sin(game->player.turn_speed) + game->plane.y * cos(game->player.turn_speed);
 }
