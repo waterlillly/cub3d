@@ -96,6 +96,7 @@ typedef struct s_ray
     t_dvec			pos;
     t_dvec			deltadist;
     t_dvec			sidedist;
+	t_ivec			map;
     t_ivec			step;
 	t_ivec			tex;
 	double			tex_pos;
@@ -171,7 +172,7 @@ void	put_my_pixel(t_game *game, int x, int y, int color);
 void	buffer_to_image(t_game *game);
 void	calc_side_dist(t_game *game);
 void	get_direction(t_game *game);
-void	calc_side(t_game *game);
+void	calc_side(t_game *game, int x);
 void	calc_wall(t_game *game);
 void	cast_ray(t_game *game, int x);
 void	raycasting(t_game *game);
