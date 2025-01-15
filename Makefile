@@ -2,6 +2,8 @@ CC = cc
 
 NAME = cub3d
 
+#MAKEFLAGS = --jobs=16 # Remove for eval
+
 CFLAGS = -Wall -Wextra -Werror -g
 
 .c.o:

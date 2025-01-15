@@ -23,4 +23,6 @@ void mapValidator(t_game *game, char **av)
 	free(game->Itex.south);
 	free(game->Itex.west);
 	free(game->Itex.east);
+	free(game->Itex.floor_color);
+	free(game->Itex.ceiling_color);
 }

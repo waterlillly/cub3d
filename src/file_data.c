@@ -26,7 +26,7 @@ static int get_color_and_texture(t_game *game, char **file_data , int row, int c
         {
             //If the character is a number, it is a color
             printf("%c%c\n", file_data[row][column], file_data[row][column + 1]);
-            if (add_color(game, &game->Itex, file_data[row], column) == ERR)
+            if (add_color(&game->Itex, file_data[row], column) == ERR)
                 return (FAIL);
             return (BREAK);
         }

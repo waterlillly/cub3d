@@ -7,6 +7,8 @@ static void init_texture(t_texture *texture)
     texture->south = NULL;
     texture->west = NULL;
     texture->east = NULL;
+    texture->floor_color = NULL;
+    texture->ceiling_color = NULL;
 }
 
 void initialization_of_vars(t_game *game)
