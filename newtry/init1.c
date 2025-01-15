@@ -51,8 +51,8 @@ void	load_textures(t_game *game)
 
 void	init_textures(t_game *game)
 {
-	game->textures[NORTH].name = "assets/textures/pattern.xpm";
-	game->textures[SOUTH].name = "assets/textures/pattern.xpm";
+	game->textures[NORTH].name = "assets/textures/moon.xpm";
+	game->textures[SOUTH].name = "assets/textures/texture.xpm";
 	game->textures[EAST].name = "assets/textures/pattern.xpm";
 	game->textures[WEST].name = "assets/textures/pattern.xpm";
 	load_textures(game);
@@ -118,10 +118,18 @@ void	init_player(t_game *game)
 {
 	game->player.pos.x = 5 * TILE_SIZE;//TODO: get actual x starting position!
 	game->player.pos.y = 5 * TILE_SIZE;//TODO: get actual y starting position!
-	game->data.p_orientation = EAST;//TODO: get actual direction
+	game->data.p_orientation = NORTH;//TODO: get actual direction
 	get_orientation(game);
-	game->plane.x = 0.0;
-	game->plane.y = tan(FOV / 2.0);
+	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
+	{
+		game->plane.x = tan(FOV / 2.0);
+		game->plane.y = 0.0;
+	}
+	else
+	{
+		game->plane.x = 0.0;
+		game->plane.y = tan(FOV / 2.0);
+	}
 	game->player.move_speed = 5;
 	game->player.turn_speed = 0.05;
 }

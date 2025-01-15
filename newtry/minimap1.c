@@ -18,8 +18,8 @@ void	render_mini_player(t_game *game)
 				(game->player.pos.y / TILE_SIZE * MINIMAP_SIZE) - MINIMAP_SIZE / 4 + y, BLUE);
 		}
 	}
-	arrow_x = (game->player.pos.x / TILE_SIZE * MINIMAP_SIZE) + cos(vector_to_angle(game->ray.dir)) * MINIMAP_SIZE;
-	arrow_y = (game->player.pos.y / TILE_SIZE * MINIMAP_SIZE) + sin(vector_to_angle(game->ray.dir)) * MINIMAP_SIZE;
+	arrow_x = (game->player.pos.x / TILE_SIZE * MINIMAP_SIZE) + game->player.dir.x * MINIMAP_SIZE;
+	arrow_y = (game->player.pos.y / TILE_SIZE * MINIMAP_SIZE) + game->player.dir.y * MINIMAP_SIZE;
 	t = 0.0;
 	while (t <= 1.0)
 	{
