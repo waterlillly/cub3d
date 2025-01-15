@@ -1,5 +1,16 @@
 #include "../../cub3d.h"
 
+static int color(int *color)
+{
+	return ((color[0] << 16) | (color[1] << 8) | color[2]);
+}
+
+void	get_colors(t_game *game)
+{
+	game->c_color = color(game->data.ceiling_color);
+	game->f_color = color(game->data.floor_color);
+}
+
 void	check_texture(t_game *game, int i)
 {
 	if (game->textures[i].width != game->textures[i].height)

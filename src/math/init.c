@@ -111,6 +111,13 @@ void	init_cub(t_game *game)
 	if (!game->cub.mlx_con)
 		exit_failure("Error: mlx_con", game);
 	ft_bzero(&game->ray, sizeof(t_ray));
+	game->data.ceiling_color[0] = 5;
+	game->data.ceiling_color[1] = 10;
+	game->data.ceiling_color[2] = 150;
+	game->data.floor_color[0] = 0;
+	game->data.floor_color[1] = 150;
+	game->data.floor_color[2] = 50;
+	get_colors(game);
 	init_map(game);
 	init_mlx(game);
 	load_textures(game);

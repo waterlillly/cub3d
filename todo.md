@@ -2,7 +2,7 @@
 
 *Lilly*
 
--solve rescaling problem?
--load textures
--try different maps
--add direction of player in minimap
+-> convert floor and ceiling color (rgb) to actual color
+-> stop textures from moving with the player
+-> check Error messages to start with "ERROR\n" and then having a description
+

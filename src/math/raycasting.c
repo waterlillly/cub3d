@@ -7,13 +7,13 @@ static void	floor_ceiling(t_game *game, int x)
 	i = game->ray.bot;
 	while (i < WIN_HEIGHT)
 	{
-		put_my_pixel(game, x, i, GREEN);
+		put_my_pixel(game, x, i, game->f_color);
 		i++;
 	}
 	i = 0;
 	while (i < game->ray.top)
 	{
-		put_my_pixel(game, x, i, BLUE);
+		put_my_pixel(game, x, i, game->c_color);
 		i++;
 	}
 }

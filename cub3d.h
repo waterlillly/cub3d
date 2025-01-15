@@ -118,6 +118,8 @@ typedef struct s_data
 	int				num_of_player;
 	int				num_of_orientations;
 	int				p_orientation;
+	int				floor_color[3];
+	int				ceiling_color[3];
 }					t_data;
 
 typedef struct s_game
@@ -125,6 +127,8 @@ typedef struct s_game
 	char			**map;
 	t_data			data;
 	t_image			textures[4];
+	int				c_color;
+	int				f_color;
 	t_cub			cub;
 	t_player		player;
 	t_ray			ray;
@@ -165,6 +169,7 @@ void				buffer_to_image(t_game *game);
 void				raycasting(t_game *game);
 
 /* checking.c */
+void				get_colors(t_game *game);
 void				check_texture(t_game *game, int i);
 bool				is_wall(t_game *game, double new_x, double new_y);
 
