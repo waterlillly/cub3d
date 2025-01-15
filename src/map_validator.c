@@ -13,8 +13,14 @@ surrounded by walls.
 
 void mapValidator(t_game *game, char **av)
 {
+
 	printf("mapValidator\n");
 	get_map(game, av[1]);
 	file_data(game, game->file);
+	//later free somewhere else
 	free_array((void **)game->file);
+	free(game->Itex.north);
+	free(game->Itex.south);
+	free(game->Itex.west);
+	free(game->Itex.east);
 }

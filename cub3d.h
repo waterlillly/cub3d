@@ -124,8 +124,8 @@ void get_map(t_game *game, char *path);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 int file_data(t_game *game, char **file_data);
 void free_array(void **array);
-int add_texture(t_texture *Itex, char *line, int row);
 int add_color(t_game *game, t_texture *Itex, char *line, int column);
+int add_texture(t_texture *Itex, char *line, int column);
 int ft_map_crating(t_game *game, char **file, int row);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);

@@ -18,9 +18,6 @@ static int get_color_and_texture(t_game *game, char **file_data , int row, int c
     {
         if (ascii_print(file_data[row][column + 1]) && !ft_isdigit(file_data[row][column + 1]))
         {
-            //If the character is a letter, it is a texture
-            //WIP: Add textures in the struct
-            printf("%c%c\n", file_data[row][column], file_data[row][column + 1]);
             if (add_texture(&game->Itex, file_data[row], column) == ERR)
                 return (FAIL);
             return (BREAK);
