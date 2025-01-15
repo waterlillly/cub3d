@@ -39,8 +39,9 @@ static int *convert_to_int_array(char **rgb, int *rgb_int)
     while (rgb[i])
     {
         rgb_int[i] = ft_atoi(rgb[i]);
-        if (rgb_int[i] < 0 || is_number == false) //check if RGB array is not a number
+        if ((rgb_int[i] < 0 || rgb_int[i] > 255) || is_number == false) //check if RGB array is not a number
         {
+            printf("Error\n");
             free_array((void **)rgb);
             free(rgb_int);
             //also free Itex->path_texture {north, south, west, east}
