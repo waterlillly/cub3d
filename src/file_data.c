@@ -34,7 +34,7 @@ static int get_color_and_texture(t_game *game, char **file_data , int row, int c
     else if (ft_isdigit(file_data[row][column]))
     {
         //Before comming here, what if there is number in tructures file name? Need to handle this?
-        if (ft_map_crating(game, file_data, row) == ERR)
+        if (ft_map_crating(game, file_data, row) == FAIL)
 			return (FAIL);
 		return (SUCC);
     }
