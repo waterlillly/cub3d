@@ -1,15 +1,15 @@
 #include "../../cub3d.h"
 
-static void	destroy_mlx(t_game *game)
+void	destroy_mlx(t_game *game)
 {
-	if (game && game->cub.mlx_con && game->txts[EAST].img)
-		mlx_destroy_image(game->cub.mlx_con, game->txts[EAST].img);
-	if (game && game->cub.mlx_con && game->txts[WEST].img)
-		mlx_destroy_image(game->cub.mlx_con, game->txts[WEST].img);
-	if (game && game->cub.mlx_con && game->txts[NORTH].img)
-		mlx_destroy_image(game->cub.mlx_con, game->txts[NORTH].img);
-	if (game && game->cub.mlx_con && game->txts[SOUTH].img)
-		mlx_destroy_image(game->cub.mlx_con, game->txts[SOUTH].img);
+	if (game && game->cub.mlx_con && game->textures[EAST].img)
+		mlx_destroy_image(game->cub.mlx_con, game->textures[EAST].img);
+	if (game && game->cub.mlx_con && game->textures[WEST].img)
+		mlx_destroy_image(game->cub.mlx_con, game->textures[WEST].img);
+	if (game && game->cub.mlx_con && game->textures[NORTH].img)
+		mlx_destroy_image(game->cub.mlx_con, game->textures[NORTH].img);
+	if (game && game->cub.mlx_con && game->textures[SOUTH].img)
+		mlx_destroy_image(game->cub.mlx_con, game->textures[SOUTH].img);
 	if (game && game->cub.mlx_con && game->cub.img.img)
 		mlx_destroy_image(game->cub.mlx_con, game->cub.img.img);
 	if (game && game->cub.mlx_con && game->cub.mlx_win)
@@ -21,14 +21,14 @@ static void	destroy_mlx(t_game *game)
 	}
 }
 
-static void	free_data(t_game *game)
+void	free_data(t_game *game)
 {
 	if (!game)
 		return ;
 	if (game->map)
 		ft_free_2d(game->map);
-	if (game->file_data)
-		ft_free_2d(game->file_data);
+	// if (game->file_data)
+	// 	ft_free_2d(game->file_data);
 	destroy_mlx(game);
 }
 

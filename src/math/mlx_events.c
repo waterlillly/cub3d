@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-static int handle_keypress(int keycode, t_game *game)
+int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == XK_Escape || keycode == 17)
 		exit_success(game);
@@ -19,7 +19,7 @@ static int handle_keypress(int keycode, t_game *game)
 	return (0);
 }
 
-static void	clear_frame(t_game *game)
+void	clear_frame(t_game *game)
 {
 	int	x;
 	int	y;
@@ -38,7 +38,7 @@ static void	clear_frame(t_game *game)
 	}
 }
 
-static int	render(t_game *game)
+int	render(t_game *game)
 {
 	clear_frame(game);
 	raycasting(game);
@@ -48,7 +48,7 @@ static int	render(t_game *game)
 	return (0);
 }
 
-int mlx_handler(t_game *game)
+int	mlx_handler(t_game *game)
 {
 	mlx_loop_hook(game->cub.mlx_con, render, game);
 	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask, exit_success, game);

@@ -1,4 +1,4 @@
-#include "../cub3d1.h"
+#include "../../cub3d.h"
 
 /* Normalize a vector
 	= scaling it to the length of 1 (unit vector) while keeping its direction
