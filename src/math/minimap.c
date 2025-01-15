@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-void	render_mini_player(t_game *game)
+static void	render_mini_player(t_game *game)
 {
 	int		x;
 	int		y;

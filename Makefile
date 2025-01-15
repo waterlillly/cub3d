@@ -2,7 +2,7 @@ CC = cc
 
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux #-fsanitize=address,undefined,leak -g3
+CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -14,9 +14,9 @@ SRC_DIR = src/
 CFILES = $(addprefix $(SRC_DIR), \
 		main.c \
 ) $(addprefix $(MATH_DIR), \
-		init.c mlx_events.c \
-		exit.c movement.c utils.c \
-		raycasting.c minimap.c \
+		init.c mlx_events.c pixels.c \
+		exit.c movement.c utils.c rotation.c \
+		raycasting.c minimap.c checking.c \
 )
 
 #check_file_line.c check_map.c \

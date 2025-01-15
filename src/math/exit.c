@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-void	destroy_mlx(t_game *game)
+static void	destroy_mlx(t_game *game)
 {
 	if (game && game->cub.mlx_con && game->textures[EAST].img)
 		mlx_destroy_image(game->cub.mlx_con, game->textures[EAST].img);
@@ -21,14 +21,12 @@ void	destroy_mlx(t_game *game)
 	}
 }
 
-void	free_data(t_game *game)
+static void	free_data(t_game *game)
 {
 	if (!game)
 		return ;
 	if (game->map)
 		ft_free_2d(game->map);
-	// if (game->file_data)
-	// 	ft_free_2d(game->file_data);
 	destroy_mlx(game);
 }
 

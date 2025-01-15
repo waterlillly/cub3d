@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-void	init_map(t_game *game)
+static void	init_map(t_game *game) // TODO: delete and get actual map
 {
 	game->map = ft_calloc(MAP_SIZE + 1, sizeof(char *));
 	if (!game->map)
@@ -17,23 +17,15 @@ void	init_map(t_game *game)
 	game->map[9] = ft_strdup("1111111111");
 }
 
-void	check_texture(t_game *game, int i)
-{
-	if (game->textures[i].width != game->textures[i].height)
-	{
-		ft_putstr_fd(game->textures[i].name, 2);
-		exit_failure(" does not have the same width and height", game);
-	}
-	if (game->textures[i].bpp != 32)
-		exit_failure("Error: Texture format not supported (must be 32bpp)",
-			game);
-}
-
-void	load_textures(t_game *game)
+static void	load_textures(t_game *game)
 {
 	int	i;
 
 	i = 0;
+	game->textures[NORTH].name = "assets/textures/moon.xpm";
+	game->textures[SOUTH].name = "assets/textures/texture.xpm";
+	game->textures[EAST].name = "assets/textures/pattern.xpm";
+	game->textures[WEST].name = "assets/textures/pattern.xpm";
 	while (i < 4)
 	{
 		if (access(game->textures[i].name, F_OK))
@@ -53,16 +45,7 @@ void	load_textures(t_game *game)
 	}
 }
 
-void	init_textures(t_game *game)
-{
-	game->textures[NORTH].name = "assets/textures/moon.xpm";
-	game->textures[SOUTH].name = "assets/textures/texture.xpm";
-	game->textures[EAST].name = "assets/textures/pattern.xpm";
-	game->textures[WEST].name = "assets/textures/pattern.xpm";
-	load_textures(game);
-}
-
-void	init_mlx(t_game *game)
+static void	init_mlx(t_game *game)
 {
 	game->cub.mlx_win = mlx_new_window(game->cub.mlx_con, WIN_WIDTH, WIN_HEIGHT,
 			"cub3d");
@@ -77,7 +60,7 @@ void	init_mlx(t_game *game)
 		exit_failure("Error: mlx_get_data_addr", game);
 }
 
-void	get_orientation(t_game *game)
+static void	get_orientation(t_game *game)
 {
 	if (game->data.p_orientation == NORTH)
 	{
@@ -102,7 +85,7 @@ void	get_orientation(t_game *game)
 	game->player.dir = norm(game->player.dir);
 }
 
-void	init_player(t_game *game)
+static void	init_player(t_game *game)
 {
 	game->player.pos.x = 5 * TILE_SIZE; // TODO: get actual x starting position!
 	game->player.pos.y = 5 * TILE_SIZE; // TODO: get actual y starting position!
@@ -130,6 +113,6 @@ void	init_cub(t_game *game)
 	ft_bzero(&game->ray, sizeof(t_ray));
 	init_map(game);
 	init_mlx(game);
-	init_textures(game);
+	load_textures(game);
 	init_player(game);
 }

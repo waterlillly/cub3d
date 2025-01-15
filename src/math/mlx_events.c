@@ -19,7 +19,7 @@ int	handle_keypress(int keycode, t_game *game)
 	return (0);
 }
 
-void	clear_frame(t_game *game)
+static void	clear_frame(t_game *game)
 {
 	int	x;
 	int	y;
@@ -44,14 +44,16 @@ int	render(t_game *game)
 	raycasting(game);
 	render_minimap(game);
 	buffer_to_image(game);
-	mlx_put_image_to_window(game->cub.mlx_con, game->cub.mlx_win, game->cub.img.img, 0, 0);
+	mlx_put_image_to_window(game->cub.mlx_con, game->cub.mlx_win,
+		game->cub.img.img, 0, 0);
 	return (0);
 }
 
 int	mlx_handler(t_game *game)
 {
 	mlx_loop_hook(game->cub.mlx_con, render, game);
-	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask, exit_success, game);
+	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask,
+		exit_success, game);
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
 	return (0);
 }
