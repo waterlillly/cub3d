@@ -26,6 +26,13 @@
 
 //************** MACROS **************
 
+// # define WIN_HEIGHT 640
+// # define WIN_WIDTH 640
+// # define TILE_SIZE 64
+// # define MAP_SIZE 25//TODO: need a new starting point for player if we want to use this map
+// # define MINIMAP_SIZE floor(MAP_SIZE / 5)
+// # define FOV 60 * (M_PI / 180)
+
 # define WIN_HEIGHT 640
 # define WIN_WIDTH 640
 # define TILE_SIZE 64

@@ -99,27 +99,28 @@ static void	cast_ray(t_game *game, int x)
 {
 	int		y;
 	double	step;
-	double	tex_pos;
 
 	game->ray.tex.x = (int)(game->ray.wall_x * game->ray.texture.width);
-	if ((game->ray.side == 0 && game->ray.dir.x > 0) || (game->ray.side == 1
-			&& game->ray.dir.y < 0))
+	if ((game->ray.side == 0 && game->ray.dir.x > 0) ||
+		(game->ray.side == 1 && game->ray.dir.y < 0))
 		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
 	step = 1.0 * game->ray.texture.height / game->ray.wall_height;
+	game->ray.tex_pos = (game->ray.bot - WIN_HEIGHT / 2 + game->ray.wall_height / 2) * step;
 	y = game->ray.bot;
-	tex_pos = (y - (WIN_HEIGHT / 2) + (game->ray.wall_height / 2)) * step;
 	while (y < game->ray.top)
 	{
-		game->ray.tex.y = (int)tex_pos;
+		game->ray.tex.y = (int)game->ray.tex_pos;
 		if (game->ray.tex.y < 0)
 			game->ray.tex.y += game->ray.texture.height;
 		else if (game->ray.tex.y >= game->ray.texture.height)
 			game->ray.tex.y %= game->ray.texture.height;
+		game->ray.tex_pos += step;
 		game->ray.color = *(unsigned int *)(game->ray.texture.addr
 				+ (game->ray.tex.y * game->ray.texture.len + game->ray.tex.x
 					* (game->ray.texture.bpp / 8)));
+		if (game->ray.side == 1)
+			game->ray.color = (game->ray.color >> 1) & 8355711;//TODO: wtf
 		put_my_pixel(game, x, y, game->ray.color);
-		tex_pos += step;
 		y++;
 	}
 }
@@ -166,7 +167,6 @@ void	raycasting(t_game *game)
 		floor_ceiling(game, x);
 		calc_side_dist(game);
 		calc_side(game, x);
-		;
 		x++;
 	}
 }

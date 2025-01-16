@@ -1,5 +1,37 @@
 #include "../../cub3d.h"
 
+// static void	init_map(t_game *game) // TODO: delete and get actual map
+// {
+// 	game->map = ft_calloc(MAP_SIZE + 1, sizeof(char *));
+// 	if (!game->map)
+// 		exit_failure("Error: ft_calloc", game);
+// 	game->map[0] = ft_strdup("1111111111111111111111111");
+// 	game->map[1] = ft_strdup("1000000000000000000000001");
+// 	game->map[2] = ft_strdup("1011110111110111110111101");
+// 	game->map[3] = ft_strdup("1010010000010000010000101");
+// 	game->map[4] = ft_strdup("1010010111010111010111101");
+// 	game->map[5] = ft_strdup("1010000000000000000000101");
+// 	game->map[6] = ft_strdup("1110111111011111011110101");
+// 	game->map[7] = ft_strdup("1000100011010001010000101");
+// 	game->map[8] = ft_strdup("1011101111010111011111101");
+// 	game->map[9] = ft_strdup("1000000000000100000000001");
+// 	game->map[10] = ft_strdup("1010111011111111111011101");
+// 	game->map[11] = ft_strdup("1010000010000000010000101");
+// 	game->map[12] = ft_strdup("1011111010111111010111101");
+// 	game->map[13] = ft_strdup("1000000010001000010000001");
+// 	game->map[14] = ft_strdup("1011111111011111111111101");
+// 	game->map[15] = ft_strdup("1010000000000000000000001");
+// 	game->map[16] = ft_strdup("1010111111111111111011101");
+// 	game->map[17] = ft_strdup("1000000000000000000000001");
+// 	game->map[18] = ft_strdup("1011111011111011111011101");
+// 	game->map[19] = ft_strdup("1000000010000010000010001");
+// 	game->map[20] = ft_strdup("1111011110111111111110001");
+// 	game->map[21] = ft_strdup("1000000000000000000000001");
+// 	game->map[22] = ft_strdup("1011110111110111110111101");
+// 	game->map[23] = ft_strdup("1000100001000000000000101");
+// 	game->map[24] = ft_strdup("1111111111111111111111111");
+// }
+
 static void	init_map(t_game *game) // TODO: delete and get actual map
 {
 	game->map = ft_calloc(MAP_SIZE + 1, sizeof(char *));
@@ -23,7 +55,7 @@ static void	load_textures(t_game *game)
 
 	i = 0;
 	game->textures[NORTH].name = "assets/textures/moon.xpm";
-	game->textures[SOUTH].name = "assets/textures/texture.xpm";
+	game->textures[SOUTH].name = "assets/textures/moon.xpm";
 	game->textures[EAST].name = "assets/textures/pattern.xpm";
 	game->textures[WEST].name = "assets/textures/pattern.xpm";
 	while (i < 4)
@@ -111,7 +143,7 @@ void	init_cub(t_game *game)
 	if (!game->cub.mlx_con)
 		exit_failure("Error: mlx_con", game);
 	ft_bzero(&game->ray, sizeof(t_ray));
-	game->data.ceiling_color[0] = 5;
+	game->data.ceiling_color[0] = 5;//TODO: get actual colors
 	game->data.ceiling_color[1] = 10;
 	game->data.ceiling_color[2] = 150;
 	game->data.floor_color[0] = 0;
