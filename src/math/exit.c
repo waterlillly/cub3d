@@ -32,6 +32,7 @@ static void	free_data(t_game *game)
 
 void	exit_failure(char *s, t_game *game)
 {
+	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(s, STDERR_FILENO);
 	free_data(game);
 	exit(EXIT_FAILURE);

@@ -5,7 +5,7 @@ static void	floor_ceiling(t_game *game, int x)
 	int	i;
 
 	i = game->ray.bot;
-	while (i < WIN_HEIGHT)
+	while (i < WIN_SIZE)
 	{
 		put_my_pixel(game, x, i, game->f_color);
 		i++;
@@ -86,26 +86,25 @@ static void	get_direction(t_game *game)
 
 static void	calc_wall(t_game *game)
 {
-	game->ray.wall_height = (int)WIN_HEIGHT / game->ray.correct_dist;
-	game->ray.bot = WIN_HEIGHT / 2 - game->ray.wall_height / 2;
+	game->ray.wall_height = (int)WIN_SIZE / game->ray.correct_dist;
+	game->ray.bot = WIN_SIZE / 2 - game->ray.wall_height / 2;
 	if (game->ray.bot < 0)
 		game->ray.bot = 0;
-	game->ray.top = WIN_HEIGHT / 2 + game->ray.wall_height / 2;
-	if (game->ray.top >= WIN_HEIGHT)
-		game->ray.top = WIN_HEIGHT - 1;
+	game->ray.top = WIN_SIZE / 2 + game->ray.wall_height / 2;
+	if (game->ray.top >= WIN_SIZE)
+		game->ray.top = WIN_SIZE - 1;
 }
 
 static void	cast_ray(t_game *game, int x)
 {
 	int		y;
-	double	step;
 
 	game->ray.tex.x = (int)(game->ray.wall_x * game->ray.texture.width);
 	if ((game->ray.side == 0 && game->ray.dir.x > 0) ||
 		(game->ray.side == 1 && game->ray.dir.y < 0))
 		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
-	step = 1.0 * game->ray.texture.height / game->ray.wall_height;
-	game->ray.tex_pos = (game->ray.bot - WIN_HEIGHT / 2 + game->ray.wall_height / 2) * step;
+	game->ray.s = 1.0 * game->ray.texture.height / game->ray.wall_height;
+	game->ray.tex_pos = (game->ray.bot - WIN_SIZE / 2 + game->ray.wall_height / 2) * game->ray.s;
 	y = game->ray.bot;
 	while (y < game->ray.top)
 	{
@@ -114,7 +113,7 @@ static void	cast_ray(t_game *game, int x)
 			game->ray.tex.y += game->ray.texture.height;
 		else if (game->ray.tex.y >= game->ray.texture.height)
 			game->ray.tex.y %= game->ray.texture.height;
-		game->ray.tex_pos += step;
+		game->ray.tex_pos += game->ray.s;
 		game->ray.color = *(unsigned int *)(game->ray.texture.addr
 				+ (game->ray.tex.y * game->ray.texture.len + game->ray.tex.x
 					* (game->ray.texture.bpp / 8)));
@@ -125,7 +124,7 @@ static void	cast_ray(t_game *game, int x)
 	}
 }
 
-static void	calc_side(t_game *game, int x)
+static void	calc_side(t_game *game)
 {
 	while (true)
 	{
@@ -145,7 +144,6 @@ static void	calc_side(t_game *game, int x)
 		{
 			get_direction(game);
 			calc_wall(game);
-			cast_ray(game, x);
 			break ;
 		}
 	}
@@ -156,9 +154,9 @@ void	raycasting(t_game *game)
 	int	x;
 
 	x = 0;
-	while (x < WIN_WIDTH)
+	while (x < WIN_SIZE)
 	{
-		game->camera = 2.0 * x / WIN_WIDTH - 1;
+		game->camera = 2.0 * x / WIN_SIZE - 1;
 		game->ray.dir.x = game->player.dir.x + game->plane.x * game->camera;
 		game->ray.dir.y = game->player.dir.y + game->plane.y * game->camera;
 		game->ray.pos = game->player.pos;
@@ -166,7 +164,8 @@ void	raycasting(t_game *game)
 		game->ray.map.y = (int)game->player.pos.y;
 		floor_ceiling(game, x);
 		calc_side_dist(game);
-		calc_side(game, x);
+		calc_side(game);
+		cast_ray(game, x);
 		x++;
 	}
 }

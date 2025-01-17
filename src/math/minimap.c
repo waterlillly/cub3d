@@ -9,27 +9,27 @@ static void	render_mini_player(t_game *game)
 	double	t;
 
 	y = -1;
-	while (++y < MINIMAP_SIZE / 2)
+	while (++y < MINI_TILE / 2)
 	{
 		x = -1;
-		while (++x < MINIMAP_SIZE / 2)
+		while (++x < MINI_TILE / 2)
 		{
-			put_my_pixel(game, (game->player.pos.x / TILE_SIZE * MINIMAP_SIZE)
-				- MINIMAP_SIZE / 4 + x, (game->player.pos.y / TILE_SIZE
-					* MINIMAP_SIZE) - MINIMAP_SIZE / 4 + y, BLUE);
+			put_my_pixel(game, (game->player.pos.x / TILE_SIZE * MINI_TILE)
+				- MINI_TILE / 4 + x, (game->player.pos.y / TILE_SIZE
+					* MINI_TILE) - MINI_TILE / 4 + y, BLUE);
 		}
 	}
-	arrow_x = (game->player.pos.x / TILE_SIZE * MINIMAP_SIZE)
-		+ game->player.dir.x * MINIMAP_SIZE;
-	arrow_y = (game->player.pos.y / TILE_SIZE * MINIMAP_SIZE)
-		+ game->player.dir.y * MINIMAP_SIZE;
+	arrow_x = (game->player.pos.x / TILE_SIZE * MINI_TILE)
+		+ game->player.dir.x * MINI_TILE;
+	arrow_y = (game->player.pos.y / TILE_SIZE * MINI_TILE)
+		+ game->player.dir.y * MINI_TILE;
 	t = 0.0;
 	while (t <= 1.0)
 	{
-		x = floor((game->player.pos.x / TILE_SIZE * MINIMAP_SIZE) + t * (arrow_x
-					- (game->player.pos.x / TILE_SIZE * MINIMAP_SIZE)));
-		y = floor((game->player.pos.y / TILE_SIZE * MINIMAP_SIZE) + t * (arrow_y
-					- (game->player.pos.y / TILE_SIZE * MINIMAP_SIZE)));
+		x = floor((game->player.pos.x / TILE_SIZE * MINI_TILE) + t * (arrow_x
+					- (game->player.pos.x / TILE_SIZE * MINI_TILE)));
+		y = floor((game->player.pos.y / TILE_SIZE * MINI_TILE) + t * (arrow_y
+					- (game->player.pos.y / TILE_SIZE * MINI_TILE)));
 		put_my_pixel(game, x, y, RED);
 		t += 0.01;
 	}
@@ -53,11 +53,11 @@ void	render_minimap(t_game *game)
 			if (crashed(game, x, y))
 				color = BLACK;
 			py = -1;
-			while (++py < MINIMAP_SIZE)
+			while (++py < MINI_TILE)
 			{
 				px = -1;
-				while (++px < MINIMAP_SIZE)
-					put_my_pixel(game, x * MINIMAP_SIZE + px, y * MINIMAP_SIZE
+				while (++px < MINI_TILE)
+					put_my_pixel(game, x * MINI_TILE + px, y * MINI_TILE
 						+ py, color);
 			}
 		}

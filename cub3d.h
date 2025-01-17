@@ -26,18 +26,11 @@
 
 //************** MACROS **************
 
-// # define WIN_HEIGHT 640
-// # define WIN_WIDTH 640
-// # define TILE_SIZE 64
-// # define MAP_SIZE 25//TODO: need a new starting point for player if we want to use this map
-// # define MINIMAP_SIZE floor(MAP_SIZE / 5)
-// # define FOV 60 * (M_PI / 180)
-
-# define WIN_HEIGHT 640
-# define WIN_WIDTH 640
-# define TILE_SIZE 64
-# define MINIMAP_SIZE floor(TILE_SIZE / 5)
-# define MAP_SIZE 10
+# define WIN_SIZE 640
+# define TILE_SIZE (WIN_SIZE * 0.1)
+# define MINIMAP_SIZE floor(WIN_SIZE * 0.2)
+# define MINI_TILE (MINIMAP_SIZE / MAP_SIZE)
+# define MAP_SIZE 25
 # define FOV 60 * (M_PI / 180)
 
 # define BLACK 0x00000000
@@ -93,7 +86,7 @@ typedef struct s_cub
 	void			*mlx_con;
 	void			*mlx_win;
 	t_image			img;
-	unsigned int	buffer[WIN_WIDTH][WIN_HEIGHT];
+	unsigned int	buffer[WIN_SIZE][WIN_SIZE];
 }					t_cub;
 
 typedef struct s_ray
@@ -106,13 +99,14 @@ typedef struct s_ray
 	t_ivec			map;
 	t_ivec			step;
 	t_ivec			tex;
+	unsigned int	color;
 	double			tex_pos;
 	double			correct_dist;
-	unsigned int	color;
+	double			wall_x;
+	double			s;
 	int				wall_height;
 	int				bot;
 	int				top;
-	double			wall_x;
 	int				side;
 }					t_ray;
 

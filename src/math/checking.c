@@ -14,13 +14,9 @@ void	get_colors(t_game *game)
 void	check_texture(t_game *game, int i)
 {
 	if (game->textures[i].width != game->textures[i].height)
-	{
-		ft_putstr_fd(game->textures[i].name, 2);
-		exit_failure(" does not have the same width and height", game);
-	}
+		exit_failure("Textures have to have the same width and height", game);
 	if (game->textures[i].bpp != 32)
-		exit_failure("Error: Texture format not supported (must be 32bpp)",
-			game);
+		exit_failure("Texture format not supported (must be 32bpp)", game);
 }
 
 bool	is_wall(t_game *game, double new_x, double new_y)
@@ -32,5 +28,5 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 	y = floor(new_y / (TILE_SIZE));
 	if (x < 0 || x >= MAP_SIZE || y < 0 || y >= MAP_SIZE)
 		return (true);
-	return (game->map[y][x] == '1');
+	return (game->map[y][x] >= 49 || game->map[y][x] == 32);//TODO: add check for doors etc in bonus
 }

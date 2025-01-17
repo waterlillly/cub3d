@@ -26,10 +26,10 @@ static void	clear_frame(t_game *game)
 
 	y = 0;
 	mlx_clear_window(game->cub.mlx_con, game->cub.mlx_win);
-	while (y < WIN_HEIGHT)
+	while (y < WIN_SIZE)
 	{
 		x = 0;
-		while (x < WIN_WIDTH)
+		while (x < WIN_SIZE)
 		{
 			put_my_pixel(game, x, y, BLACK);
 			x++;
