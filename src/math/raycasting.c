@@ -105,6 +105,7 @@ static void	cast_ray(t_game *game, int x)
 		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
 	game->ray.s = 1.0 * game->ray.texture.height / game->ray.wall_height;
 	game->ray.tex_pos = (game->ray.bot - WIN_SIZE / 2 + game->ray.wall_height / 2) * game->ray.s;
+	//TODO: add check from inside while loop here! maybe try moduloing it? (leave upper bound check inside while loop though)
 	y = game->ray.bot;
 	while (y < game->ray.top)
 	{
