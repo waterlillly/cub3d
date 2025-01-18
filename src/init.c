@@ -11,6 +11,14 @@ static void init_texture(t_texture *texture)
     texture->ceiling_color = NULL;
 }
 
+static void init_map(t_game *game)
+{
+    printf("init_map\n");
+    game->TheMapInfo.map = NULL;
+    game->TheMapInfo.num_of_rows = 0;
+    game->TheMapInfo.max_column = 0;
+}
+
 void initialization_of_vars(t_game *game)
 {
     printf("initialization_of_vars\n");
@@ -29,4 +37,5 @@ void initialization_of_vars(t_game *game)
 
     //INIT STRUCTS
     init_texture(&game->Itex);
+    init_map(game);
 }

@@ -65,11 +65,23 @@ enum output
 #define SPACE ' '
 #define TAB '\t'
 #define NEWLINE '\n'
+#define CARRET_RETURN '\r'
+#define VERTICAL_TAB '\v'
+#define FORM_FEED '\f'
 
 //************** MACRO FUNCTIONS ************** Macro functions are a piece of code in a program which has a name. When the program is compiled, the name is replaced with the actual code. There are two types of macros: object-like macros and function-like macros.
 
 
 //************** STRUCTS ************** A structure in C is a collection of variables of different data types. These variables are known as members. You can refer to a structure as a single variable, and it can hold multiple variables of different data types.
+
+typedef struct s_TheMap
+{
+	char	**map;
+	int		num_of_rows;
+	int		max_column;
+	int		last_row;
+}		t_TheMap;
+
 
 typedef struct s_texture
 {
@@ -90,7 +102,7 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	char	**map;
+	char	**map;	//delete and use TheMapInfo->map
 	char	**file;
 	char	*path;
 	int		fd;
@@ -109,26 +121,27 @@ typedef struct s_game
 
 	//structs
 	t_texture	Itex;
+	t_TheMap	TheMapInfo;
 
 	int 	exit_status;
-}			t_game;
+}		t_game;
 
 //************** PROTOTYPES ************ Prototypes are the declarations of functions that tell the compiler about the type of the value returned by the function and the number and type of arguments.
 
-void args_handler(int ac, char **av, t_game *game);
-void mapValidator(t_game *game, char **av);
+void	args_handler(int ac, char **av, t_game *game);
+void	mapValidator(t_game *game, char **av);
 char	*ft_strappend(char **s1, const char *s2);
-void read_file(t_game *game, char *av, char **map_temp);
-void initialization_of_vars(t_game *game);
+void	read_file(t_game *game, char *av, char **map_temp);
+void	initialization_of_vars(t_game *game);
 char	**msimic_split(char const *s, char c);
 void	ft_error_msg_free_exit(char *msg, t_game *game);
-void get_map(t_game *game, char *path);
+void	get_whole_file(t_game *game, char *path);
 char	*ft_strjoin_gnl(char *s1, char *s2);
-int file_data(t_game *game, char **file_data);
-void free_array(void **array);
-int add_color(t_texture *Itex, char *line, int column);
-int add_texture(t_texture *Itex, char *line, int column);
-int ft_map_crating(t_game *game, char **file, int row);
+int		file_data(t_game *game, char **file_data);
+void	free_array(void **array);
+int		add_color(t_texture *Itex, char *line, int column);
+int		add_texture(t_texture *Itex, char *line, int column);
+int		map_crating(t_game *game, char **file, int row);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
 //bool	rest_space(char *s, int start);

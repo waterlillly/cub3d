@@ -9,7 +9,7 @@ static  int ascii_print(char c)
         return (0);
 }
 
-static int get_color_and_texture(t_game *game, char **file_data , int row, int column)
+static int get_colors_textures_and_map_info(t_game *game, char **file_data , int row, int column)
 {
     printf("get_color_and_texture\n");
     while (file_data[row][column] == SPACE || file_data[row][column] == TAB || file_data[row][column] == NEWLINE)
@@ -34,7 +34,7 @@ static int get_color_and_texture(t_game *game, char **file_data , int row, int c
     else if (ft_isdigit(file_data[row][column]))
     {
         //Before comming here, what if there is number in tructures file name? Need to handle this?
-        if (ft_map_crating(game, file_data, row) == FAIL)
+        if (map_crating(game, file_data, row) == FAIL)
 			return (FAIL);
 		return (SUCC);
     }
@@ -53,7 +53,7 @@ int file_data(t_game *game, char **file_data)
         column = 0;
         while (file_data[row][column] && row < 11)
         {
-            ret = get_color_and_texture(game, file_data, row, column);
+            ret = get_colors_textures_and_map_info(game, file_data, row, column);
             if (ret == BREAK)
                 break;
             else if (ret == FAIL)

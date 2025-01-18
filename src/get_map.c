@@ -68,7 +68,7 @@ static void get2D_array(t_game *game)
 	game->file[row] = NULL;
 }
 
-void get_map(t_game *game, char *path)
+void get_whole_file(t_game *game, char *path)
 {
 	printf("get_map\n");
 	game->line_count = line_count(game, path);
