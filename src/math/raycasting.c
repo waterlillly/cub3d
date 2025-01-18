@@ -42,7 +42,7 @@ static void	calc_side_dist(t_game *game)
 	else
 	{
 		game->ray.step.x = 1;
-		game->ray.sidedist.x = (game->ray.map.x + 1 - game->ray.pos.x)
+		game->ray.sidedist.x = (game->ray.map.x + 1.0 - game->ray.pos.x)
 			* game->ray.deltadist.x;
 	}
 	if (game->ray.dir.y < 0)
@@ -54,7 +54,7 @@ static void	calc_side_dist(t_game *game)
 	else
 	{
 		game->ray.step.y = 1;
-		game->ray.sidedist.y = (game->ray.map.y + 1 - game->ray.pos.y)
+		game->ray.sidedist.y = (game->ray.map.y + 1.0 - game->ray.pos.y)
 			* game->ray.deltadist.y;
 	}
 }
@@ -63,21 +63,19 @@ static void	get_direction(t_game *game)
 {
 	if (game->ray.side == 0)
 	{
-		game->ray.texture = game->textures[NORTH];
+		game->ray.texture = game->textures[WEST];//game->textures[NORTH];
 		if (game->ray.dir.x > 0)
-			game->ray.texture = game->textures[SOUTH];
-		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x)
-			/ TILE_SIZE;
+			game->ray.texture = game->textures[EAST];//game->textures[SOUTH];
+		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x) / TILE_SIZE;
 		game->ray.wall_x = game->ray.pos.y + game->ray.correct_dist
 			* game->ray.dir.y;
 	}
 	else
 	{
-		game->ray.texture = game->textures[WEST];
+		game->ray.texture = game->textures[NORTH];//game->textures[WEST];
 		if (game->ray.dir.y > 0)
-			game->ray.texture = game->textures[EAST];
-		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y)
-			/ TILE_SIZE;
+			game->ray.texture = game->textures[SOUTH];//game->textures[EAST];
+		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y) / TILE_SIZE;
 		game->ray.wall_x = game->ray.pos.x + game->ray.correct_dist
 			* game->ray.dir.x;
 	}
@@ -104,11 +102,11 @@ static void	cast_ray(t_game *game, int x)
 		(game->ray.side == 1 && game->ray.dir.y < 0))
 		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
 	game->ray.s = 1.0 * game->ray.texture.height / game->ray.wall_height;
-	game->ray.tex_pos = (game->ray.bot - WIN_SIZE / 2 + game->ray.wall_height / 2) * game->ray.s;
-	//TODO: add check from inside while loop here! maybe try moduloing it? (leave upper bound check inside while loop though)
+	// game->ray.tex_pos = (game->ray.bot - WIN_SIZE / 2 + game->ray.wall_height / 2) * game->ray.s;
 	y = game->ray.bot;
 	while (y < game->ray.top)
 	{
+		game->ray.tex_pos = (y - (WIN_SIZE / 2 - game->ray.wall_height / 2)) * game->ray.s;
 		game->ray.tex.y = (int)game->ray.tex_pos;
 		if (game->ray.tex.y < 0)
 			game->ray.tex.y += game->ray.texture.height;
@@ -118,8 +116,8 @@ static void	cast_ray(t_game *game, int x)
 		game->ray.color = *(unsigned int *)(game->ray.texture.addr
 				+ (game->ray.tex.y * game->ray.texture.len + game->ray.tex.x
 					* (game->ray.texture.bpp / 8)));
-		if (game->ray.side == 1)
-			game->ray.color = (game->ray.color >> 1) & 8355711;//TODO: wtf
+		// if (game->ray.side == 1)
+		// 	game->ray.color = (game->ray.color >> 1) & 8355711;//TODO: wtf
 		put_my_pixel(game, x, y, game->ray.color);
 		y++;
 	}
@@ -161,9 +159,9 @@ void	raycasting(t_game *game)
 		game->ray.dir.x = game->player.dir.x + game->plane.x * game->camera;
 		game->ray.dir.y = game->player.dir.y + game->plane.y * game->camera;
 		game->ray.pos = game->player.pos;
+		floor_ceiling(game, x);
 		game->ray.map.x = (int)game->player.pos.x;
 		game->ray.map.y = (int)game->player.pos.y;
-		floor_ceiling(game, x);
 		calc_side_dist(game);
 		calc_side(game);
 		cast_ray(game, x);
