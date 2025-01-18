@@ -62,14 +62,11 @@ void get_whole_file(t_game *game, char *path)
 		free_all(game, MALLOC_FAILED);
 	game->file_mem_alloc = true;
 	game->fd = open(path, O_RDONLY);
-	if (game->fd < 0){
-		free_array((void **)game->file);
+	if (game->fd < 0)
 		free_all(game, MAP_FILE_NOT_FOUND);
-	}
 	else
 	{
 		get2D_array(game);
 		close(game->fd);
 	}
-	// free game->file out of scope 
 }

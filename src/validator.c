@@ -17,6 +17,7 @@ void validator(t_game *game, char **av)
 	printf("mapValidator\n");
 	get_whole_file(game, av[1]);
 	file_data(game, game->file); // check if failing, and if so, free everything or make all void and free everything in the func
-	
-	free_all(game, ".. in validator");
+	valid_map(game);
+
+	free_all(game, NULL);
 }

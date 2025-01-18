@@ -149,6 +149,7 @@ int		add_color(t_texture *Itex, char *line, int column);
 int		add_texture(t_texture *Itex, char *line, int column);
 int		map_crating(t_game *game, char **file, int row);
 void free_all(t_game *game, char *errMSG);
+void valid_map(t_game *game);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
 //bool	rest_space(char *s, int start);
