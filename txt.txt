@@ -1,3 +1,42 @@
+Key Observations from Debug Output:
+wall_x Value Consistency:
+Wall_x: 0.866025 is consistently calculated for a specific wall hit.
+This indicates that the wall intersection point is being computed.
+However, the value of wall_x may still be influenced by player movement
+due to how the intersection point is computed.
+
+tex.x Derivation:
+Tex_x is derived from wall_x and appears stable for the same ray column.
+However, wall_x being tied to the player’s position might make the textures
+appear to move.
+
+Stepping Logic:
+Tex step (s): 2.868742 looks consistent, ensuring the texture scaling along
+the height of the wall is working correctly. This suggests the vertical
+mapping logic (tex_pos) isn't the source of the issue.
+
+	The calculation of wall_x must be relative to the exact wall that was hit,
+	independent of the player's position. Replace the computation of wall_x in
+	get_direction() to ensure it's strictly tied to the wall:
+	if (game->ray.side == 0) { // Vertical wall
+		game->ray.wall_x = game->ray.pos.y + game->ray.correct_dist * game->ray.dir.y;
+	} else { // Horizontal wall
+		game->ray.wall_x = game->ray.pos.x + game->ray.correct_dist * game->ray.dir.x;
+	}
+	game->ray.wall_x -= floor(game->ray.wall_x); // Normalize to [0, 1)
+
+	If game->ray.pos is based on the player’s position without proper adjustments,
+	it may cause wall_x to shift. Adjust how ray.pos is initialized:
+	game->ray.pos.x = game->player.pos.x; // Use player position for raycasting
+	game->ray.pos.y = game->player.pos.y;
+
+	Check if tex.x uses the correct formula to map wall_x consistently:
+	game->ray.tex.x = (int)(game->ray.wall_x * game->ray.texture.width);
+	if ((game->ray.side == 0 && game->ray.dir.x > 0) || 
+		(game->ray.side == 1 && game->ray.dir.y < 0)) {
+		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
+	}
+
 Wall_x: 0.866025, Texture width: 2120, Tex_x: 284
 Texture height: 2120, Wall height: 739, Tex step (s): 2.868742
 Bot: 0, WIN_SIZE/2: 320, Wall height: 739, Tex step: 2.868742, Initial tex_pos: 140.568336
