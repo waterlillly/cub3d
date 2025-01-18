@@ -153,7 +153,7 @@ static void	init_player(t_game *game)
 {
 	game->player.pos.x = 8 * TILE_SIZE; // TODO: get actual x starting position!
 	game->player.pos.y = 5.5 * TILE_SIZE; // TODO: get actual y starting position!
-	game->data.p_orientation = NORTH;   // TODO: get actual direction
+	game->data.p_orientation = EAST;   // TODO: get actual direction
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{

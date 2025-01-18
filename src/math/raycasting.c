@@ -4,18 +4,12 @@ static void	floor_ceiling(t_game *game, int x)
 {
 	int	i;
 
-	i = game->ray.bot;
-	while (i < WIN_SIZE)
-	{
+	i = game->ray.bot - 1;
+	while (++i < WIN_SIZE)
 		put_my_pixel(game, x, i, game->f_color);
-		i++;
-	}
-	i = 0;
-	while (i < game->ray.top)
-	{
+	i = -1;
+	while (++i < game->ray.top)
 		put_my_pixel(game, x, i, game->c_color);
-		i++;
-	}
 }
 
 static void	calc_delta_dist(t_game *game)
@@ -63,64 +57,33 @@ static void	get_direction(t_game *game)
 {
 	if (game->ray.side == 0)
 	{
-		game->ray.texture = game->textures[WEST];//game->textures[NORTH];
+		game->ray.texture = game->textures[WEST];
 		if (game->ray.dir.x > 0)
-			game->ray.texture = game->textures[EAST];//game->textures[SOUTH];
+			game->ray.texture = game->textures[EAST];
 		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x) / TILE_SIZE;
-		game->ray.wall_x = game->ray.pos.y + game->ray.correct_dist
-			* game->ray.dir.y;
+		game->ray.wall_x = game->ray.pos.y + game->ray.correct_dist * game->ray.dir.y;//game->ray.map.y was game->ray.pos.y
 	}
 	else
 	{
-		game->ray.texture = game->textures[NORTH];//game->textures[WEST];
+		game->ray.texture = game->textures[NORTH];
 		if (game->ray.dir.y > 0)
-			game->ray.texture = game->textures[SOUTH];//game->textures[EAST];
+			game->ray.texture = game->textures[SOUTH];
 		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y) / TILE_SIZE;
-		game->ray.wall_x = game->ray.pos.x + game->ray.correct_dist
-			* game->ray.dir.x;
+		game->ray.wall_x = game->ray.pos.x + game->ray.correct_dist * game->ray.dir.x;
 	}
-	game->ray.wall_x -= floor(game->ray.wall_x);
+	game->ray.wall_x -= floor(game->ray.wall_x);//TODO: wall_x is prob the issue why textures are moving
+	//TODO: or it could be the x coordinate from the loop on the bottom!
 }
 
 static void	calc_wall(t_game *game)
 {
-	game->ray.wall_height = (int)WIN_SIZE / game->ray.correct_dist;
+	game->ray.wall_height = (int)(WIN_SIZE / game->ray.correct_dist);
 	game->ray.bot = WIN_SIZE / 2 - game->ray.wall_height / 2;
 	if (game->ray.bot < 0)
 		game->ray.bot = 0;
 	game->ray.top = WIN_SIZE / 2 + game->ray.wall_height / 2;
 	if (game->ray.top >= WIN_SIZE)
 		game->ray.top = WIN_SIZE - 1;
-}
-
-static void	cast_ray(t_game *game, int x)
-{
-	int		y;
-
-	game->ray.tex.x = (int)(game->ray.wall_x * game->ray.texture.width);
-	if ((game->ray.side == 0 && game->ray.dir.x > 0) ||
-		(game->ray.side == 1 && game->ray.dir.y < 0))
-		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
-	game->ray.s = 1.0 * game->ray.texture.height / game->ray.wall_height;
-	// game->ray.tex_pos = (game->ray.bot - WIN_SIZE / 2 + game->ray.wall_height / 2) * game->ray.s;
-	y = game->ray.bot;
-	while (y < game->ray.top)
-	{
-		game->ray.tex_pos = (y - (WIN_SIZE / 2 - game->ray.wall_height / 2)) * game->ray.s;
-		game->ray.tex.y = (int)game->ray.tex_pos;
-		if (game->ray.tex.y < 0)
-			game->ray.tex.y += game->ray.texture.height;
-		else if (game->ray.tex.y >= game->ray.texture.height)
-			game->ray.tex.y %= game->ray.texture.height;
-		game->ray.tex_pos += game->ray.s;
-		game->ray.color = *(unsigned int *)(game->ray.texture.addr
-				+ (game->ray.tex.y * game->ray.texture.len + game->ray.tex.x
-					* (game->ray.texture.bpp / 8)));
-		// if (game->ray.side == 1)
-		// 	game->ray.color = (game->ray.color >> 1) & 8355711;//TODO: wtf
-		put_my_pixel(game, x, y, game->ray.color);
-		y++;
-	}
 }
 
 static void	calc_side(t_game *game)
@@ -148,6 +111,31 @@ static void	calc_side(t_game *game)
 	}
 }
 
+static void	cast_ray(t_game *game, int x)
+{
+	int		y;
+
+	game->ray.tex.x = (int)(game->ray.wall_x * game->ray.texture.width);
+	if ((game->ray.side == 0 && game->ray.dir.x > 0) ||
+		(game->ray.side == 1 && game->ray.dir.y < 0))
+		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
+	game->ray.s = 1.0 * game->ray.texture.height / game->ray.wall_height;
+	game->ray.tex_pos = (game->ray.bot - WIN_SIZE / 2 + game->ray.wall_height / 2) * game->ray.s;
+	y = game->ray.bot;
+	while (y < game->ray.top)
+	{
+		game->ray.tex.y = (int)game->ray.tex_pos;
+		game->ray.tex_pos += game->ray.s;
+		game->ray.color = *(unsigned int *)(game->ray.texture.addr
+				+ (game->ray.tex.y * game->ray.texture.len
+				+ game->ray.tex.x * (game->ray.texture.bpp / 8)));
+		// if (game->ray.side == 1)
+		// 	game->ray.color = (game->ray.color >> 1) & 8355711;//TODO: wtf
+		put_my_pixel(game, x, y, game->ray.color);
+		y++;
+	}
+}
+
 void	raycasting(t_game *game)
 {
 	int	x;
@@ -158,7 +146,8 @@ void	raycasting(t_game *game)
 		game->camera = 2.0 * x / WIN_SIZE - 1;
 		game->ray.dir.x = game->player.dir.x + game->plane.x * game->camera;
 		game->ray.dir.y = game->player.dir.y + game->plane.y * game->camera;
-		game->ray.pos = game->player.pos;
+		game->ray.pos.x = game->player.pos.x;
+		game->ray.pos.y = game->player.pos.y;
 		floor_ceiling(game, x);
 		game->ray.map.x = (int)game->player.pos.x;
 		game->ray.map.y = (int)game->player.pos.y;
