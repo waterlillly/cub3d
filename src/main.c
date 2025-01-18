@@ -7,12 +7,10 @@ int	main(int ac, char **av)
 
 	game = malloc(sizeof(t_game));
 	if (game == NULL)
-		ft_error_msg_free_exit(MALLOC_FAILED, game);
-	game->map_alloc = 0;
-
+		free_all(game, MALLOC_FAILED);
 	initialization_of_vars(game);
 	args_handler(ac, av, game);
-	mapValidator(game, av);
+	validator(game, av);
 
 	free(game);
 }

@@ -69,22 +69,21 @@ static int init_map(t_game *game, char **file, int row)
     game->TheMapInfo.map = (char **)malloc(sizeof(char *) * (game->TheMapInfo.num_of_rows + 1));
     if (!game->TheMapInfo.map)
     {
-        ft_error_msg_free_exit("Error\n", game); //free everything that was allocated
+        free_all(game, MALLOC_FAILED);
         return (FAIL);
     }
-    if (make_the_map(game , file, row) == FAIL)
-    {
-        ft_error_msg_free_exit("Error\n", game); //free everything that was allocated
-        return (FAIL);
-    }
+    game->TheMapInfo.map_mem_alloc = true;
+    make_the_map(game , file, row);
     return (SUCC);
 }
 
 int map_crating(t_game *game, char **file, int row)
 {
     printf("ft_map_crating\n");
-    if (init_map(game, file, row) == FAIL)
+    if (init_map(game, file, row) == FAIL){
+        free_all(game, ".. in init_map");
         return (FAIL);
+    }
     int i = 0;
     while (game->TheMapInfo.map[i])
     {

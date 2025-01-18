@@ -44,14 +44,22 @@ int add_texture(t_texture *Itex, char *line, int column)
     printf("add_texture\n");
     if (line[column + 2] && ascii_print(line[column + 2]))
         return (ERR);
-    if (line[column] == 'N' && line[column + 1] == 'O' && !(Itex->north))
+    if (line[column] == 'N' && line[column + 1] == 'O' && !(Itex->north)){
         Itex->north = texture_path(line, column + 2);
-    else if (line[column] == 'S' && line[column + 1] == 'O' && !(Itex->south))
+        Itex->north_mem_alloc = true;
+    }
+    else if (line[column] == 'S' && line[column + 1] == 'O' && !(Itex->south)){
         Itex->south = texture_path(line, column + 2);
-    else if (line[column] == 'W' && line[column + 1] == 'E' && !(Itex->west))
+        Itex->south_mem_alloc = true;
+    }
+    else if (line[column] == 'W' && line[column + 1] == 'E' && !(Itex->west)){
         Itex->west = texture_path(line, column + 2);
-    else if (line[column] == 'E' && line[column + 1] == 'A' && !(Itex->east))
+        Itex->west_mem_alloc = true;
+    }
+    else if (line[column] == 'E' && line[column + 1] == 'A' && !(Itex->east)){
         Itex->east = texture_path(line, column + 2);
+        Itex->east_mem_alloc = true;
+    }
     else
         return (ERR);
     return (SUCC);

@@ -26,16 +26,20 @@ static int get_colors_textures_and_map_info(t_game *game, char **file_data , int
         {
             //If the character is a number, it is a color
             printf("%c%c\n", file_data[row][column], file_data[row][column + 1]);
-            if (add_color(&game->Itex, file_data[row], column) == ERR)
+            if (add_color(&game->Itex, file_data[row], column) == ERR){
+                free_all(game, ".. in add_color");
                 return (FAIL);
+            }
             return (BREAK);
         }
     }
     else if (ft_isdigit(file_data[row][column]))
     {
         //Before comming here, what if there is number in tructures file name? Need to handle this?
-        if (map_crating(game, file_data, row) == FAIL)
-			return (FAIL);
+        if (map_crating(game, file_data, row) == FAIL){
+			free_all(game, ".. in map_crating");
+            return (FAIL);
+        } 
 		return (SUCC);
     }
     return (CONT);

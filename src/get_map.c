@@ -1,21 +1,5 @@
 #include "../cub3d.h"
 
-void free_array(void **array)
-{
-	printf("free_array\n");
-	size_t i = 0;
-
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		i++;
-	}
-	if (array){
-		free(array);
-		array = NULL;
-	}
-}
-
 static int line_count(t_game *game, char *path)
 {
 	printf("line_count\n");
@@ -26,7 +10,7 @@ static int line_count(t_game *game, char *path)
 	line_count = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_error_msg_free_exit(MAP_FILE_NOT_FOUND, game);
+		free_all(game, MAP_FILE_NOT_FOUND);
 	else
 	{
 		line = get_next_line(fd);
@@ -75,11 +59,12 @@ void get_whole_file(t_game *game, char *path)
 	game->path = path;
 	game->file = malloc(sizeof(char *) * (game->line_count + 1));
 	if (!game->file)
-		ft_error_msg_free_exit(MALLOC_FAILED, game);
+		free_all(game, MALLOC_FAILED);
+	game->file_mem_alloc = true;
 	game->fd = open(path, O_RDONLY);
 	if (game->fd < 0){
 		free_array((void **)game->file);
-		ft_error_msg_free_exit(MAP_FILE_NOT_FOUND, game);
+		free_all(game, MAP_FILE_NOT_FOUND);
 	}
 	else
 	{

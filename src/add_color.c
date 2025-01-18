@@ -93,6 +93,7 @@ int add_color(t_texture *Itex, char *line, int column)
             printf("Error\n");
             return (ERR);
         }
+        Itex->floor_mem_alloc = true;
         printf("floor_color: %d %d %d\n", Itex->floor_color[0], Itex->floor_color[1], Itex->floor_color[2]);
     }
     else if (!Itex->ceiling_color && line[column] == 'C')
@@ -102,6 +103,7 @@ int add_color(t_texture *Itex, char *line, int column)
             printf("Error\n");
             return (ERR);
         }
+        Itex->ceiling_mem_alloc = true;
         printf("ceiling_color: %d %d %d\n", Itex->ceiling_color[0], Itex->ceiling_color[1], Itex->ceiling_color[2]);
     }
     else

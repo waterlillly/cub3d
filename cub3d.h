@@ -77,6 +77,7 @@ enum output
 typedef struct s_TheMap
 {
 	char	**map;
+	bool   	map_mem_alloc;
 	int		num_of_rows;
 	int		max_column;
 	int		last_row;
@@ -86,11 +87,17 @@ typedef struct s_TheMap
 typedef struct s_texture
 {
 	char	*north;
+	bool   	north_mem_alloc;
 	char	*south;
+	bool   	south_mem_alloc;
 	char	*west;
+	bool   	west_mem_alloc;
 	char	*east;
+	bool   	east_mem_alloc;
 	int		*floor_color; // "F: Floor color in RGB format."
+	bool   	floor_mem_alloc;
 	int		*ceiling_color;	// "C: Ceiling color in RGB format."
+	bool   	ceiling_mem_alloc;
 }		t_texture;
 
 typedef struct s_player
@@ -102,12 +109,11 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	char	**map;	//delete and use TheMapInfo->map
 	char	**file;
+	bool	file_mem_alloc;
 	char	*path;
 	int		fd;
 	int		line_count;
-	int		map_alloc;
 	int		num_of_rows;
 	int		num_of_columns;
 	int		num_of_player;
@@ -129,7 +135,7 @@ typedef struct s_game
 //************** PROTOTYPES ************ Prototypes are the declarations of functions that tell the compiler about the type of the value returned by the function and the number and type of arguments.
 
 void	args_handler(int ac, char **av, t_game *game);
-void	mapValidator(t_game *game, char **av);
+void	validator(t_game *game, char **av);
 char	*ft_strappend(char **s1, const char *s2);
 void	read_file(t_game *game, char *av, char **map_temp);
 void	initialization_of_vars(t_game *game);
@@ -142,6 +148,7 @@ void	free_array(void **array);
 int		add_color(t_texture *Itex, char *line, int column);
 int		add_texture(t_texture *Itex, char *line, int column);
 int		map_crating(t_game *game, char **file, int row);
+void free_all(t_game *game, char *errMSG);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
 //bool	rest_space(char *s, int start);
