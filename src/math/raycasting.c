@@ -30,25 +30,25 @@ static void	calc_side_dist(t_game *game)
 	if (game->ray.dir.x < 0)
 	{
 		game->ray.step.x = -1;
-		game->ray.sidedist.x = (game->ray.pos.x - game->ray.map.x)
+		game->ray.sidedist.x = (game->player.pos.x - game->ray.map.x)
 			* game->ray.deltadist.x;
 	}
 	else
 	{
 		game->ray.step.x = 1;
-		game->ray.sidedist.x = (game->ray.map.x + 1.0 - game->ray.pos.x)
+		game->ray.sidedist.x = (game->ray.map.x + 1.0 - game->player.pos.x)
 			* game->ray.deltadist.x;
 	}
 	if (game->ray.dir.y < 0)
 	{
 		game->ray.step.y = -1;
-		game->ray.sidedist.y = (game->ray.pos.y - game->ray.map.y)
+		game->ray.sidedist.y = (game->player.pos.y - game->ray.map.y)
 			* game->ray.deltadist.y;
 	}
 	else
 	{
 		game->ray.step.y = 1;
-		game->ray.sidedist.y = (game->ray.map.y + 1.0 - game->ray.pos.y)
+		game->ray.sidedist.y = (game->ray.map.y + 1.0 - game->player.pos.y)
 			* game->ray.deltadist.y;
 	}
 }
@@ -60,16 +60,20 @@ static void	get_direction(t_game *game)
 		game->ray.texture = game->textures[WEST];
 		if (game->ray.dir.x > 0)
 			game->ray.texture = game->textures[EAST];
+		// game->ray.correct_dist = ((game->ray.map.x - game->player.pos.x + (1 - game->ray.step.x) / 2) / game->ray.dir.x) / TILE_SIZE;
 		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x) / TILE_SIZE;
-		game->ray.wall_x = game->ray.pos.y + game->ray.correct_dist * game->ray.dir.y;//game->ray.map.y was game->ray.pos.y
+		game->ray.wall_x = game->player.pos.y + game->ray.correct_dist * game->ray.dir.y;
+		// game->ray.wall_x = game->ray.map.y + game->ray.correct_dist * game->ray.dir.y;
 	}
 	else
 	{
 		game->ray.texture = game->textures[NORTH];
 		if (game->ray.dir.y > 0)
 			game->ray.texture = game->textures[SOUTH];
+		// game->ray.correct_dist = ((game->ray.map.y - game->player.pos.y + (1 - game->ray.step.y) / 2) / game->ray.dir.y) / TILE_SIZE;
 		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y) / TILE_SIZE;
-		game->ray.wall_x = game->ray.pos.x + game->ray.correct_dist * game->ray.dir.x;
+		game->ray.wall_x = game->player.pos.x + game->ray.correct_dist * game->ray.dir.x;
+		// game->ray.wall_x = game->ray.map.x + game->ray.correct_dist * game->ray.dir.x;
 	}
 	game->ray.wall_x -= floor(game->ray.wall_x);//TODO: wall_x is prob the issue why textures are moving
 	//TODO: or it could be the x coordinate from the loop on the bottom!
@@ -146,8 +150,6 @@ void	raycasting(t_game *game)
 		game->camera = 2.0 * x / WIN_SIZE - 1;
 		game->ray.dir.x = game->player.dir.x + game->plane.x * game->camera;
 		game->ray.dir.y = game->player.dir.y + game->plane.y * game->camera;
-		game->ray.pos.x = game->player.pos.x;
-		game->ray.pos.y = game->player.pos.y;
 		floor_ceiling(game, x);
 		game->ray.map.x = (int)game->player.pos.x;
 		game->ray.map.y = (int)game->player.pos.y;
