@@ -128,8 +128,8 @@ static void	cast_ray(t_game *game, int x)
 		game->ray.color = *(unsigned int *)(game->ray.texture.addr
 				+ (game->ray.tex.y * game->ray.texture.len
 				+ game->ray.tex.x * (game->ray.texture.bpp / 8)));
-		// if (game->ray.side == 1)
-		// 	game->ray.color = (game->ray.color >> 1) & 8355711;//TODO: wtf
+		if (game->ray.side == 1)
+			game->ray.color = (game->ray.color >> 1) & 8355711;//TODO: wtf
 		put_my_pixel(game, x, y, game->ray.color);
 		y++;
 	}
@@ -137,14 +137,15 @@ static void	cast_ray(t_game *game, int x)
 
 void	raycasting(t_game *game)
 {
-	int	x;
+	int		x;
+	double	camera;
 
 	x = 0;
 	while (x < WIN_SIZE)
 	{
-		game->camera = 2.0 * x / WIN_SIZE - 1;
-		game->ray.dir.x = game->player.dir.x + game->plane.x * game->camera;
-		game->ray.dir.y = game->player.dir.y + game->plane.y * game->camera;
+		camera = 2.0 * x / WIN_SIZE - 1;
+		game->ray.dir.x = game->player.dir.x + game->plane.x * camera;
+		game->ray.dir.y = game->player.dir.y + game->plane.y * camera;
 		floor_ceiling(game, x);
 		game->ray.map.x = (int)game->player.pos.x;
 		game->ray.map.y = (int)game->player.pos.y;

@@ -1,5 +1,12 @@
 #include "../../cub3d.h"
 
+// bool	check_screensize(t_game *game)
+// {
+// 	int	screensize;
+
+// 	screensize = mlx_get_screen_size()
+// }
+
 static int color(int *color)
 {
 	return ((color[0] << 16) | (color[1] << 8) | color[2]);

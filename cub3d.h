@@ -121,22 +121,34 @@ typedef struct s_data
 	int				p_orientation;
 	int				floor_color[3];
 	int				ceiling_color[3];
+	t_ivec			screensize;//TODO: get and check screensize of actual screen-> possible WIN_SIZE?
 }					t_data;
+
+typedef struct s_control
+{
+	bool			exit;
+	bool			forward;
+	bool			backward;
+	bool			left;
+	bool			right;
+	bool			turn_left;
+	bool			turn_right;
+}					t_control;
 
 typedef struct s_game
 {
 	char			**map;
-	int				map_size;
+	int				map_size;//TODO: get height and width!
 	t_data			data;
 	t_image			textures[4];
 	int				c_color;
 	int				f_color;
+	t_control		control;
 	t_cub			cub;
 	t_player		player;
 	t_ray			ray;
-	double			camera;
 	t_dvec			plane;
-	int				exit_status;
+	int				exit_status;//needed?
 }					t_game;
 
 /* ************ PROTOTYPES ************ */
