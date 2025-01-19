@@ -8,4 +8,5 @@
 <!-- -> check minimapsize always being the same size, no matter the mapsize -->
 -> check screen size and set error if too big
 -> try to be able to use 2 keys at once
+-> what if map is not a square?
 

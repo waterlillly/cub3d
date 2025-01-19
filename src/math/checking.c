@@ -26,7 +26,7 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 
 	x = floor(new_x / (TILE_SIZE));
 	y = floor(new_y / (TILE_SIZE));
-	if (x < 0 || x >= MAP_SIZE || y < 0 || y >= MAP_SIZE)
+	if (x < 0 || x >= game->map_size || y < 0 || y >= game->map_size)
 		return (true);
 	return (game->map[y][x] >= 49 || game->map[y][x] == 32);//TODO: add check for doors etc in bonus
 }

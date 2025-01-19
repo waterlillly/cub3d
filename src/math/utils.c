@@ -14,27 +14,6 @@ t_dvec	norm(t_dvec vec)
 	return (result);
 }
 
-/* Convert vector to angle + normalize it */
-double	vector_to_angle(t_dvec vec)
-{
-	double	result;
-	t_dvec	n;
-
-	n = norm(vec);
-	result = atan2(n.y, n.x);
-	return (result);
-}
-
-/* Convert angle to vector + normalize it */
-t_dvec	angle_to_vector(double angle)
-{
-	t_dvec	result;
-
-	result.x = cos(angle);
-	result.y = sin(angle);
-	return (norm(result));
-}
-
 bool	crashed(t_game *game, double x1, double y1)
 {
 	int	x;
@@ -42,7 +21,7 @@ bool	crashed(t_game *game, double x1, double y1)
 
 	x = x1;
 	y = y1;
-	if (x < 0 || x >= MAP_SIZE || y < 0 || y >= MAP_SIZE)
+	if (x < 0 || x >= game->map_size || y < 0 || y >= game->map_size)
 		return (true);
 	return (game->map[y][x] == '1');
 }

@@ -44,10 +44,10 @@ void	render_minimap(t_game *game)
 	int	py;
 
 	y = -1;
-	while (++y < MAP_SIZE)
+	while (++y < game->map_size)
 	{
 		x = -1;
-		while (++x < MAP_SIZE)
+		while (++x < game->map_size)
 		{
 			color = WHITE;
 			if (crashed(game, x, y))

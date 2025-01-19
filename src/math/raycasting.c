@@ -60,26 +60,21 @@ static void	get_direction(t_game *game)
 		game->ray.texture = game->textures[WEST];
 		if (game->ray.dir.x > 0)
 			game->ray.texture = game->textures[EAST];
-		// game->ray.correct_dist = ((game->ray.map.x - game->player.pos.x + (1 - game->ray.step.x) / 2) / game->ray.dir.x) / TILE_SIZE;
 		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x) / TILE_SIZE;
-		game->ray.wall_x = game->player.pos.y + game->ray.correct_dist * game->ray.dir.y;
-		// game->ray.wall_x = game->ray.map.y + game->ray.correct_dist * game->ray.dir.y;
+		game->ray.wall_x = (game->ray.map.y + game->ray.correct_dist * game->ray.dir.y) / (double)TILE_SIZE;
 	}
 	else
 	{
 		game->ray.texture = game->textures[NORTH];
 		if (game->ray.dir.y > 0)
 			game->ray.texture = game->textures[SOUTH];
-		// game->ray.correct_dist = ((game->ray.map.y - game->player.pos.y + (1 - game->ray.step.y) / 2) / game->ray.dir.y) / TILE_SIZE;
 		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y) / TILE_SIZE;
-		game->ray.wall_x = game->player.pos.x + game->ray.correct_dist * game->ray.dir.x;
-		// game->ray.wall_x = game->ray.map.x + game->ray.correct_dist * game->ray.dir.x;
+		game->ray.wall_x = (game->ray.map.x + game->ray.correct_dist * game->ray.dir.x) / (double)TILE_SIZE;
 	}
-	game->ray.wall_x -= floor(game->ray.wall_x);//TODO: wall_x is prob the issue why textures are moving
-	//TODO: or it could be the x coordinate from the loop on the bottom!
+	game->ray.wall_x -= floor(game->ray.wall_x);
 }
 
-static void	calc_wall(t_game *game)
+static void	calc_wall_height(t_game *game)
 {
 	game->ray.wall_height = (int)(WIN_SIZE / game->ray.correct_dist);
 	game->ray.bot = WIN_SIZE / 2 - game->ray.wall_height / 2;
@@ -109,7 +104,7 @@ static void	calc_side(t_game *game)
 		if (is_wall(game, game->ray.map.x, game->ray.map.y))
 		{
 			get_direction(game);
-			calc_wall(game);
+			calc_wall_height(game);
 			break ;
 		}
 	}

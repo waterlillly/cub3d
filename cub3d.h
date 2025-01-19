@@ -29,8 +29,8 @@
 # define WIN_SIZE 640
 # define TILE_SIZE (WIN_SIZE * 0.1)
 # define MINIMAP_SIZE floor(WIN_SIZE * 0.2)
-# define MINI_TILE (MINIMAP_SIZE / MAP_SIZE)
-# define MAP_SIZE 25
+# define MINI_TILE (MINIMAP_SIZE / game->map_size)
+// # define MAP_SIZE 25
 # define FOV 60 * (M_PI / 180)
 
 # define BLACK 0x00000000
@@ -93,7 +93,6 @@ typedef struct s_ray
 {
 	t_image			texture;
 	t_dvec			dir;
-	t_dvec			pos;
 	t_dvec			deltadist;
 	t_dvec			sidedist;
 	t_ivec			map;
@@ -105,6 +104,7 @@ typedef struct s_ray
 	double			wall_x;
 	double			s;
 	int				wall_height;
+	int				wall_width;
 	int				bot;
 	int				top;
 	int				side;
@@ -126,6 +126,7 @@ typedef struct s_data
 typedef struct s_game
 {
 	char			**map;
+	int				map_size;
 	t_data			data;
 	t_image			textures[4];
 	int				c_color;
@@ -145,6 +146,9 @@ void				exit_failure(char *s, t_game *game);
 int					exit_success(t_game *game);
 
 /* init.c */
+void				init_map_hallway(t_game *game);
+void				init_map(t_game *game);
+void				init_map_tiny(t_game *game);
 void				init_cub(t_game *game);
 
 /* mlx_events.c */
@@ -176,8 +180,6 @@ bool				is_wall(t_game *game, double new_x, double new_y);
 
 /* utils.c */
 t_dvec				norm(t_dvec vec);
-double				vector_to_angle(t_dvec vec);
-t_dvec				angle_to_vector(double angle);
 bool				crashed(t_game *game, double x1, double y1);
 
 /* minimap.c */
