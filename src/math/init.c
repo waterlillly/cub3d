@@ -2,8 +2,9 @@
 
 void	init_map_hallway(t_game *game) // TODO: delete and get actual map
 {
-	game->map_size = 100;
-	game->map = ft_calloc(game->map_size + 1, sizeof(char *));
+	game->map_height = 100;
+	game->map_width = 100;
+	game->map = ft_calloc(game->map_height + 1, sizeof(char) * game->map_width + 1);
 	if (!game->map)
 		exit_failure("ft_calloc", game);
 	game->map[0] = ft_strdup("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
@@ -35,8 +36,9 @@ void	init_map_hallway(t_game *game) // TODO: delete and get actual map
 
 void	init_map(t_game *game) // TODO: delete and get actual map
 {
-	game->map_size = 25;
-	game->map = ft_calloc(game->map_size + 1, sizeof(char *));
+	game->map_height = 25;
+	game->map_width = 25;
+	game->map = ft_calloc(game->map_height + 1, sizeof(char) * game->map_width + 1);
 	if (!game->map)
 		exit_failure("ft_calloc", game);
 	game->map[0] = ft_strdup("1111111111111111111111111");
@@ -68,8 +70,9 @@ void	init_map(t_game *game) // TODO: delete and get actual map
 
 void	init_map_tiny(t_game *game) // TODO: delete and get actual map
 {
-	game->map_size = 10;
-	game->map = ft_calloc(game->map_size + 1, sizeof(char *));
+	game->map_height = 10;
+	game->map_width = 10;
+	game->map = ft_calloc(game->map_height + 1, sizeof(char) * game->map_width + 1);
 	if (!game->map)
 		exit_failure("ft_calloc", game);
 	game->map[0] = ft_strdup("1111111111");
@@ -89,10 +92,10 @@ static void	load_textures(t_game *game)
 	int	i;
 
 	i = 0;
-	game->textures[NORTH].name = "assets/textures/moon.xpm";
-	game->textures[SOUTH].name = "assets/textures/moon.xpm";
-	game->textures[EAST].name = "assets/textures/pattern.xpm";
-	game->textures[WEST].name = "assets/textures/pattern.xpm";
+	game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	game->textures[EAST].name = "assets/textures/white_cartoon_bricks.xpm";
+	game->textures[WEST].name = "assets/textures/white_cartoon_bricks.xpm";
 	while (i < 4)
 	{
 		if (access(game->textures[i].name, F_OK))
@@ -168,8 +171,14 @@ static void	init_player(t_game *game)
 		game->plane.x = 0.0;
 		game->plane.y = tan(FOV / 2.0);
 	}
-	game->player.move_speed = 5;
-	game->player.turn_speed = 0.1;
+	game->control.forward_velo = 5;
+	game->control.backward_velo = 5;
+	game->control.left_velo = 5;
+	game->control.right_velo = 5;
+	game->control.turn_left_velo = 0.1;
+	game->control.turn_right_velo = 0.1;
+	// game->player.move_speed = 5;
+	// game->player.turn_speed = 0.1;
 }
 
 void	init_cub(t_game *game)

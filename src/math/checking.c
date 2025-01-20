@@ -1,12 +1,5 @@
 #include "../../cub3d.h"
 
-// bool	check_screensize(t_game *game)
-// {
-// 	int	screensize;
-
-// 	screensize = mlx_get_screen_size()
-// }
-
 static int color(int *color)
 {
 	return ((color[0] << 16) | (color[1] << 8) | color[2]);
@@ -33,7 +26,7 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 
 	x = floor(new_x / (TILE_SIZE));
 	y = floor(new_y / (TILE_SIZE));
-	if (x < 0 || x >= game->map_size || y < 0 || y >= game->map_size)
+	if (x < 0 || x >= game->map_width || y < 0 || y >= game->map_height)
 		return (true);
 	return (game->map[y][x] >= 49 || game->map[y][x] == 32);//TODO: add check for doors etc in bonus
 }

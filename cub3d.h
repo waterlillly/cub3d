@@ -29,8 +29,8 @@
 # define WIN_SIZE 640
 # define TILE_SIZE (WIN_SIZE * 0.1)
 # define MINIMAP_SIZE floor(WIN_SIZE * 0.2)
-# define MINI_TILE (MINIMAP_SIZE / game->map_size)
-// # define MAP_SIZE 25
+# define MINI_TILE_WIDTH (MINIMAP_SIZE / game->map_width)
+# define MINI_TILE_HEIGHT (MINIMAP_SIZE / game->map_height)
 # define FOV 60 * (M_PI / 180)
 
 # define BLACK 0x00000000
@@ -121,24 +121,29 @@ typedef struct s_data
 	int				p_orientation;
 	int				floor_color[3];
 	int				ceiling_color[3];
-	t_ivec			screensize;//TODO: get and check screensize of actual screen-> possible WIN_SIZE?
 }					t_data;
 
 typedef struct s_control
 {
-	bool			exit;
 	bool			forward;
 	bool			backward;
 	bool			left;
 	bool			right;
 	bool			turn_left;
 	bool			turn_right;
+	double			forward_velo;
+	double			backward_velo;
+	double			left_velo;
+	double			right_velo;
+	double			turn_left_velo;
+	double			turn_right_velo;
 }					t_control;
 
 typedef struct s_game
 {
 	char			**map;
-	int				map_size;//TODO: get height and width!
+	int				map_width;
+	int				map_height;
 	t_data			data;
 	t_image			textures[4];
 	int				c_color;
@@ -186,6 +191,7 @@ void				buffer_to_image(t_game *game);
 void				raycasting(t_game *game);
 
 /* checking.c */
+// bool				check_screensize(t_game *game);
 void				get_colors(t_game *game);
 void				check_texture(t_game *game, int i);
 bool				is_wall(t_game *game, double new_x, double new_y);
