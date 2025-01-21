@@ -141,9 +141,9 @@ typedef struct s_control
 
 typedef struct s_game
 {
-	char			**map;
-	int				map_width;
-	int				map_height;
+	char			**map;//TODO: put into data?
+	int				map_width;//TODO: put into data?
+	int				map_height;//TODO: put into data?
 	t_data			data;
 	t_image			textures[4];
 	int				c_color;
@@ -153,7 +153,7 @@ typedef struct s_game
 	t_player		player;
 	t_ray			ray;
 	t_dvec			plane;
-	int				exit_status;//needed?
+	int exit_status; // needed?
 }					t_game;
 
 /* ************ PROTOTYPES ************ */
@@ -163,14 +163,14 @@ void				exit_failure(char *s, t_game *game);
 int					exit_success(t_game *game);
 
 /* init.c */
+void				init_cub(t_game *game);
+
+/* maps.c */
 void				init_map_hallway(t_game *game);
 void				init_map(t_game *game);
 void				init_map_tiny(t_game *game);
-void				init_cub(t_game *game);
 
 /* mlx_events.c */
-int					handle_keypress(int keycode, t_game *game);
-int					render(t_game *game);
 int					mlx_handler(t_game *game);
 
 /* movement.c */
@@ -190,8 +190,12 @@ void				buffer_to_image(t_game *game);
 /* raycasting.c */
 void				raycasting(t_game *game);
 
+/* raycasting2.c */
+void				floor_ceiling(t_game *game, int x);
+void				calc_side_dist(t_game *game);
+void				get_direction(t_game *game);
+
 /* checking.c */
-// bool				check_screensize(t_game *game);
 void				get_colors(t_game *game);
 void				check_texture(t_game *game, int i);
 bool				is_wall(t_game *game, double new_x, double new_y);

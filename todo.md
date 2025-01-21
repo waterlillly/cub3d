@@ -14,3 +14,4 @@
 -> rotate the view with the mouse
 -> add animated sprites
 -> add textures for ceiling and floor
+-> fix textures being displayed mirrored

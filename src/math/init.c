@@ -1,101 +1,10 @@
 #include "../../cub3d.h"
 
-void	init_map_hallway(t_game *game) // TODO: delete and get actual map
-{
-	game->map_height = 100;
-	game->map_width = 100;
-	game->map = ft_calloc(game->map_height + 1, sizeof(char) * game->map_width + 1);
-	if (!game->map)
-		exit_failure("ft_calloc", game);
-	game->map[0] = ft_strdup("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
-	game->map[1] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[2] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[3] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[4] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[5] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[6] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[7] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[8] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[9] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	
-	// Long hallway starts
-	for (int i = 10; i <= 90; i++)
-		game->map[i] = ft_strdup("1111111111111111111111101111111111111111111111111011111111111111111111111011111111111111111111111111");
-
-	// Map resumes
-	game->map[91] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[92] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[93] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[94] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[95] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[96] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[97] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[98] = ft_strdup("1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
-	game->map[99] = ft_strdup("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
-}
-
-void	init_map(t_game *game) // TODO: delete and get actual map
-{
-	game->map_height = 25;
-	game->map_width = 25;
-	game->map = ft_calloc(game->map_height + 1, sizeof(char) * game->map_width + 1);
-	if (!game->map)
-		exit_failure("ft_calloc", game);
-	game->map[0] = ft_strdup("1111111111111111111111111");
-	game->map[1] = ft_strdup("1000000000000000000000001");
-	game->map[2] = ft_strdup("1011110111110111110111101");
-	game->map[3] = ft_strdup("1010010000010000010000101");
-	game->map[4] = ft_strdup("1010010111010111010111101");
-	game->map[5] = ft_strdup("1010000000000000000000101");
-	game->map[6] = ft_strdup("1110111111011111011110101");
-	game->map[7] = ft_strdup("1000100011010001010000101");
-	game->map[8] = ft_strdup("1011101111010111011111101");
-	game->map[9] = ft_strdup("1000000000000100000000001");
-	game->map[10] = ft_strdup("1010111011111111111011101");
-	game->map[11] = ft_strdup("1010000010000000010000101");
-	game->map[12] = ft_strdup("1011111010111111010111101");
-	game->map[13] = ft_strdup("1000000010001000010000001");
-	game->map[14] = ft_strdup("1011111111011111111111101");
-	game->map[15] = ft_strdup("1010000000000000000000001");
-	game->map[16] = ft_strdup("1010111111111111111011101");
-	game->map[17] = ft_strdup("1000000000000000000000001");
-	game->map[18] = ft_strdup("1011111011111011111011101");
-	game->map[19] = ft_strdup("1000000010000010000010001");
-	game->map[20] = ft_strdup("1111011110111111111110001");
-	game->map[21] = ft_strdup("1000000000000000000000001");
-	game->map[22] = ft_strdup("1011110111110111110111101");
-	game->map[23] = ft_strdup("1000100001000000000000101");
-	game->map[24] = ft_strdup("1111111111111111111111111");
-}
-
-void	init_map_tiny(t_game *game) // TODO: delete and get actual map
-{
-	game->map_height = 10;
-	game->map_width = 10;
-	game->map = ft_calloc(game->map_height + 1, sizeof(char) * game->map_width + 1);
-	if (!game->map)
-		exit_failure("ft_calloc", game);
-	game->map[0] = ft_strdup("1111111111");
-	game->map[1] = ft_strdup("1000000001");
-	game->map[2] = ft_strdup("1010100101");
-	game->map[3] = ft_strdup("1010101001");
-	game->map[4] = ft_strdup("1000000101");
-	game->map[5] = ft_strdup("1111000101");
-	game->map[6] = ft_strdup("1000000001");
-	game->map[7] = ft_strdup("1011010011");
-	game->map[8] = ft_strdup("1000010001");
-	game->map[9] = ft_strdup("1111111111");
-}
-
 static void	load_textures(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	game->textures[EAST].name = "assets/textures/white_cartoon_bricks.xpm";
-	game->textures[WEST].name = "assets/textures/white_cartoon_bricks.xpm";
 	while (i < 4)
 	{
 		if (access(game->textures[i].name, F_OK))
@@ -157,9 +66,11 @@ static void	get_orientation(t_game *game)
 
 static void	init_player(t_game *game)
 {
-	game->player.pos.x = 8 * TILE_SIZE; // TODO: get actual x starting position!
-	game->player.pos.y = 5.5 * TILE_SIZE; // TODO: get actual y starting position!
-	game->data.p_orientation = EAST;   // TODO: get actual direction
+	game->player.pos.x = 8 * TILE_SIZE;
+	// TODO: get actual x starting position!
+	game->player.pos.y = 5.5 * TILE_SIZE;
+	// TODO: get actual y starting position!
+	game->data.p_orientation = EAST; // TODO: get actual direction
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{
@@ -171,7 +82,7 @@ static void	init_player(t_game *game)
 		game->plane.x = 0.0;
 		game->plane.y = tan(FOV / 2.0);
 	}
-	game->control.forward_velo = 5;
+	game->control.forward_velo = 5;//TODO: remove and use move_speed and turn_speed
 	game->control.backward_velo = 5;
 	game->control.left_velo = 5;
 	game->control.right_velo = 5;
@@ -187,7 +98,7 @@ void	init_cub(t_game *game)
 	if (!game->cub.mlx_con)
 		exit_failure("mlx_con", game);
 	ft_bzero(&game->ray, sizeof(t_ray));
-	game->data.ceiling_color[0] = 5;//TODO: get actual colors
+	game->data.ceiling_color[0] = 5; // TODO: get actual colors
 	game->data.ceiling_color[1] = 10;
 	game->data.ceiling_color[2] = 150;
 	game->data.floor_color[0] = 0;
@@ -196,6 +107,10 @@ void	init_cub(t_game *game)
 	get_colors(game);
 	init_map(game);
 	init_mlx(game);
+	game->textures[NORTH].name = "assets/textures/arrow.xpm";//TODO: use for storing textures
+	game->textures[SOUTH].name = "assets/textures/arrow.xpm";
+	game->textures[EAST].name = "assets/textures/arrow.xpm";
+	game->textures[WEST].name = "assets/textures/arrow.xpm";
 	load_textures(game);
 	init_player(game);
 }
