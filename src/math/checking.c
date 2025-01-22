@@ -8,7 +8,9 @@ static int	color(int *color)
 void	get_colors(t_game *game)
 {
 	game->c_color = color(game->data.ceiling_color);
+	printf("%d\n", game->c_color);
 	game->f_color = color(game->data.floor_color);
+	printf("%d\n", game->f_color);
 }
 
 void	check_texture(t_game *game, int i)
@@ -26,10 +28,10 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 
 	x = floor(new_x / (TILE_SIZE));
 	y = floor(new_y / (TILE_SIZE));
-	if (x < 0 || x >= game->map_width || y < 0 || y >= game->map_height)
+	if (x < 0 || x >= game->data.map_width || y < 0 || y >= game->data.map_height)
 		return (true);
 	if (is_door(game, x, y) && is_open(game, x, y))
 		return (false);
-	return (game->map[y][x] == '1' || game->map[y][x] == ' ' || game->map[y][x] == 'D');
+	return (game->data.map[y][x] == '1' || game->data.map[y][x] == ' ' || game->data.map[y][x] == 'D');
 	// TODO: add check for doors etc in bonus
 }

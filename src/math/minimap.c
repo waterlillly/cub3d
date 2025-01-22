@@ -49,10 +49,10 @@ void	render_minimap(t_game *game)
 	int		color;
 
 	xy.y = -1;
-	while (++xy.y < game->map_height)
+	while (++xy.y < game->data.map_height)
 	{
 		xy.x = -1;
-		while (++xy.x < game->map_width)
+		while (++xy.x < game->data.map_width)
 		{
 			color = WHITE;
 			if (crashed(game, xy.x, xy.y))

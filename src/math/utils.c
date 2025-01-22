@@ -21,7 +21,7 @@ bool	crashed(t_game *game, double x1, double y1)
 
 	x = x1;
 	y = y1;
-	if (x < 0 || x >= game->map_width || y < 0 || y >= game->map_height)
+	if (x < 0 || x >= game->data.map_width || y < 0 || y >= game->data.map_height)
 		return (true);
-	return (game->map[y][x] == '1');
+	return (game->data.map[y][x] == '1');
 }

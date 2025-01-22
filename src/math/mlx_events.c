@@ -52,8 +52,8 @@ static int	handle_keypress(int keycode, t_game *game)
 		game->control.turn_right = 1;
 	if (keycode == XK_space)
 	{
-		toggle_door(game, game->player.pos.x / TILE_SIZE,
-			game->player.pos.y / TILE_SIZE);
+		toggle_door(game, game->ray.map.x / TILE_SIZE,
+			game->ray.map.y / TILE_SIZE);
 	}
 	keypress(game);
 	return (0);
@@ -109,10 +109,13 @@ static int	render(t_game *game)
 int	mlx_handler(t_game *game)
 {
 	mlx_loop_hook(game->cub.mlx_con, render, game);
+	puts("AHHH");
 	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask,
 		exit_success, game);
+	puts("AHHH2");
 	mlx_hook(game->cub.mlx_win, KeyRelease, KeyReleaseMask, handle_keyrelease,
 		game);
+	puts("AHHH3");
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
 	// mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, handle_mouse_motion, game);
 	return (0);

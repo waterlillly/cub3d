@@ -24,13 +24,52 @@
 # include <error.h>
 # include <mlx.h> //for mlx@school
 
+//************** ERROR MSG ***********
+
+# define ERROR "Error"
+# define MALLOC_FAILED "Malloc failed"
+# define MAP_FILE_NOT_FOUND "Map file not found"
+# define INVALID_EXTENSION_CUB "Invalid extension OR no extension. Please provide a .cub file"
+# define INVALID_EXTENSION_XPM "Invalid extension OR no extension. Please provide a .xpm file"
+# define ERROR_PLAYER "More or less than one player on the map"
+# define ERROR_INVALID_CHAR "Invalid character in the map"
+# define ERROR_MAP "Invalid map"
+# define ERROR_TEXTURE "Invalid texture"
+# define ERROR_COLOR "Invalid color"
+# define ERROR_FILE "Invalid file"
+# define ERROR_ARGS "Invalid arguments OR Invalid number of arguments"
+# define ERROR_MAP_LAST "Map is not the last in the file"
+# define ERROR_MAP_NOT_SURROUNDED "Map is not surrounded by walls"
+# define ERROR_MAP_EMPTY_LINE "Empty line in the map"
+# define ERROR_PLAYER_ORIENTATION "Invalid player orientation"
+
 //************** MACROS **************
+
+# define NORTH_PLAYER 0 // N
+# define SOUTH_PLAYER 1 // S
+# define EAST_PLAYER 2  // E
+# define WEST_PLAYER 3  // W
+
+# define NORTH_TEXTURE 'NO'
+# define SOUTH_TEXTURE 'SO'
+# define WEST_TEXTURE 'WE'
+# define EAST_TEXTURE 'EA'
+
+# define WALL '1'
+# define FLOOR '0'
+
+# define SPACE ' '
+# define TAB '\t'
+# define NEWLINE '\n'
+# define CARRET_RETURN '\r'
+# define VERTICAL_TAB '\v'
+# define FORM_FEED '\f'
 
 # define WIN_SIZE 640
 # define TILE_SIZE (WIN_SIZE * 0.1)
 # define MINIMAP_SIZE floor(WIN_SIZE * 0.2)
-# define MINI_TILE_WIDTH (MINIMAP_SIZE / game->map_width)
-# define MINI_TILE_HEIGHT (MINIMAP_SIZE / game->map_height)
+# define MINI_TILE_WIDTH (MINIMAP_SIZE / game->data.map_width)
+# define MINI_TILE_HEIGHT (MINIMAP_SIZE / game->data.map_height)
 # define FOV 60 * (M_PI / 180)
 
 # define BLACK 0x00000000
@@ -40,6 +79,15 @@
 # define GREEN 0x0000FF00
 
 //************** STRUCTS **************
+
+enum				output
+{
+	SUCC = 0,
+	FAIL = 1,
+	ERR = 2,
+	BREAK = 3,
+	CONT = 4
+};
 
 typedef struct s_dvec
 {
@@ -61,6 +109,24 @@ enum				e_num_txts
 	WEST = 3,
 	DOOR = 4
 };
+
+typedef struct s_map
+{
+	bool			map_mem_alloc;
+	int				num_of_rows;
+	int				max_column;
+	int				last_row;
+}					t_map;
+
+// typedef struct s_texture // TODO: needed? have an array already in t_game
+// {
+// 	char *north;
+// 	char *south;
+// 	char *west;
+// 	char *east;
+// 	int *floor_color;
+// 	int *ceiling_color;
+// }					t_texture;
 
 typedef struct s_player
 {
@@ -114,14 +180,31 @@ typedef struct s_ray
 typedef struct s_data
 {
 	char			**file_data;
-	int				map_alloc;
+	char 			**map;
+	int				fd;   
+	int 			map_width;
+	int 			map_height;
+	int				win_height;
+	int				win_width;
+	int				**texture_px;
+	int				**texture;
+	char			*path;
+	int				line_count;
+	int				last_row;
 	int				num_of_rows;
 	int				num_of_columns;
+	int				max_column;
 	int				num_of_player;
 	int				num_of_orientations;
 	int				p_orientation;
 	int				floor_color[3];
 	int				ceiling_color[3];
+	t_map 			map_info; // TODO: previous: t_TheMap	TheMapInfo;
+	// char			player_orient;
+	// char			*map_line;
+	// int				map_len;
+	// char			**colors;
+	// char			**textures;
 }					t_data;
 
 typedef struct s_control
@@ -142,11 +225,8 @@ typedef struct s_control
 
 typedef struct s_game
 {
-	char			**map;//TODO: put into data?
-	int				map_width;//TODO: put into data?
-	int				map_height;//TODO: put into data?
 	t_data			data;
-	t_image			textures[5];
+	t_image 		textures[5]; // TODO: move t_textures into this
 	int				c_color;
 	int				f_color;
 	t_control		control;
@@ -154,23 +234,38 @@ typedef struct s_game
 	t_player		player;
 	t_ray			ray;
 	t_dvec			plane;
-	int exit_status; // needed?
+	int 			exit_status; // needed?
 }					t_game;
 
 /* ************ PROTOTYPES ************ */
 
+//************** PARS **************
+int 				add_color(t_game *game, char *line, int column);
+int					add_texture(t_game *game, char *line, int column);
+void				args_handler(int ac, char **av, t_game *game);
+void				validator(t_game *game, char **av);
+void				read_file(t_game *game, char *av, char **map_temp);
+// void				ft_error_msg_free_exit(char *msg, t_game *game);
+void				get_whole_file(t_game *game, char *path);
+char				*ft_strjoin_gnl(char *s1, char *s2);
+int					file_data(t_game *game, char **file_data);
+int					map_crating(t_game *game, char **file, int row);
+void 				valid_map(t_game *game);
+void 				check_elements(t_game *game);
+
+//************** UTILS **************
+int 				ascii_print(char c);
+void				initialization_of_vars(t_game *game);
+char				**m_split(char const *s, char c);
+char				*ft_strappend(char **s1, const char *s2);
+
 /* exit.c */
+void 				free_all(t_game *game);
 void				exit_failure(char *s, t_game *game);
 int					exit_success(t_game *game);
 
 /* init.c */
 void				init_cub(t_game *game);
-
-/* maps.c */
-void				init_map_with_doors(t_game *game);
-void				init_map_hallway(t_game *game);
-void				init_map(t_game *game);
-void				init_map_tiny(t_game *game);
 
 /* doors.c */
 bool				is_door(t_game *game, int x, int y);
@@ -215,5 +310,43 @@ bool				crashed(t_game *game, double x1, double y1);
 
 /* minimap.c */
 void				render_minimap(t_game *game);
+
+// /* OTHERS */
+// void	transfer_orient(char orientation, t_game *game);
+// /*UTILS*/
+// bool	rest_space(char *s, int start);
+// bool	check_spaces(char *line);
+// bool	only_digits(char *s);
+
+// /*CHECK MAP*/
+// bool	check_top_bot(char *s, t_game *game);
+// bool	check_bot(t_game *game);
+// bool	check_top(t_game *game);
+// bool	check_sides(char *s, int *player, t_game *game, int x);
+// bool	valid_symbol(int i, int *player, t_game *game, int x);
+
+// /*MAP*/
+// bool	valid_map(t_game *game);
+// bool	add_to_map(char *line, t_game *game);
+// int		find_max_len(t_game *game);
+// void	modify_map(t_game *game);
+
+// /*TEXTURE COLOR*/
+// bool	is_texture(char *line);
+// bool	check_path(char *trim);
+// bool	is_color(char *trim);
+// bool	check_rgb(t_game *game, char *trim);
+// bool	check_color_element(char **split, int *col_count, t_game *game);
+// bool	check_texture_element(char **split, int *tex_count, t_game *game);
+
+// /*CHECK FILE LINE*/
+// char	**modify_line(char *line, t_game *game);
+// bool	is_empty(char *s);
+// bool	check_line(char *line, t_game *game);
+// void	check_file(int fd, t_game *game);
+
+// /*OPEN AND INIT*/
+// void	check_input_file(char *file, t_game *game);
+// void	init_struct(t_game *game);
 
 #endif

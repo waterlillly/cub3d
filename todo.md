@@ -10,7 +10,7 @@
 <!-- -> try to be able to use 2 keys at once -->
 <!-- -> what if map is not a square? -->
 -> add doors which can open and close
--> add more textures
+<!-- -> add more textures -->
 -> rotate the view with the mouse
 -> add animated sprites
 -> add textures for ceiling and floor?

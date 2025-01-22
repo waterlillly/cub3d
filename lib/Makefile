@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+         #
+#    By: msimic <msimic@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 18:13:23 by lbaumeis          #+#    #+#              #
-#    Updated: 2024/11/19 15:46:25 by lbaumeis         ###   ########.fr        #
+#    Updated: 2025/01/15 15:45:24 by msimic           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFILES += ft_putendl_fd.c ft_putnbr_fd.c ft_split.c ft_itoa.c ft_strmapi.c
 CFILES += ft_printf.c ft_printchar.c ft_printstr.c ft_printnbr.c ft_printptr.c
 CFILES += ft_decideformat.c ft_strcmp.c ft_white.c ft_atof.c ft_str_upper.c
 CFILES += ft_isalpha_extend.c ft_isprint_extend.c ft_isascii_extend.c
-CFILES += get_next_line.c ft_strjoin_free_both.c ft_strjoin_free_one.c
+CFILES += get_next_line.c get_next_line_utils.c ft_strjoin_free_both.c ft_strjoin_free_one.c
 CFILES += ft_str_lower.c ft_arrlen.c ft_free_double.c ft_print_array.c
 CFILES += ft_strcmp_bool.c ft_strnstr_bool.c ft_atoi_long.c ft_itoa_long.c
 CFILES += ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c 

@@ -66,11 +66,6 @@ static void	get_orientation(t_game *game)
 
 static void	init_player(t_game *game)
 {
-	game->player.pos.x = 8 * TILE_SIZE;
-	// TODO: get actual x starting position!
-	game->player.pos.y = 5.5 * TILE_SIZE;
-	// TODO: get actual y starting position!
-	game->data.p_orientation = EAST; // TODO: get actual direction
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{
@@ -82,14 +77,8 @@ static void	init_player(t_game *game)
 		game->plane.x = 0.0;
 		game->plane.y = tan(FOV / 2.0);
 	}
-	game->control.forward_velo = 5;//TODO: remove and use move_speed and turn_speed
-	game->control.backward_velo = 5;
-	game->control.left_velo = 5;
-	game->control.right_velo = 5;
-	game->control.turn_left_velo = 0.1;
-	game->control.turn_right_velo = 0.1;
-	// game->player.move_speed = 5;
-	// game->player.turn_speed = 0.1;
+	game->player.move_speed = 5;
+	game->player.turn_speed = 0.1;
 }
 
 void	init_cub(t_game *game)
@@ -98,20 +87,9 @@ void	init_cub(t_game *game)
 	if (!game->cub.mlx_con)
 		exit_failure("mlx_con", game);
 	ft_bzero(&game->ray, sizeof(t_ray));
-	game->data.ceiling_color[0] = 5; // TODO: get actual colors
-	game->data.ceiling_color[1] = 10;
-	game->data.ceiling_color[2] = 150;
-	game->data.floor_color[0] = 0;
-	game->data.floor_color[1] = 150;
-	game->data.floor_color[2] = 50;
 	get_colors(game);
-	init_map_with_doors(game);
 	init_mlx(game);
-	game->textures[NORTH].name = "assets/textures/arrow.xpm";//TODO: use for storing textures
-	game->textures[SOUTH].name = "assets/textures/arrow.xpm";
-	game->textures[EAST].name = "assets/textures/arrow.xpm";
-	game->textures[WEST].name = "assets/textures/arrow.xpm";
-	game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
+	// game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
 }

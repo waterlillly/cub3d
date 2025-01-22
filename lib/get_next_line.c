@@ -3,117 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:24:17 by lbaumeis          #+#    #+#             */
-/*   Updated: 2024/08/14 15:52:24 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:47:00 by msimic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_rest(int x, char *buf)
+char	*free_create_buffer(char *rest_str)
 {
-	char	*temp;
-	int		y;
+	int		i;
+	int		j;
+	char	*str;
 
-	temp = NULL;
-	y = 0;
-	while (buf[x + y])
-		y++;
-	temp = malloc(sizeof(char) * (y + 1));
-	if (!temp)
-		return (NULL);
-	temp[y] = '\0';
-	y = 0;
-	while (buf[x + y])
+	i = 0;
+	while (rest_str[i] && rest_str[i] != '\n')
+		i++;
+	if (!rest_str[i])
 	{
-		temp[y] = buf[x + y];
-		y++;
+		free(rest_str);
+		return (NULL);
+	}
+	str = (char *)malloc(sizeof(char) * (ft_strlen(rest_str) - i + 1));
+	if (!str)
+	{
+		free(rest_str);
+		return (NULL);
+	}
+	i++;
+	j = 0;
+	while (rest_str[i])
+		str[j++] = rest_str[i++];
+	str[j] = '\0';
+	free(rest_str);
+	return (str);
+}
+
+static char	*get_line(char *rest_str)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (!rest_str[i])
+		return (NULL);
+	while (rest_str[i] && rest_str[i] != '\n')
+		i++;
+	str = (char *)malloc(sizeof(char) * (i + 2));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (rest_str[i] && rest_str[i] != '\n')
+	{
+		str[i] = rest_str[i];
+		i++;
+	}
+	if (rest_str[i] == '\n')
+	{
+		str[i] = rest_str[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*read_create_buffer(int fd, char *rest_str)
+{
+	char	*buf;
+	int		rd_bytes;
+
+	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buf)
+		return (NULL);
+	rd_bytes = 1;
+	while (!ft_strchr(rest_str, '\n') && rd_bytes != 0)
+	{
+		rd_bytes = read(fd, buf, BUFFER_SIZE);
+		if (rd_bytes == -1)
+		{
+			free(buf);
+			free(rest_str);
+			return (NULL);
+		}
+		buf[rd_bytes] = '\0';
+		rest_str = ft_strjoin_gnl(rest_str, buf);
 	}
 	free(buf);
-	return (temp);
-}
-
-char	*ft_buf(char *buf, int *x)
-{
-	char	*line;
-	int		j;
-
-	line = NULL;
-	j = 0;
-	while (buf[*x] && buf[*x] != '\n')
-		(*x)++;
-	if (buf[*x] == '\n')
-		(*x)++;
-	if (*x == 0)
-		return (NULL);
-	line = malloc(sizeof(char) * (*x + 1));
-	if (!line)
-		return (NULL);
-	line[*x] = '\0';
-	while (j < *x)
-	{
-		line[j] = buf[j];
-		j++;
-	}
-	return (line);
-}
-
-char	*ft_next(char *buf, int fd)
-{
-	int		bytes;
-	char	*temp;
-
-	bytes = 0;
-	temp = NULL;
-	temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!temp)
-		return (free(buf), buf = NULL, NULL);
-	while (ft_strchr(buf, '\n') == 0)
-	{
-		bytes = read(fd, temp, BUFFER_SIZE);
-		if (bytes < 0)
-			return (free(buf), buf = NULL, free(temp), NULL);
-		else if (bytes == 0)
-			break ;
-		temp[bytes] = '\0';
-		if (!temp)
-			return (NULL);
-		buf = ft_strjoin(buf, temp);
-		if (!buf)
-			return (NULL);
-	}
-	return (free(temp), buf);
+	return (rest_str);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buf[1024];	
-	char		*next;
-	int			x;
+	char		*line;
+	static char	*rest_str;
 
-	next = NULL;
-	x = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	rest_str = read_create_buffer(fd, rest_str);
+	if (!rest_str)
 		return (NULL);
-	if (!buf[fd])
-	{
-		buf[fd] = ft_strdup("");
-		if (!buf[fd])
-			return (NULL);
-	}
-	buf[fd] = ft_next(buf[fd], fd);
-	if (!buf[fd])
-		return (NULL);
-	next = ft_buf(buf[fd], &x);
-	if (!next)
-		return (free(buf[fd]), buf[fd] = NULL, NULL);
-	buf[fd] = ft_rest(x, buf[fd]);
-	if (!buf[fd])
-		return (free(next), NULL);
-	return (next);
+	line = get_line(rest_str);
+	rest_str = free_create_buffer(rest_str);
+	return (line);
 }
+
 /*
 int	main(void)
 {

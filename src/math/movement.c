@@ -9,9 +9,9 @@ void	move_forward(t_game *game)
 	// 	game->control.forward_velo += 1;
 	// printf("forward: %f\n", game->control.forward_velo);
 	new_x = game->player.pos.x + game->player.dir.x
-		* game->control.forward_velo;
+		* game->player.move_speed;
 	new_y = game->player.pos.y + game->player.dir.y
-		* game->control.forward_velo;
+		* game->player.move_speed;
 	if (!is_wall(game, new_x, game->player.pos.y))
 		game->player.pos.x = new_x;
 	if (!is_wall(game, game->player.pos.x, new_y))
@@ -27,9 +27,9 @@ void	move_backward(t_game *game)
 	// 	game->control.backward_velo += 1;
 	// printf("backward: %f\n", game->control.backward_velo);
 	new_x = game->player.pos.x - game->player.dir.x
-		* game->control.backward_velo;
+		* game->player.move_speed;
 	new_y = game->player.pos.y - game->player.dir.y
-		* game->control.backward_velo;
+		* game->player.move_speed;
 	if (!is_wall(game, new_x, game->player.pos.y))
 		game->player.pos.x = new_x;
 	if (!is_wall(game, game->player.pos.x, new_y))
@@ -44,8 +44,8 @@ void	move_left(t_game *game)
 	// if (game->control.left_velo < 5)
 	// 	game->control.left_velo += 1;
 	// printf("left: %f\n", game->control.left_velo);
-	new_x = game->player.pos.x + game->player.dir.y * game->control.left_velo;
-	new_y = game->player.pos.y - game->player.dir.x * game->control.left_velo;
+	new_x = game->player.pos.x + game->player.dir.y * game->player.move_speed;
+	new_y = game->player.pos.y - game->player.dir.x * game->player.move_speed;
 	if (!is_wall(game, new_x, game->player.pos.y))
 		game->player.pos.x = new_x;
 	if (!is_wall(game, game->player.pos.x, new_y))
@@ -60,8 +60,8 @@ void	move_right(t_game *game)
 	// if (game->control.right_velo < 5)
 	// 	game->control.right_velo += 1;
 	// printf("right: %f\n", game->control.right_velo);
-	new_x = game->player.pos.x - game->player.dir.y * game->control.right_velo;
-	new_y = game->player.pos.y + game->player.dir.x * game->control.right_velo;
+	new_x = game->player.pos.x - game->player.dir.y * game->player.move_speed;
+	new_y = game->player.pos.y + game->player.dir.x * game->player.move_speed;
 	if (!is_wall(game, new_x, game->player.pos.y))
 		game->player.pos.x = new_x;
 	if (!is_wall(game, game->player.pos.x, new_y))

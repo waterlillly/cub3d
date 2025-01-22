@@ -7,9 +7,10 @@ CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-MATH_DIR = src/math/
 SRC_DIR = src/
-
+PARSE_DIR = src/parsing/
+UTILS_DIR = src/utils/
+MATH_DIR = src/math/
 
 CFILES = $(addprefix $(SRC_DIR), \
 		main.c \
@@ -17,12 +18,19 @@ CFILES = $(addprefix $(SRC_DIR), \
 		init.c mlx_events.c pixels.c \
 		exit.c movement.c utils.c rotation.c \
 		raycasting.c minimap.c checking.c \
-		raycasting2.c maps.c doors.c \
+		raycasting2.c doors.c \
+) $(addprefix $(UTILS_DIR), \
+		strappend.c m_split.c error.c \
+		ascii_print.c init.c \
+) $(addprefix $(PARSE_DIR), \
+		args_handler.c validator.c read_file.c \
+		get_whole_file.c file_data.c add_texture.c \
+		add_color.c map_crating.c map_validator.c \
+		check_map_elements.c \
 )
 
-#check_file_line.c check_map.c \
-		map.c open_and_init.c texture_color.c \
-		utils.c \
+# check_file_line.c check_map.c \
+# map.c open_and_init.c texture_color.c utils.c \
 
 OFILES = $(CFILES:.c=.o)
 
