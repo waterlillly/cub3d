@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 void read_file(t_game *game, char *av, char **map_temp)
 {

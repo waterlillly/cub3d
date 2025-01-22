@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 void args_handler(int ac, char **av, t_game *game)
 {

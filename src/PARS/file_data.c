@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 static int get_color_texture_and_map(t_game *game, char **file_data , int row, int column)
 {

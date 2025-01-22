@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 char	*ft_strappend(char **s1, const char *s2)
 {

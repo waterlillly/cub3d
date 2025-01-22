@@ -5,7 +5,9 @@
 #  define BUFFER_SIZE 10
 # endif
 
-//************* INCLUDES *************
+//*************************************
+//************* INCLUDES **************
+//*************************************
 
 # include <unistd.h>
 # include <string.h>
@@ -14,7 +16,9 @@
 # include <stdbool.h>
 # include "lib/libft.h"
 
-//************** ENUMS *************** enum is a user-defined data type that consists of integral constants. It is a way to assign names to integral constants which makes a program easy to read and maintain.
+//*************************************
+//************** ENUMS ****************
+//*************************************
 
 enum output
 {
@@ -25,7 +29,9 @@ enum output
 	CONT = 4
 };
 
-//************** MACROS ************** Macros are a piece of code in a program which has a name. When the program is compiled, the name is replaced with the actual code. There are two types of macros: object-like macros and function-like macros.
+//*************************************
+//************** DEFINES **************
+//*************************************
 
 # define NORTH_PLAYER			0 //N
 # define SOUTH_PLAYER			1 //S
@@ -43,7 +49,16 @@ enum output
 # define WINDOW_WIDTH			640
 # define WINDOW_HEIGHT			480
 
-//** ERROR MESSAGES **
+#define SPACE ' '
+#define TAB '\t'
+#define NEWLINE '\n'
+#define CARRET_RETURN '\r'
+#define VERTICAL_TAB '\v'
+#define FORM_FEED '\f'
+
+//*************************************
+//************** ERROR MSG ************
+//*************************************
 
 # define ERROR "Error"
 # define MALLOC_FAILED "Malloc failed"
@@ -62,17 +77,9 @@ enum output
 # define ERROR_MAP_EMPTY_LINE "Empty line in the map"
 # define ERROR_PLAYER_ORIENTATION "Invalid player orientation"
 
-#define SPACE ' '
-#define TAB '\t'
-#define NEWLINE '\n'
-#define CARRET_RETURN '\r'
-#define VERTICAL_TAB '\v'
-#define FORM_FEED '\f'
-
-//************** MACRO FUNCTIONS ************** Macro functions are a piece of code in a program which has a name. When the program is compiled, the name is replaced with the actual code. There are two types of macros: object-like macros and function-like macros.
-
-
-//************** STRUCTS ************** A structure in C is a collection of variables of different data types. These variables are known as members. You can refer to a structure as a single variable, and it can hold multiple variables of different data types.
+//*************************************
+//************** STRUCTS **************
+//*************************************
 
 typedef struct s_TheMap
 {
@@ -94,9 +101,9 @@ typedef struct s_texture
 	bool   	west_mem_alloc;
 	char	*east;
 	bool   	east_mem_alloc;
-	int		*floor_color; // "F: Floor color in RGB format."
+	int		*floor_color;
 	bool   	floor_mem_alloc;
-	int		*ceiling_color;	// "C: Ceiling color in RGB format."
+	int		*ceiling_color;
 	bool   	ceiling_mem_alloc;
 }		t_texture;
 
@@ -135,61 +142,30 @@ typedef struct s_game
 	int 	exit_status;
 }		t_game;
 
-//************** PROTOTYPES ************ Prototypes are the declarations of functions that tell the compiler about the type of the value returned by the function and the number and type of arguments.
+//**************************************
+//************** PROTOTYPES ************
+//**************************************
 
+//************** PARS **************
+int 	add_color(t_texture *Itex, char *line, int column);
+int		add_texture(t_texture *Itex, char *line, int column);
 void	args_handler(int ac, char **av, t_game *game);
 void	validator(t_game *game, char **av);
-char	*ft_strappend(char **s1, const char *s2);
 void	read_file(t_game *game, char *av, char **map_temp);
-void	initialization_of_vars(t_game *game);
-char	**msimic_split(char const *s, char c);
 void	ft_error_msg_free_exit(char *msg, t_game *game);
 void	get_whole_file(t_game *game, char *path);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 int		file_data(t_game *game, char **file_data);
 void	free_array(void **array);
-int add_color(t_texture *Itex, char *line, int column);
-int		add_texture(t_texture *Itex, char *line, int column);
 int		map_crating(t_game *game, char **file, int row);
-void free_all(t_game *game, char *errMSG);
-void valid_map(t_game *game);
-void check_elements(t_game *game);
-int ascii_print(char c);
-///*UTILS*/
-//int		err(char *s, t_pars *pars);
-//bool	rest_space(char *s, int start);
-//bool	check_spaces(char *line);
-//bool	only_digits(char *s);
-//
-///*CHECK MAP*/
-//bool	check_top_bot(char *s, t_pars *pars);
-//bool	check_bot(t_pars *pars);
-//bool	check_top(t_pars *pars);
-//bool	check_sides(char *s, int *player, t_pars *pars, int x);
-//bool	valid_symbol(int i, int *player, t_pars *pars, int x);
-//
-///*MAP*/
-//bool	valid_map(t_pars *pars);
-//bool	add_to_map(char *line, t_pars *pars);
-//int		find_max_len(t_pars *pars);
-//void	modify_map(t_pars *pars);
-//
-///*TEXTURE COLOR*/
-//bool	is_texture(char *line);
-////bool	check_path(char *trim);
-//bool	is_color(char *trim);
-//bool	check_rgb(char *trim);
-//bool	check_color_element(char **split, int *col_count, t_pars *pars);
-//bool	check_texture_element(char **split, int *tex_count, t_pars *pars);
-//
-///*CHECK FILE LINE*/
-//char	**modify_line(char *line, t_pars *pars);
-//bool	is_empty(char *s);
-//bool	check_line(char *line, t_pars *pars);
-//void	check_file(int fd, t_pars *pars);
-//
-///*OPEN AND INIT*/
-//void	check_input_file(char *file, t_pars *pars);
-//void	init_struct(t_pars *pars);
+void 	valid_map(t_game *game);
+void 	check_elements(t_game *game);
+
+//************** UTILS **************
+int 	ascii_print(char c);
+void 	free_all(t_game *game, char *errMSG);
+void	initialization_of_vars(t_game *game);
+char	**m_split(char const *s, char c);
+char	*ft_strappend(char **s1, const char *s2);
 
 #endif

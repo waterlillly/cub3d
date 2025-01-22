@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 static int	c_check(char const s, char const c)
 {
@@ -69,7 +69,7 @@ static int	checknull(char **array, size_t i)
 		return (1);
 }
 
-char	**msimic_split(char const *s, char c)
+char	**m_split(char const *s, char c)
 {
 	size_t	i;
 	size_t	j;
