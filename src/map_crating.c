@@ -80,6 +80,12 @@ static int init_map(t_game *game, char **file, int row)
 int map_crating(t_game *game, char **file, int row)
 {
     printf("ft_map_crating\n");
+    if (game->Itex.north == NULL || game->Itex.south == NULL || game->Itex.west == NULL || game->Itex.east == NULL
+        || game->Itex.floor_color == NULL || game->Itex.ceiling_color == NULL)
+    {
+        free_all(game, "Texture or color missing OR map is not last");
+        return (FAIL);
+    }
     if (init_map(game, file, row) == FAIL){
         free_all(game, ".. in init_map");
         return (FAIL);
@@ -92,3 +98,4 @@ int map_crating(t_game *game, char **file, int row)
     }
     return (SUCC);
 }
+

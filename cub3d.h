@@ -102,9 +102,9 @@ typedef struct s_texture
 
 typedef struct s_player
 {
-	int		x;
-	int		y;
-	int	orientation;
+	int		row;
+	int		column;
+	char	orientation;
 }		t_player;
 
 typedef struct s_game
@@ -125,9 +125,12 @@ typedef struct s_game
 	int		**texture_px;
 	int		**texture;
 
+	char	p_direction;
+
 	//structs
 	t_texture	Itex;
 	t_TheMap	TheMapInfo;
+	t_player	player;
 
 	int 	exit_status;
 }		t_game;
@@ -145,11 +148,12 @@ void	get_whole_file(t_game *game, char *path);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 int		file_data(t_game *game, char **file_data);
 void	free_array(void **array);
-int		add_color(t_texture *Itex, char *line, int column);
+int add_color(t_texture *Itex, char *line, int column);
 int		add_texture(t_texture *Itex, char *line, int column);
 int		map_crating(t_game *game, char **file, int row);
 void free_all(t_game *game, char *errMSG);
 void valid_map(t_game *game);
+void check_elements(t_game *game);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
 //bool	rest_space(char *s, int start);

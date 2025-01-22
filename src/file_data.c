@@ -9,7 +9,7 @@ static  int ascii_print(char c)
         return (0);
 }
 
-static int get_colors_textures_and_map_info(t_game *game, char **file_data , int row, int column)
+static int get_color_and_texture(t_game *game, char **file_data , int row, int column)
 {
     printf("get_color_and_texture\n");
     while (file_data[row][column] == SPACE || file_data[row][column] == TAB || file_data[row][column] == NEWLINE)
@@ -18,6 +18,9 @@ static int get_colors_textures_and_map_info(t_game *game, char **file_data , int
     {
         if (ascii_print(file_data[row][column + 1]) && !ft_isdigit(file_data[row][column + 1]))
         {
+            //If the character is a letter, it is a texture
+            //WIP: Add textures in the struct
+            printf("%c%c\n", file_data[row][column], file_data[row][column + 1]);
             if (add_texture(&game->Itex, file_data[row], column) == ERR)
                 return (FAIL);
             return (BREAK);
@@ -26,20 +29,16 @@ static int get_colors_textures_and_map_info(t_game *game, char **file_data , int
         {
             //If the character is a number, it is a color
             printf("%c%c\n", file_data[row][column], file_data[row][column + 1]);
-            if (add_color(&game->Itex, file_data[row], column) == ERR){
-                free_all(game, ".. in add_color");
+            if (add_color(&game->Itex, file_data[row], column) == ERR)
                 return (FAIL);
-            }
             return (BREAK);
         }
     }
     else if (ft_isdigit(file_data[row][column]))
     {
         //Before comming here, what if there is number in tructures file name? Need to handle this?
-        if (map_crating(game, file_data, row) == FAIL){
-			free_all(game, ".. in map_crating");
-            return (FAIL);
-        } 
+        if (map_crating(game, file_data, row) == ERR)
+			return (FAIL);
 		return (SUCC);
     }
     return (CONT);
@@ -57,7 +56,7 @@ int file_data(t_game *game, char **file_data)
         column = 0;
         while (file_data[row][column] && row < 11)
         {
-            ret = get_colors_textures_and_map_info(game, file_data, row, column);
+            ret = get_color_and_texture(game, file_data, row, column);
             if (ret == BREAK)
                 break;
             else if (ret == FAIL)

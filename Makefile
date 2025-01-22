@@ -14,7 +14,7 @@ SRC_DIR = src/
 CFILES = $(addprefix $(SRC_DIR), \
 		main.c args_handler.c validator.c read_file.c strappend.c \
 		init.c msimic_split.c error.c get_whole_file.c file_data.c add_texture.c \
-		add_color.c map_crating.c map_validator.c \
+		add_color.c map_crating.c map_validator.c check_map_elements.c \
 )
 
 OFILES = $(CFILES:.c=.o)

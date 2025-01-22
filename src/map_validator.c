@@ -57,5 +57,6 @@ void valid_map(t_game *game)
     printf("ROWS: %d\n", game->TheMapInfo.num_of_rows);
     if (game->TheMapInfo.num_of_rows < 3)
         free_all(game, "Map is too small");
+    check_elements(game); //got orientation of the player and possition; Do I need to check if position is valid?
     
 }
