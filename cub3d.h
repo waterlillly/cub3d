@@ -58,7 +58,8 @@ enum				e_num_txts
 	NORTH = 0,
 	SOUTH = 1,
 	EAST = 2,
-	WEST = 3
+	WEST = 3,
+	DOOR = 4
 };
 
 typedef struct s_player
@@ -145,7 +146,7 @@ typedef struct s_game
 	int				map_width;//TODO: put into data?
 	int				map_height;//TODO: put into data?
 	t_data			data;
-	t_image			textures[4];
+	t_image			textures[5];
 	int				c_color;
 	int				f_color;
 	t_control		control;
@@ -166,9 +167,15 @@ int					exit_success(t_game *game);
 void				init_cub(t_game *game);
 
 /* maps.c */
+void				init_map_with_doors(t_game *game);
 void				init_map_hallway(t_game *game);
 void				init_map(t_game *game);
 void				init_map_tiny(t_game *game);
+
+/* doors.c */
+bool				is_door(t_game *game, int x, int y);
+bool				is_open(t_game *game, int x, int y);
+void				toggle_door(t_game *game, int x, int y);
 
 /* mlx_events.c */
 int					mlx_handler(t_game *game);
@@ -180,6 +187,8 @@ void				move_left(t_game *game);
 void				move_right(t_game *game);
 
 /* rotation.c */
+void				rotate_plane(t_game *game, double angle);
+void				rotate_dir(t_game *game, double angle);
 void				turn_left(t_game *game);
 void				turn_right(t_game *game);
 

@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-static void	rotate_plane(t_game *game, double angle)
+void	rotate_plane(t_game *game, double angle)
 {
 	double	old_plane_x;
 
@@ -9,7 +9,7 @@ static void	rotate_plane(t_game *game, double angle)
 	game->plane.y = old_plane_x * sin(angle) + game->plane.y * cos(angle);
 }
 
-static void	rotate_dir(t_game *game, double angle)
+void	rotate_dir(t_game *game, double angle)
 {
 	double	old_dir_x;
 

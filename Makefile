@@ -17,7 +17,7 @@ CFILES = $(addprefix $(SRC_DIR), \
 		init.c mlx_events.c pixels.c \
 		exit.c movement.c utils.c rotation.c \
 		raycasting.c minimap.c checking.c \
-		raycasting2.c maps.c \
+		raycasting2.c maps.c doors.c \
 )
 
 #check_file_line.c check_map.c \

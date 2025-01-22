@@ -1,5 +1,40 @@
 #include "../../cub3d.h"
 
+void	init_map_with_doors(t_game *game)
+{
+	game->map_height = 25;
+	game->map_width = 25;
+	game->map = ft_calloc(game->map_height + 1, sizeof(char) * game->map_width
+			+ 1);
+	if (!game->map)
+		exit_failure("ft_calloc", game);
+	game->map[0] = ft_strdup("1111111111111111111111111");
+	game->map[1] = ft_strdup("1000000000000000000000001");
+	game->map[2] = ft_strdup("101111011111D111110111101");
+	game->map[3] = ft_strdup("1010010000010000010000101");
+	game->map[4] = ft_strdup("1010010111010111010111101");
+	game->map[5] = ft_strdup("1010000000000000000000101");
+	game->map[6] = ft_strdup("1110111111011111011110101");
+	game->map[7] = ft_strdup("1000100011010001010000101");
+	game->map[8] = ft_strdup("1011101111010111011111101");
+	game->map[9] = ft_strdup("1000000000000100000000001");
+	game->map[10] = ft_strdup("1010111011111111111011101");
+	game->map[11] = ft_strdup("1010000010000000010000101");
+	game->map[12] = ft_strdup("1011111010111111010111101");
+	game->map[13] = ft_strdup("1000000010001000010000001");
+	game->map[14] = ft_strdup("1011111111D11111111111101");
+	game->map[15] = ft_strdup("1010000000000000000000001");
+	game->map[16] = ft_strdup("1010111111111111111011101");
+	game->map[17] = ft_strdup("1000000000000000000000001");
+	game->map[18] = ft_strdup("1011111011111011111011101");
+	game->map[19] = ft_strdup("1000000010000010000010001");
+	game->map[20] = ft_strdup("111101111D111111111110001");
+	game->map[21] = ft_strdup("1000000000000000000000001");
+	game->map[22] = ft_strdup("1011110111110111110111101");
+	game->map[23] = ft_strdup("1000100001000000000000101");
+	game->map[24] = ft_strdup("1111111111111111111111111");
+}
+
 void	init_map_hallway(t_game *game) // TODO: delete and get actual map
 {
 	game->map_height = 100;

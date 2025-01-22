@@ -34,47 +34,6 @@ static int	keypress(t_game *game)
 	return (0);
 }
 
-// static int keypress(t_game *game)
-// {
-// 	if (game->control.forward == 1)
-// 	{
-// 		if (game->control.forward_velo < 5)//TODO: slowly increase movement as well as velo!
-// 			game->control.forward_velo += 0.1;
-// 		move_forward(game);
-// 	}
-// 	if (game->control.backward == 1)
-// 	{
-// 		if (game->control.backward_velo < 5)
-// 			game->control.backward_velo += 0.1;
-// 		move_backward(game);
-// 	}
-// 	if (game->control.left == 1)
-// 	{
-// 		if (game->control.left_velo < 5)
-// 			game->control.left_velo += 0.1;
-// 		move_left(game);
-// 	}
-// 	if (game->control.right == 1)
-// 	{
-// 		if (game->control.right_velo < 5)
-// 			game->control.right_velo += 0.1;
-// 		move_right(game);
-// 	}
-// 	if (game->control.turn_left == 1)
-// 	{
-// 		if (game->control.turn_left_velo < 0.2)
-// 			game->control.turn_left_velo += 0.05;
-// 		turn_left(game);
-// 	}
-// 	if (game->control.turn_right == 1)
-// 	{
-// 		if (game->control.left_velo < 0.2)
-// 			game->control.left_velo += 0.05;
-// 		turn_right(game);
-// 	}
-// 	return (0);
-// }
-
 static int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == XK_Escape || keycode == 17)
@@ -91,9 +50,31 @@ static int	handle_keypress(int keycode, t_game *game)
 		game->control.turn_left = 1;
 	if (keycode == XK_Right)
 		game->control.turn_right = 1;
+	if (keycode == XK_space)
+	{
+		toggle_door(game, game->player.pos.x / TILE_SIZE,
+			game->player.pos.y / TILE_SIZE);
+	}
 	keypress(game);
 	return (0);
 }
+
+// static int	handle_mouse_motion(int x, int y, t_game *game)
+// {
+// 	static int	prev_x = -1;
+// 	int			delta_x;
+// 	double		angle;
+
+// 	(void)y;
+// 	if (prev_x == -1)
+// 		prev_x = x;
+// 	delta_x = x - prev_x;
+// 	prev_x = x;
+// 	angle = delta_x * game->player.turn_speed;
+// 	rotate_dir(game, angle);
+// 	rotate_plane(game, angle);
+// 	return (0);
+// }
 
 static void	clear_frame(t_game *game)
 {
@@ -133,5 +114,6 @@ int	mlx_handler(t_game *game)
 	mlx_hook(game->cub.mlx_win, KeyRelease, KeyReleaseMask, handle_keyrelease,
 		game);
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
+	// mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, handle_mouse_motion, game);
 	return (0);
 }

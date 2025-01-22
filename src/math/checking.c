@@ -28,6 +28,8 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 	y = floor(new_y / (TILE_SIZE));
 	if (x < 0 || x >= game->map_width || y < 0 || y >= game->map_height)
 		return (true);
-	return (game->map[y][x] >= 49 || game->map[y][x] == 32);
+	if (is_door(game, x, y) && is_open(game, x, y))
+		return (false);
+	return (game->map[y][x] == '1' || game->map[y][x] == ' ' || game->map[y][x] == 'D');
 	// TODO: add check for doors etc in bonus
 }

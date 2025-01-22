@@ -105,12 +105,13 @@ void	init_cub(t_game *game)
 	game->data.floor_color[1] = 150;
 	game->data.floor_color[2] = 50;
 	get_colors(game);
-	init_map(game);
+	init_map_with_doors(game);
 	init_mlx(game);
 	game->textures[NORTH].name = "assets/textures/arrow.xpm";//TODO: use for storing textures
 	game->textures[SOUTH].name = "assets/textures/arrow.xpm";
 	game->textures[EAST].name = "assets/textures/arrow.xpm";
 	game->textures[WEST].name = "assets/textures/arrow.xpm";
+	game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
 }

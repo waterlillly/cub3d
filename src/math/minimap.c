@@ -57,6 +57,10 @@ void	render_minimap(t_game *game)
 			color = WHITE;
 			if (crashed(game, xy.x, xy.y))
 				color = BLACK;
+			else if (is_door(game, xy.x, xy.y) && !is_open(game, xy.x, xy.y))
+				color = BLUE;
+			else if (is_door(game, xy.x, xy.y) && is_open(game, xy.x, xy.y))
+				color = GREEN;
 			pxy.y = -1;
 			while (++pxy.y < MINI_TILE_HEIGHT)
 			{
