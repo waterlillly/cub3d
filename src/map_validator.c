@@ -1,10 +1,27 @@
 #include "../cub3d.h"
 
+int ft_strlen_skip_space(char *str)
+{
+    int i = 0;
+    int j = 0;
+    while (str[i] != '\0'){
+        i++;
+    }
+    while (i > j)
+    {
+        if (str[i] == ' ')
+            i--;
+        else
+            break;
+    }
+    return (i);
+}
+
 static void map_border(t_game *game)
 {
     int row;
     int column;
-    int width = game->TheMapInfo.max_column;
+    int width = 0;
     int height = game->TheMapInfo.num_of_rows;
     printf("width: %d\n", width);
     printf("height: %d\n", height);
@@ -12,6 +29,7 @@ static void map_border(t_game *game)
     row = -1;
     while (game->TheMapInfo.map[++row])
     {
+        width = ft_strlen_skip_space(game->TheMapInfo.map[row]);
         column = -1;
         while (game->TheMapInfo.map[row][++column])
         {
