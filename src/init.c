@@ -12,7 +12,6 @@ static void mem_aloc_false(t_game *game)
 
 static void init_texture(t_texture *texture)
 {
-    printf("init_texture\n");
     texture->north = NULL;
     texture->south = NULL;
     texture->west = NULL;
@@ -23,7 +22,6 @@ static void init_texture(t_texture *texture)
 
 static void init_map(t_game *game)
 {
-    printf("init_map\n");
     game->TheMapInfo.map = NULL;
     game->TheMapInfo.num_of_rows = 0;
     game->TheMapInfo.max_column = 0;
@@ -31,7 +29,6 @@ static void init_map(t_game *game)
 
 void initialization_of_vars(t_game *game)
 {
-    printf("initialization_of_vars\n");
     game->win_height = WINDOW_HEIGHT;
     game->win_width = WINDOW_WIDTH;
     game->texture_px = NULL;

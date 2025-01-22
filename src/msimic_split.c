@@ -11,7 +11,6 @@ static int	c_check(char const s, char const c)
 
 static int	count(char const *str, char const c)
 {
-	printf("count\n");
 	size_t	i;
 	size_t	count;
 
@@ -31,7 +30,6 @@ static int	count(char const *str, char const c)
 
 static char	*ft_word(char const *str, char const c)
 {
-	printf("ft_word\n");
 	size_t	i;
 	size_t	len;
 	char	*word;
@@ -54,7 +52,6 @@ static char	*ft_word(char const *str, char const c)
 
 static int	checknull(char **array, size_t i)
 {
-	printf("checknull\n");
 	size_t	f;
 
 	f = 0;
@@ -74,7 +71,6 @@ static int	checknull(char **array, size_t i)
 
 char	**msimic_split(char const *s, char c)
 {
-	printf("msimic_split\n");
 	size_t	i;
 	size_t	j;
 	char	**array;

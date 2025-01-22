@@ -23,8 +23,6 @@ static void map_border(t_game *game)
     int column;
     int width = 0;
     int height = game->TheMapInfo.num_of_rows;
-    printf("width: %d\n", width);
-    printf("height: %d\n", height);
 
     row = -1;
     while (game->TheMapInfo.map[++row])
@@ -50,13 +48,10 @@ static void map_border(t_game *game)
 
 void valid_map(t_game *game)
 {
-    printf("valid_map\n");
     if (game->TheMapInfo.map == NULL)
         free_all(game, "Map missing");
     map_border(game); //still doesn't work on the right side of the map, don't know why
-    printf("ROWS: %d\n", game->TheMapInfo.num_of_rows);
     if (game->TheMapInfo.num_of_rows < 3)
         free_all(game, "Map is too small");
     check_elements(game); //got orientation of the player and possition; Do I need to check if position is valid?
-    
 }

@@ -2,7 +2,6 @@
 
 char	*ft_strappend(char **s1, const char *s2)
 {
-	printf("ft_strappend\n");
 	char	*str;
 	size_t	len1;
 	size_t	len2;

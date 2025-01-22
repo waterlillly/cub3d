@@ -2,7 +2,6 @@
 
 static int line_count(t_game *game, char *path)
 {
-	printf("line_count\n");
 	int	fd;
 	int line_count;
 	char *line;
@@ -27,7 +26,6 @@ static int line_count(t_game *game, char *path)
 
 static void get2D_array(t_game *game)
 {
-	printf("get2D_array\n");
 	int i = 0;
 	int row = 0;
 	size_t column = 0;
@@ -37,10 +35,8 @@ static void get2D_array(t_game *game)
 	while (line != NULL)
 	{
 		game->file[row] = ft_calloc(ft_strlen(line) + 1, sizeof(char));
-		if (!game->file[row]){
-			printf("Error\n%s", MALLOC_FAILED); // change
-			return (free_array((void **)game->file));
-		}
+		if (!game->file[row])
+			free_all(game, MALLOC_FAILED);
 		while (line[i] != '\0')
 			game->file[row][column++] = line[i++];
 		game->file[row++][column] = '\0';
@@ -54,7 +50,6 @@ static void get2D_array(t_game *game)
 
 void get_whole_file(t_game *game, char *path)
 {
-	printf("get_map\n");
 	game->line_count = line_count(game, path);
 	game->path = path;
 	game->file = malloc(sizeof(char *) * (game->line_count + 1));

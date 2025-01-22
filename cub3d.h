@@ -154,6 +154,7 @@ int		map_crating(t_game *game, char **file, int row);
 void free_all(t_game *game, char *errMSG);
 void valid_map(t_game *game);
 void check_elements(t_game *game);
+int ascii_print(char c);
 ///*UTILS*/
 //int		err(char *s, t_pars *pars);
 //bool	rest_space(char *s, int start);
