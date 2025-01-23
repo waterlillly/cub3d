@@ -3,20 +3,16 @@
 static size_t	max_column(char **file, int rows)
 {
 	size_t	max_column;
-	size_t	actual_size;//TODO: just an idea
+	size_t	actual_size;
 
-	max_column = 0;//TODO: just an idea
-	//max_column = ft_strlen(file[rows]);
+	max_column = 0;
 	while (file[rows])
 	{
-		actual_size = ft_strlen(file[rows]);//TODO: just an idea
-		if (file[rows][actual_size - 1] == '\n')//TODO: just an idea
-			actual_size--;//TODO: just an idea
-		if (actual_size > max_column)//TODO: just an idea
-			max_column = actual_size;//TODO: just an idea
-		//if (ft_strlen(file[rows]) > max_column)
-			//max_column = ft_strlen(file[rows]);
-		printf("|%s| -> %zu\n", file[rows], max_column);
+		actual_size = ft_strlen(file[rows]);
+		if (file[rows][actual_size - 1] == '\n')
+			actual_size--;
+		if (actual_size > max_column)
+			max_column = actual_size;
 		rows++;
 	}
 	return (max_column);
@@ -30,7 +26,6 @@ static void	make_the_map(t_game *game, char **file, int rows)
 
 	row = 0;
 	game->data.max_column = max_column(file, rows);
-	printf("%d\n", game->data.max_column);
 	while (row < game->data.num_of_rows)
 	{
 		column = 0;
@@ -39,7 +34,7 @@ static void	make_the_map(t_game *game, char **file, int rows)
 		if (!game->data.map[row])
 			(free(tmp), tmp = NULL, exit_failure("ft_calloc failed", game));
 		ft_memset(game->data.map[row], ' ', game->data.max_column);
-		ft_memcpy(game->data.map[row], game->data.file_data[rows], ft_strlen(game->data.file_data[rows]));//TODO: if we use the idea: change all game->data.file_data[rows] to tmp
+		ft_memcpy(game->data.map[row], tmp, ft_strlen(tmp));//TODO: if we use the idea: change all game->data.file_data[rows] to tmp
 		(free(tmp), tmp = NULL);//TODO: just an idea
 		if (!game->data.map[row])
 			exit_failure("invalid map", game);

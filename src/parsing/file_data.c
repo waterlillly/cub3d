@@ -2,7 +2,7 @@
 
 static int get_color_texture_and_map(t_game *game, char **file_data , int row, int column)
 {
-    while (file_data[row][column] == SPACE || file_data[row][column] == TAB || file_data[row][column] == NEWLINE)//TODO: there can ONLY be spaces and newlines inside, no other whitespaces
+    while (file_data[row][column] == SPACE || file_data[row][column] == NEWLINE)
         column++;
     if (ascii_print(file_data[row][column]) && !ft_isdigit(file_data[row][column]))
     {
