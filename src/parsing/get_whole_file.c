@@ -43,11 +43,11 @@ static void	get2D_array(t_game *game)
 			exit_failure(MALLOC_FAILED, game);
 		while (line[i] != '\0')
 			game->data.file_data[row][column++] = line[i++];
-		game->data.file_data[row++][column] = '\0';//TODO: not needed because calloc was used
 		column = 0;
 		i = 0;
 		free(line);
 		line = get_next_line(game->data.fd);
+		row++;
 	}
 	game->data.file_data[row] = NULL;
 }

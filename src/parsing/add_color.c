@@ -42,8 +42,6 @@ static bool	is_number(char **rgb)
 			k++;
 		}
 		if (check == false)
-			printf("rgb[j]: |%s|\n", rgb[j]);
-		if (check == false)
 			break ;
 		k = 0;
 		j++;
@@ -57,8 +55,6 @@ static void	convert_to_int_array(t_game *game, char **rgb, int *rgb_int)
 	bool	is_num;
 
 	i = 0;
-	for (int j = 0; j < i; j++)
-		printf("|%d|\n", rgb_int[j]);
 	is_num = is_number(rgb);
 
 	while (rgb[i])
@@ -69,7 +65,6 @@ static void	convert_to_int_array(t_game *game, char **rgb, int *rgb_int)
 			ft_free_2d(rgb);
 			exit_failure("wrong rgb values", game);
 		}
-		printf("%d\n", rgb_int[i]);
 		i++;
 	}
 	ft_free_2d(rgb);
