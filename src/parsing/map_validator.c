@@ -35,10 +35,9 @@ static void map_border(t_game *game)
             {
                 if (row == 0 || column == 0 || row == height - 1 || column == width - 1)
                     exit_failure("Map not surrounded by walls 2", game);
-                else if (game->data.map[row - 1][column - 1] == ' ' || game->data.map[row - 1][column] == ' '
-                    || game->data.map[row - 1][column + 1] == ' ' || game->data.map[row][column + 1] == ' '
-                    || game->data.map[row + 1][column + 1] == ' ' || game->data.map[row + 1][column] == ' '
-                    || game->data.map[row + 1][column - 1] == ' ' || game->data.map[row][column - 1] == ' ')
+                else if (game->data.map[row - 1][column] == ' '
+                    || game->data.map[row + 1][column] == ' ' || game->data.map[row][column + 1] == ' '
+                    || game->data.map[row][column - 1] == ' ')
                     exit_failure("Map not surrounded by walls 3", game);
             }
         }

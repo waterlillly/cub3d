@@ -15,3 +15,9 @@
 -> add animated sprites
 -> add textures for ceiling and floor?
 <!-- -> fix textures being displayed mirrored -->
+
+
+*Monika*
+-> check map if includes '2' or other characvters, also doesnt work with 'P'
+-> take out TAB etc
+-> check for one one player, also needs at least one
