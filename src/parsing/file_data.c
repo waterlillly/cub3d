@@ -2,7 +2,7 @@
 
 static int get_color_texture_and_map(t_game *game, char **file_data , int row, int column)
 {
-    while (file_data[row][column] == SPACE || file_data[row][column] == TAB || file_data[row][column] == NEWLINE)
+    while (file_data[row][column] == SPACE || file_data[row][column] == TAB || file_data[row][column] == NEWLINE)//TODO: there can ONLY be spaces and newlines inside, no other whitespaces
         column++;
     if (ascii_print(file_data[row][column]) && !ft_isdigit(file_data[row][column]))
     {
@@ -10,18 +10,18 @@ static int get_color_texture_and_map(t_game *game, char **file_data , int row, i
         {
             if (add_texture(game, file_data[row], column) == ERR)
                 exit_failure("Error in texture", game);
-            return (BREAK);
+            return (BREAK);//TODO: we are already exiting the program if there is an error
         }
         else
         {
             if (add_color(game, file_data[row], column) == ERR)
                 exit_failure("Error in color", game);
-            return (BREAK);
+            return (BREAK);//TODO: we are already exiting the program if there is an error
         }
     }
     else if (ft_isdigit(file_data[row][column]))
     {
-        if (map_crating(game, file_data, row) == ERR)
+        if (map_creating(game, file_data, row) == ERR)
 			exit_failure("Error in map", game);
 		return (SUCC);
     }
@@ -37,7 +37,7 @@ int file_data(t_game *game, char **file_data)
     while (file_data[row])
     {
         column = 0;
-        while (file_data[row][column] && row < 11)
+        while (file_data[row][column] && row < 11)//TODO: what does 11 mean?
         {
             ret = get_color_texture_and_map(game, file_data, row, column);
             if (ret == BREAK)

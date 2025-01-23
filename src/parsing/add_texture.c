@@ -44,7 +44,7 @@ static void	get_texture_path(t_game *game, int tex_num, char *line)
 	game->textures[tex_num].name = ft_strtrim(split[1], "\n");
 	ft_free_2d(split);
 	if (!game->textures[tex_num].name)
-		exit_failure("also wrong texture", game);
+		exit_failure("ft_strtrim failed", game);
 }
 
 int add_texture(t_game *game, char *line, int column)

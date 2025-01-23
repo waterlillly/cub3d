@@ -118,16 +118,6 @@ typedef struct s_map
 	int				last_row;
 }					t_map;
 
-// typedef struct s_texture // TODO: needed? have an array already in t_game
-// {
-// 	char *north;
-// 	char *south;
-// 	char *west;
-// 	char *east;
-// 	int *floor_color;
-// 	int *ceiling_color;
-// }					t_texture;
-
 typedef struct s_player
 {
 	t_dvec			pos;
@@ -180,6 +170,7 @@ typedef struct s_ray
 typedef struct s_data
 {
 	char			**file_data;
+	t_map 			map_info;
 	char 			**map;
 	int				fd;   
 	int 			map_width;
@@ -199,12 +190,6 @@ typedef struct s_data
 	int				p_orientation;
 	int				floor_color[3];
 	int				ceiling_color[3];
-	t_map 			map_info; // TODO: previous: t_TheMap	TheMapInfo;
-	// char			player_orient;
-	// char			*map_line;
-	// int				map_len;
-	// char			**colors;
-	// char			**textures;
 }					t_data;
 
 typedef struct s_control
@@ -226,7 +211,7 @@ typedef struct s_control
 typedef struct s_game
 {
 	t_data			data;
-	t_image 		textures[5]; // TODO: move t_textures into this
+	t_image 		textures[5];
 	int				c_color;
 	int				f_color;
 	t_control		control;
@@ -249,7 +234,7 @@ void				read_file(t_game *game, char *av, char **map_temp);
 void				get_whole_file(t_game *game, char *path);
 char				*ft_strjoin_gnl(char *s1, char *s2);
 int					file_data(t_game *game, char **file_data);
-int					map_crating(t_game *game, char **file, int row);
+int					map_creating(t_game *game, char **file, int row);
 void 				valid_map(t_game *game);
 void 				check_elements(t_game *game);
 
@@ -310,43 +295,5 @@ bool				crashed(t_game *game, double x1, double y1);
 
 /* minimap.c */
 void				render_minimap(t_game *game);
-
-// /* OTHERS */
-// void	transfer_orient(char orientation, t_game *game);
-// /*UTILS*/
-// bool	rest_space(char *s, int start);
-// bool	check_spaces(char *line);
-// bool	only_digits(char *s);
-
-// /*CHECK MAP*/
-// bool	check_top_bot(char *s, t_game *game);
-// bool	check_bot(t_game *game);
-// bool	check_top(t_game *game);
-// bool	check_sides(char *s, int *player, t_game *game, int x);
-// bool	valid_symbol(int i, int *player, t_game *game, int x);
-
-// /*MAP*/
-// bool	valid_map(t_game *game);
-// bool	add_to_map(char *line, t_game *game);
-// int		find_max_len(t_game *game);
-// void	modify_map(t_game *game);
-
-// /*TEXTURE COLOR*/
-// bool	is_texture(char *line);
-// bool	check_path(char *trim);
-// bool	is_color(char *trim);
-// bool	check_rgb(t_game *game, char *trim);
-// bool	check_color_element(char **split, int *col_count, t_game *game);
-// bool	check_texture_element(char **split, int *tex_count, t_game *game);
-
-// /*CHECK FILE LINE*/
-// char	**modify_line(char *line, t_game *game);
-// bool	is_empty(char *s);
-// bool	check_line(char *line, t_game *game);
-// void	check_file(int fd, t_game *game);
-
-// /*OPEN AND INIT*/
-// void	check_input_file(char *file, t_game *game);
-// void	init_struct(t_game *game);
 
 #endif

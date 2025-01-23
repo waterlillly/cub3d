@@ -1,6 +1,28 @@
 #include "../../cub3d.h"
 
-static bool	is_number(char **rgb)
+/*
+maybe try:
+
+bool	check;
+
+check = true;
+while (rgb[j] && check == true)
+{
+	while (rgb[j][k] && check == true)
+	{
+		if (ft_isdigit(rgb[j][k]) == false)
+			check = false;
+		k++;
+	}
+	if (check == false)
+		break ;
+	k = 0;
+	j++;
+}
+
+*/
+
+static bool	is_number(char **rgb)//TODO: maybe choose different function or variable name? both are namemd is_number?
 {
 	int		j;
 	int		k;
@@ -13,7 +35,7 @@ static bool	is_number(char **rgb)
 	{
 		while (rgb[j][k])
 		{
-			if (ft_isdigit(rgb[j][k]) == 1)
+			if (ft_isdigit(rgb[j][k]) == 1)//TODO: is always gonna be true if the last character is a digit (see idea on top of function)
 				is_number = true;
 			k++;
 		}
