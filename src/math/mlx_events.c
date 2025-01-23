@@ -59,22 +59,40 @@ static int	handle_keypress(int keycode, t_game *game)
 	return (0);
 }
 
-// static int	handle_mouse_motion(int x, int y, t_game *game)
-// {
-// 	static int	prev_x = -1;
-// 	int			delta_x;
-// 	double		angle;
+static void handle_mouse_movement(double x_offset, double y_offset, t_game *game)
+{
+	static t_dvec	prev = {0, 0};
+	t_dvec			d;
+	double			norm;
 
-// 	(void)y;
-// 	if (prev_x == -1)
-// 		prev_x = x;
-// 	delta_x = x - prev_x;
-// 	prev_x = x;
-// 	angle = delta_x * game->player.turn_speed;
-// 	rotate_dir(game, angle);
-// 	rotate_plane(game, angle);
-// 	return (0);
-// }
+	d.x = x_offset - prev.x;
+	d.y = y_offset - prev.y;
+	norm = sqrt(d.x * d.x + d.y * d.y);
+	if (norm > 0.001)
+	{
+		d.x /= norm;
+		d.y /= norm;
+	}
+	game->player.dir.x += d.x * game->player.turn_speed;
+	game->player.dir.y += d.y * game->player.turn_speed;
+	prev.x = x_offset;
+	prev.y = y_offset;
+}
+
+static int mouse_loop(t_game *game)
+{
+	double	x_pos;
+	double	y_pos;
+	int		button;
+
+	if ((button = mlx_get_mouse_button()) != -1)
+	{
+		mlx_get_mouse_pos(&x_pos, &y_pos);
+		handle_mouse_movement(x_pos, y_pos, game);
+		// usleep(16667); // ~60 FPS
+	}
+	return (0);
+}
 
 static void	clear_frame(t_game *game)
 {
@@ -109,14 +127,11 @@ static int	render(t_game *game)
 int	mlx_handler(t_game *game)
 {
 	mlx_loop_hook(game->cub.mlx_con, render, game);
-	puts("AHHH");
 	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask,
 		exit_success, game);
-	puts("AHHH2");
 	mlx_hook(game->cub.mlx_win, KeyRelease, KeyReleaseMask, handle_keyrelease,
 		game);
-	puts("AHHH3");
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
-	// mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, handle_mouse_motion, game);
+	mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, mouse_loop, game);
 	return (0);
 }
