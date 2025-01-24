@@ -11,7 +11,10 @@
 <!-- -> what if map is not a square? -->
 -> add doors which can open and close
 <!-- -> add more textures -->
--> rotate the view with the mouse
+-> rotate the view with the mouse ->
+<X11/extensions/Xfixes.h> library
+XFixesHideCursor() - function for hiding mouse 
+XGrabPointer() - to trap the mouse in the window
 -> add animated sprites
 -> add textures for ceiling and floor?
 <!-- -> fix textures being displayed mirrored -->
