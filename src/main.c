@@ -1,10 +1,15 @@
 #include "../cub3d.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_game	game;
 
 	ft_bzero(&game, sizeof(t_game));
+	(void)ac;
+	(void)av;
+	// initialization_of_vars(&game);
+	// args_handler(ac, av, &game);
+	// validator(&game, av);
 	init_cub(&game);
 	if (mlx_handler(&game) != 0)
 		exit_failure("mlx_handler", &game);

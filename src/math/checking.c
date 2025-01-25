@@ -8,9 +8,7 @@ static int	color(int *color)
 void	get_colors(t_game *game)
 {
 	game->c_color = color(game->data.ceiling_color);
-	printf("%d\n", game->c_color);
 	game->f_color = color(game->data.floor_color);
-	printf("%d\n", game->f_color);
 }
 
 void	check_texture(t_game *game, int i)

@@ -66,6 +66,8 @@ static void	get_orientation(t_game *game)
 
 static void	init_player(t_game *game)
 {
+	game->player.pos.x = 9.5 * TILE_SIZE;
+	game->player.pos.y = 5.5 * TILE_SIZE;
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{
@@ -77,8 +79,14 @@ static void	init_player(t_game *game)
 		game->plane.x = 0.0;
 		game->plane.y = tan(FOV / 2.0);
 	}
-	game->player.move_speed = 5;
-	game->player.turn_speed = 0.1;
+	game->control.forward_velo = 0;
+	game->control.backward_velo = 0;
+	game->control.left_velo = 0;
+	game->control.right_velo = 0;
+	game->control.turn_left_velo = 0;
+	game->control.turn_right_velo = 0;
+	game->player.move_speed = 3;
+	game->player.turn_speed = 0.2;
 }
 
 void	init_cub(t_game *game)
@@ -87,20 +95,20 @@ void	init_cub(t_game *game)
 	if (!game->cub.mlx_con)
 		exit_failure("mlx_con", game);
 	ft_bzero(&game->ray, sizeof(t_ray));
-	// game->data.ceiling_color[0] = 5; // TODO: get actual colors
-	// game->data.ceiling_color[1] = 10;
-	// game->data.ceiling_color[2] = 150;
-	// game->data.floor_color[0] = 0;
-	// game->data.floor_color[1] = 150;
-	// game->data.floor_color[2] = 50;
+	game->data.ceiling_color[0] = 5; // TODO: get actual colors
+	game->data.ceiling_color[1] = 10;
+	game->data.ceiling_color[2] = 150;
+	game->data.floor_color[0] = 0;
+	game->data.floor_color[1] = 150;
+	game->data.floor_color[2] = 50;
 	get_colors(game);
-	// init_map_with_doors(game);
+	init_map_with_doors(game);
 	init_mlx(game);
-	// game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";//TODO: use for storing textures
-	// game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	// game->textures[EAST].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	// game->textures[WEST].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	// game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
+	game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";//TODO: use for storing textures
+	game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	game->textures[EAST].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	game->textures[WEST].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
 }

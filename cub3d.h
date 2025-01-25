@@ -225,6 +225,12 @@ typedef struct s_game
 
 /* ************ PROTOTYPES ************ */
 
+/* maps.c */
+void	init_map_with_doors(t_game *game);
+void	init_map_hallway(t_game *game);
+void	init_map(t_game *game);
+void	init_map_tiny(t_game *game);
+
 //************** PARS **************
 int 				add_color(t_game *game, char *line, int column);
 int					add_texture(t_game *game, char *line, int column);
