@@ -3,17 +3,17 @@
 static int	handle_keyrelease(int keycode, t_game *game)
 {
 	if (keycode == XK_W || keycode == XK_w)
-		(game->control.forward = 0);
+		(game->control.forward = 0, game->control.forward_velo = 0);
 	if (keycode == XK_S || keycode == XK_s)
-		(game->control.backward = 0);
+		(game->control.backward = 0, game->control.backward_velo = 0);
 	if (keycode == XK_A || keycode == XK_a)
-		(game->control.left = 0);
+		(game->control.left = 0, game->control.left_velo = 0);
 	if (keycode == XK_D || keycode == XK_d)
-		(game->control.right = 0);
+		(game->control.right = 0, game->control.right_velo = 0);
 	if (keycode == XK_Left)
-		(game->control.turn_left = 0);
+		(game->control.turn_left = 0, game->control.turn_left_velo = 0);
 	if (keycode == XK_Right)
-		(game->control.turn_right = 0);
+		(game->control.turn_right = 0, game->control.turn_right_velo = 0);
 	return (0);
 }
 
@@ -52,10 +52,9 @@ static int	handle_keypress(int keycode, t_game *game)
 		game->control.turn_right = 1;
 	if (keycode == XK_space)
 	{
-		toggle_door(game, game->ray.map.x / TILE_SIZE,
-			game->ray.map.y / TILE_SIZE);
+		toggle_door(game, game->player.pos.x / TILE_SIZE,
+			game->player.pos.y / TILE_SIZE);
 	}
-	keypress(game);
 	return (0);
 }
 
@@ -116,6 +115,7 @@ static void	clear_frame(t_game *game)
 static int	render(t_game *game)
 {
 	clear_frame(game);
+	keypress(game);
 	raycasting(game);
 	render_minimap(game);
 	buffer_to_image(game);
@@ -132,6 +132,6 @@ int	mlx_handler(t_game *game)
 	mlx_hook(game->cub.mlx_win, KeyRelease, KeyReleaseMask, handle_keyrelease,
 		game);
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
-	// mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, mouse_loop, game);
+	// mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, handle_mouse_motion, game);
 	return (0);
 }
