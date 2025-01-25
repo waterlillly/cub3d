@@ -55,14 +55,14 @@ void	exit_failure(char *s, t_game *game)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(s, STDERR_FILENO);
-	free_all(game);
+	mlx_do_key_autorepeaton(game->cub.mlx_con);
 	free_data(game);
 	exit(EXIT_FAILURE);
 }
 
 int	exit_success(t_game *game)
 {
+	mlx_do_key_autorepeaton(game->cub.mlx_con);
 	free_data(game);
-	free_all(game);
 	exit(EXIT_SUCCESS);
 }
