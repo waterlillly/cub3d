@@ -22,18 +22,18 @@ void	rotate_dir(t_game *game, double angle)
 
 void	turn_left(t_game *game)
 {
-	// if (game->control.turn_left_velo < 0.3)
-	// 	game->control.turn_left_velo += 0.05;
-	// printf("turn_left: %f\n", game->control.turn_left_velo);
-	rotate_dir(game, -game->player.turn_speed);
-	rotate_plane(game, -game->player.turn_speed);
+	if (game->control.turn_left_velo < 0.2)
+		game->control.turn_left_velo += 0.01;
+	printf("turn_left: %f\n", game->control.turn_left_velo);
+	rotate_dir(game, -game->control.turn_left_velo);
+	rotate_plane(game, -game->control.turn_left_velo);
 }
 
 void	turn_right(t_game *game)
 {
-	// if (game->control.turn_right_velo < 0.3)
-	// 	game->control.turn_right_velo += 0.05;
-	// printf("turn_right: %f\n", game->control.turn_right_velo);
-	rotate_dir(game, game->player.turn_speed);
-	rotate_plane(game, game->player.turn_speed);
+	if (game->control.turn_right_velo < 0.2)
+		game->control.turn_right_velo += 0.01;
+	printf("turn_right: %f\n", game->control.turn_right_velo);
+	rotate_dir(game, game->control.turn_right_velo);
+	rotate_plane(game, game->control.turn_right_velo);
 }
