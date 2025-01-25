@@ -65,6 +65,7 @@
 # define VERTICAL_TAB '\v'
 # define FORM_FEED '\f'
 
+//TODO: change macro-function and add them to init
 # define WIN_SIZE 640
 # define TILE_SIZE (WIN_SIZE * 0.1)
 # define MINIMAP_SIZE floor(WIN_SIZE * 0.2)
