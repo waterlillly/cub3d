@@ -87,8 +87,19 @@ void	init_cub(t_game *game)
 	if (!game->cub.mlx_con)
 		exit_failure("mlx_con", game);
 	ft_bzero(&game->ray, sizeof(t_ray));
+	// game->data.ceiling_color[0] = 5; // TODO: get actual colors
+	// game->data.ceiling_color[1] = 10;
+	// game->data.ceiling_color[2] = 150;
+	// game->data.floor_color[0] = 0;
+	// game->data.floor_color[1] = 150;
+	// game->data.floor_color[2] = 50;
 	get_colors(game);
+	// init_map_with_doors(game);
 	init_mlx(game);
+	// game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";//TODO: use for storing textures
+	// game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	// game->textures[EAST].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	// game->textures[WEST].name = "assets/textures/purple_brick_wall_trippy.xpm";
 	// game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
