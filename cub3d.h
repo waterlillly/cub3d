@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <error.h>
 # include <mlx.h> //for mlx@school
+# include <sys/time.h>
 
 //************** ERROR MSG ***********
 
@@ -117,6 +118,7 @@ typedef struct s_map
 	int				num_of_rows;
 	int				max_column;
 	int				last_row;
+
 }					t_map;
 
 typedef struct s_player
@@ -171,6 +173,7 @@ typedef struct s_ray
 typedef struct s_data
 {
 	char			**file_data;
+	char			*data;
 	t_map 			map_info;
 	char 			**map;
 	int				fd;   
@@ -209,6 +212,13 @@ typedef struct s_control
 	double			turn_right_velo;
 }					t_control;
 
+typedef struct s_doors
+{
+	bool			open;
+	t_ivec			pos;
+	int				open_time;
+}					t_doors;
+
 typedef struct s_game
 {
 	t_data			data;
@@ -220,6 +230,8 @@ typedef struct s_game
 	t_player		player;
 	t_ray			ray;
 	t_dvec			plane;
+	t_doors			*doors;
+	int				num_doors;
 	int 			exit_status; // needed?
 }					t_game;
 
@@ -231,7 +243,7 @@ void	init_map_hallway(t_game *game);
 void	init_map(t_game *game);
 void	init_map_tiny(t_game *game);
 
-//************** PARS **************
+// ************** PARS **************
 int 				add_color(t_game *game, char *line, int column);
 int					add_texture(t_game *game, char *line, int column);
 void				args_handler(int ac, char **av, t_game *game);
@@ -245,7 +257,7 @@ int					map_creating(t_game *game, char **file, int row);
 void 				valid_map(t_game *game);
 void 				check_elements(t_game *game);
 
-//************** UTILS **************
+// ************** UTILS **************
 int 				ascii_print(char c);
 void				initialization_of_vars(t_game *game);
 char				**m_split(char const *s, char c);
@@ -260,8 +272,9 @@ int					exit_success(t_game *game);
 void				init_cub(t_game *game);
 
 /* doors.c */
-bool				is_door(t_game *game, int x, int y);
-bool				is_open(t_game *game, int x, int y);
+int					is_door(t_game *game, int x, int y);
+bool				is_open(t_game *game, int nbr);//int x, int y);
+int					get_time(t_game *game);
 void				toggle_door(t_game *game, int x, int y);
 
 /* mlx_events.c */

@@ -85,8 +85,46 @@ static void	init_player(t_game *game)
 	game->control.right_velo = 0;
 	game->control.turn_left_velo = 0;
 	game->control.turn_right_velo = 0;
-	game->player.move_speed = 3;
-	game->player.turn_speed = 0.2;
+	game->player.move_speed = 2;
+	game->player.turn_speed = 0.1;
+}
+
+static void	parse_doors(t_game *game)
+{
+	int		c;
+	t_ivec	xy;
+
+	game->num_doors = 0;
+	xy.y = -1;
+	while (game->data.map[++xy.y])
+	{
+		xy.x = -1;
+		while (game->data.map[xy.y][++xy.x])
+		{
+			if (game->data.map[xy.y][xy.x] == 'D')
+				game->num_doors++;
+		}
+	}
+	game->doors = ft_calloc(game->num_doors + 1, sizeof(t_doors));
+	if (!game->doors)
+		exit_failure("ft_calloc", game);
+	c = 0;
+	xy.y = -1;
+	while (game->data.map[++xy.y])
+	{
+		xy.x = -1;
+		while (game->data.map[xy.y][++xy.x])
+		{
+			if (game->data.map[xy.y][xy.x] == 'D')
+			{
+				game->doors[c].open = false;
+				game->doors[c].pos.x = xy.x;
+				game->doors[c].pos.y = xy.y;
+				game->doors[c].open_time = 0;
+				c++;
+			}
+		}
+	}
 }
 
 void	init_cub(t_game *game)
@@ -103,6 +141,7 @@ void	init_cub(t_game *game)
 	game->data.floor_color[2] = 50;
 	get_colors(game);
 	init_map_with_doors(game);
+	parse_doors(game);
 	init_mlx(game);
 	game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";//TODO: use for storing textures
 	game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";

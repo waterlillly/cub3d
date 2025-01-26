@@ -29,9 +29,6 @@ CFILES = $(addprefix $(SRC_DIR), \
 		check_map_elements.c \
 )
 
-# check_file_line.c check_map.c \
-# map.c open_and_init.c texture_color.c utils.c \
-
 OFILES = $(CFILES:.c=.o)
 
 all: $(NAME)

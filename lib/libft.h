@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:53:55 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/01/07 14:23:33 by msimic           ###   ########.fr       */
+/*   Updated: 2025/01/26 14:08:21 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,9 @@ void	ft_putendl_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-
-/*SAME SAME BUT DIFFERENT*/
 size_t	ft_strlen(const char *s);
-//size_t	ft_strlen(const char *str);
-
 void	ft_putnbr_fd(int c, int fd);
-//void	ft_putnbr_fd(int n, int fd);
-
 int		ft_strcmp(const char *s1, const char *s2);
-//int		ft_strcmp(char *s1, char *s2);
-
-/*EXTRA LILLY*/
 int		ft_isdouble(char *nbr);
 char	*ft_str_lower(char *s);
 char	*ft_str_upper(char *s);
@@ -98,7 +89,6 @@ void	ft_print_array(char **arr);
 bool	ft_strcmp_bool(const char *s1, const char *s2);
 bool	ft_strnstr_bool(const char *big, const char *lil, int start, int len);
 void	ft_print_array_fd(char **arr, int fd);
-
 char	*get_next_line(int fd);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*ft_buf(char *buf, int *x);
@@ -112,8 +102,6 @@ char	*ft_resultoa_long(long n, long len, long backup, char *result);
 char	*ft_extra_long(void);
 long	ft_times_ten_long(long len);
 long	ft_nbrlen_long(long nbr);
-
-/*EXTRA MEHRAS*/
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **alst, t_list *new);
 int		ft_lstsize(t_list *lst);
@@ -128,5 +116,7 @@ size_t	ft_strlen_2d(char **in);
 char	**ft_realloc_2d(char **in, int add);
 void	ft_free_2d(char **in);
 char	*ft_strncpy(char *dest, char *src, int n);
+size_t	ft_strspn(const char *s, const char *accept);
+char	*ft_strappend(char **s1, const char *s2);
 
 #endif

@@ -52,8 +52,8 @@ static int	handle_keypress(int keycode, t_game *game)
 		game->control.turn_right = 1;
 	if (keycode == XK_space)
 	{
-		toggle_door(game, game->player.pos.x / TILE_SIZE,
-			game->player.pos.y / TILE_SIZE);
+		toggle_door(game, game->ray.map.x / TILE_SIZE,
+			game->ray.map.y / TILE_SIZE);
 	}
 	return (0);
 }
@@ -112,8 +112,32 @@ static void	clear_frame(t_game *game)
 	}
 }
 
+static void	check_doors(t_game *game)
+{
+	int	time;
+	int	c;
+
+	c = 0;
+	time = get_time(game);
+	if (time == -1)
+		exit_failure("get time", game);
+	time += 5;
+	while (c < game->num_doors)
+	{
+		if (game->doors[c].open == true
+			&& game->doors[c].open_time + 5000 <= time
+			&& is_door(game, (int)game->player.pos.x / TILE_SIZE, (int)game->player.pos.y / TILE_SIZE) == -1)
+		{
+			game->doors[c].open = false;
+			game->doors[c].open_time = 0;
+		}
+		c++;
+	}
+}
+
 static int	render(t_game *game)
 {
+	check_doors(game);
 	clear_frame(game);
 	keypress(game);
 	raycasting(game);

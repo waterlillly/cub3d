@@ -23,12 +23,14 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 {
 	int	x;
 	int	y;
+	int	nbr;
 
 	x = floor(new_x / (TILE_SIZE));
 	y = floor(new_y / (TILE_SIZE));
 	if (x < 0 || x >= game->data.map_width || y < 0 || y >= game->data.map_height)
 		return (true);
-	if (is_door(game, x, y) && is_open(game, x, y))
+	nbr = is_door(game, x, y);
+	if (nbr >= 0 && is_open(game, nbr))
 		return (false);
 	return (game->data.map[y][x] == '1' || game->data.map[y][x] == ' ' || game->data.map[y][x] == 'D');
 	// TODO: add check for doors etc in bonus

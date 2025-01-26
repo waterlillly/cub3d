@@ -13,7 +13,7 @@ void	init_map_with_doors(t_game *game)
 	game->data.map[2] = ft_strdup("101111011111D111110111101");
 	game->data.map[3] = ft_strdup("1010010000010000010000101");
 	game->data.map[4] = ft_strdup("1010010111010111010111101");
-	game->data.map[5] = ft_strdup("1010000000000000000000101");
+	game->data.map[5] = ft_strdup("1010000000000000DDDDD0101");
 	game->data.map[6] = ft_strdup("1110111111011111011110101");
 	game->data.map[7] = ft_strdup("1000100011010001010000101");
 	game->data.map[8] = ft_strdup("1011101111010111011111101");

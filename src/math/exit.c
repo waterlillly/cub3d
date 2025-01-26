@@ -10,17 +10,10 @@ void free_all(t_game *game)
 		free(game->textures[NORTH].name);
 	if (game->textures[SOUTH].name)
 		free(game->textures[SOUTH].name);
-	if (game->textures[EAST].name)//change to just if (game->textures[EAST].name) because it's anyways checking if there is a memory allocated
+	if (game->textures[EAST].name)
 		free(game->textures[EAST].name);
 	if (game->textures[WEST].name)
 		free(game->textures[WEST].name);
-	// if (game->textures[].name)
-	// 	free(game->textures[].name)floor_color);
-	// if (game->textures[].name)
-	// 	free(game->textures[].name)ceiling_color);
-	// if (errMSG)
-	// 	printf("Error\n%s\n", errMSG);
-	// exit(1);
 }
 
 static void	destroy_mlx(t_game *game)
@@ -48,6 +41,8 @@ static void	free_data(t_game *game)
 {
 	if (!game)
 		return ;
+	// free_all(game);
+	free(game->doors);
 	destroy_mlx(game);
 }
 
