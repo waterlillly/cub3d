@@ -7,7 +7,7 @@ int	main(int ac, char **av)
 	ft_bzero(&game, sizeof(t_game));
 	initialization_of_vars(&game);
 	args_handler(ac, av, &game);
-	validator(&game, av);
+	validate_game(&game, av);
 	puts("validator done");
 	init_cub(&game);
 	if (mlx_handler(&game) != 0)

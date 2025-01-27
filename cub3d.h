@@ -251,7 +251,7 @@ void	init_map_tiny(t_game *game);
 int 				add_color(t_game *game, char *line, int column);
 int					add_texture(t_game *game, char *line, int column);
 void				args_handler(int ac, char **av, t_game *game);
-void				validator(t_game *game, char **av);
+void				validate_game(t_game *game, char **av);
 void				read_file(t_game *game, char *av, char **map_temp);
 // void				ft_error_msg_free_exit(char *msg, t_game *game);
 void				max_line_len(t_game *game);
@@ -269,6 +269,10 @@ char				**m_split(char const *s, char c);
 char				*ft_strappend(char **s1, const char *s2);
 bool				only_digits(char *s);
 void 				max_line_len(t_game *game);
+bool				is_line_empty(char *s);
+char				**split_line_into_words(char *line, t_game *game);
+bool				is_texture_identifier(char *line);
+bool				is_color_identifier(char *trim);
 
 /* exit.c */
 void 				free_all(t_game *game);
@@ -335,7 +339,7 @@ bool	check_texture_element(char **split, int *tex_count, t_game *game);
 char	**modify_line(char *line, t_game *game);
 bool	is_empty(char *s);
 bool	check_line(char *line, t_game *game);
-void	check_file(int fd, t_game *game);
+void	parse_file(int fd, t_game *game);
 
 bool	valid_map(t_game *game);
 void	modify_map(t_game *game);

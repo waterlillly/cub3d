@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-bool	valid_map(t_game *game)
+bool	is_valid_map(t_game *game)
 {
 	int			i;
 	// static int	player = 0;
@@ -25,7 +25,7 @@ bool	valid_map(t_game *game)
 	return (true);
 }
 
-void	check_input_file(char *file, t_game *game)
+void	validate_input_file(char *file, t_game *game)
 {
 	int fd;
 
@@ -34,16 +34,16 @@ void	check_input_file(char *file, t_game *game)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		exit_failure("unable to open .cub file", game);
-	check_file(fd, game);
+	parse_file(fd, game);
 	close(fd);
-	if (!valid_map(game))
+	if (!is_valid_map(game))
 		exit_failure("Invalid map", game);
 }
 
-void validator(t_game *game, char **av)
+void validate_game(t_game *game, char **av)
 {
-    check_input_file(av[1], game);
+    validate_input_file(av[1], game);
     // get_whole_file(game, av[1]);
 	// file_data(game, game->data.file_data);
-	// valid_map(game);//TODO: needs more checks
+	// is_valid_map(game);//TODO: needs more checks
 }

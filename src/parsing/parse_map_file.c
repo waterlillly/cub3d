@@ -1,50 +1,6 @@
 #include "../../cub3d.h"
 
-char	**modify_line(char *line, t_game *game)
-{
-	char	*temp;
-	char	**res;
-	int		len;
-
-	len = ft_strlen(line) - 1;
-	if (len < 0)
-	{
-		(free(line), line = NULL);
-		exit_failure("Invalid line", game);
-	}
-	if (line[len] != '\n')
-	{
-		(free(line), line = NULL);
-		exit_failure("Invalid line", game);
-	}
-	temp = ft_substr(line, 0, len);//maybe use strtrim
-	if (!temp)
-	{
-		(free(line), line = NULL);
-		exit_failure("substr failed", game);
-	}
-	res = ft_split(temp, ' ');
-	(free(temp), temp = NULL);
-	if (!res)
-		exit_failure("split failed", game);
-	return (res);
-}
-
-bool	is_empty(char *s)
-{
-	int	i;
-	
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] != ' ' && s[i] != '\n')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-bool	add_to_map(char *line, t_game *game)
+bool	append_line_to_map(char *line, t_game *game)
 {
 	char	*temp;
 
@@ -63,15 +19,7 @@ bool	add_to_map(char *line, t_game *game)
 	return (true);
 }
 
-bool	is_texture(char *line)
-{
-	if (ft_strcmp(line, "NO") && ft_strcmp(line, "SO")
-		&& ft_strcmp(line, "WE") && ft_strcmp(line, "EA"))
-		return (false);
-	return (true);
-}
-
-bool	check_rgb(char *split, t_game *game, int fc)
+bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 {
 	char	**rgb;
 	int		nbr[3];
@@ -108,12 +56,12 @@ bool	check_rgb(char *split, t_game *game, int fc)
 	return (ft_free_2d(rgb), true);
 }
 
-bool	check_color_element(char **split, int *col_count, t_game *game)
+bool	validate_color_element(char **split, int *col_count, t_game *game)
 {
 	if (split[1])
 	{
-		if ((ft_strcmp(split[0], "F") && check_rgb(split[1], game, 0))
-			|| (ft_strcmp(split[0], "C") && check_rgb(split[1], game, 1)))
+		if ((ft_strcmp(split[0], "F") && validate_and_set_rgb(split[1], game, 0))
+			|| (ft_strcmp(split[0], "C") && validate_and_set_rgb(split[1], game, 1)))
 		{
 			(*col_count)++;
 			return (true);
@@ -122,7 +70,7 @@ bool	check_color_element(char **split, int *col_count, t_game *game)
 	return (false);
 }		
 
-bool	check_texture_element(char **split, int *tex_count, t_game *game)
+bool	validate_texture_element(char **split, int *tex_count, t_game *game)
 {
 	if (split[1] && access(split[1], F_OK) == 0)
 	{
@@ -165,14 +113,7 @@ bool	check_texture_element(char **split, int *tex_count, t_game *game)
 	return (false);
 }
 
-bool	is_color(char *trim)
-{
-	if (ft_strcmp(trim, "F") && ft_strcmp(trim, "C"))
-		return (false);
-	return (true);
-}
-
-bool	check_line(char *line, t_game *game)
+bool	process_line(char *line, t_game *game)
 {
 	static int	tex_count = 0;
 	static int	col_count = 0;
@@ -180,25 +121,25 @@ bool	check_line(char *line, t_game *game)
 
 	if ((tex_count < 4 || col_count < 2) && !game->data.data)
 	{
-		if (is_empty(line))
+		if (is_line_empty(line))
 			return (true);
-		split = modify_line(line, game);
-		if (split[0] && split[1] && is_texture(split[0]))
-			return (check_texture_element(split, &tex_count, game));
-		else if (split[0] && split[1] && is_color(split[0]))
-			return (check_color_element(split, &col_count, game));
+		split = split_line_into_words(line, game);
+		if (split[0] && split[1] && is_texture_identifier(split[0]))
+			return (validate_texture_element(split, &tex_count, game));
+		else if (split[0] && split[1] && is_color_identifier(split[0]))
+			return (validate_color_element(split, &col_count, game));
 		else
 			return (false);
 	}
-	else if (line && is_empty(line) && tex_count >= 4
+	else if (line && is_line_empty(line) && tex_count >= 4
 		&& col_count >= 2 && !game->data.data)
 		return (true);
-	else if (line && !is_empty(line) && tex_count >= 4 && col_count >= 2)
-		return (add_to_map(line, game));
+	else if (line && !is_line_empty(line) && tex_count >= 4 && col_count >= 2)
+		return (append_line_to_map(line, game));
 	return (false);
 }
 
-static void	split_map(t_game *game)
+static void	split_map_into_grid(t_game *game)
 {
 	int		i;
 	char	**map;
@@ -225,7 +166,7 @@ static void	split_map(t_game *game)
 	game->data.map = map;
 }
 
-void	check_file(int fd, t_game *game)
+void	parse_file(int fd, t_game *game)
 {
 	char	*line;
 
@@ -236,7 +177,7 @@ void	check_file(int fd, t_game *game)
 	game->data.ceiling_color_set = false;
 	while (line)
 	{
-		if (!check_line(line, game))
+		if (!process_line(line, game))
 		{
 			free(line);
 			line = NULL;
@@ -247,7 +188,7 @@ void	check_file(int fd, t_game *game)
 		line = NULL;
 		line = get_next_line(fd);
 	}
-	split_map(game);
+	split_map_into_grid(game);
 	if (game->data.map)
 		ft_print_array(game->data.map);
 }
