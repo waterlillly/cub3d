@@ -58,40 +58,35 @@ static int	handle_keypress(int keycode, t_game *game)
 	return (0);
 }
 
-// static void handle_mouse_movement(double x_offset, double y_offset, t_game *game)
-// {
-// 	static t_dvec	prev = {0, 0};
-// 	t_dvec			d;
-// 	double			norm;
+static void handle_mouse_movement(int x_offset, int y_offset, t_game *game)
+{
+	static t_ivec	prev = {0, 0};
+	t_ivec			d;
+	double			norm;
 
-// 	d.x = x_offset - prev.x;
-// 	d.y = y_offset - prev.y;
-// 	norm = sqrt(d.x * d.x + d.y * d.y);
-// 	if (norm > 0.001)
-// 	{
-// 		d.x /= norm;
-// 		d.y /= norm;
-// 	}
-// 	game->player.dir.x += d.x * game->player.turn_speed;
-// 	game->player.dir.y += d.y * game->player.turn_speed;
-// 	prev.x = x_offset;
-// 	prev.y = y_offset;
-// }
+	d.x = x_offset - prev.x;
+	d.y = y_offset - prev.y;
+	norm = sqrt(d.x * d.x + d.y * d.y);
+	if (norm > 0.001)
+	{
+		d.x /= norm;
+		d.y /= norm;
+	}
+	game->player.dir.x += d.x * game->player.turn_speed;
+	game->player.dir.y += d.y * game->player.turn_speed;
+	prev.x = x_offset;
+	prev.y = y_offset;
+}
 
-// static int mouse_loop(t_game *game)
-// {
-// 	double	x_pos;
-// 	double	y_pos;
-// 	int		button;
+static int mouse_loop(t_game *game)
+{
+	t_ivec	pos;
 
-// 	if ((button = mlx_get_mouse_button()) != -1)
-// 	{
-// 		mlx_get_mouse_pos(&x_pos, &y_pos);
-// 		handle_mouse_movement(x_pos, y_pos, game);
-// 		// usleep(16667); // ~60 FPS
-// 	}
-// 	return (0);
-// }
+	mlx_mouse_move(game->cub.mlx_con, game->cub.mlx_win, pos.x, pos.y);
+	if (mlx_mouse_get_pos(game->cub.mlx_con, game->cub.mlx_win, &pos.x, &pos.y) != -1)
+		handle_mouse_movement(pos.x, pos.y, game);
+	return (0);
+}
 
 static void	clear_frame(t_game *game)
 {
@@ -156,6 +151,6 @@ int	mlx_handler(t_game *game)
 	mlx_hook(game->cub.mlx_win, KeyRelease, KeyReleaseMask, handle_keyrelease,
 		game);
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
-	// mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, handle_mouse_motion, game);
+	mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, mouse_loop, game);
 	return (0);
 }
