@@ -1,33 +1,10 @@
 #include "../../cub3d.h"
 
-/*
-maybe try:
-
-bool	check;
-
-check = true;
-while (rgb[j] && check == true)
-{
-	while (rgb[j][k] && check == true)
-	{
-		if (ft_isdigit(rgb[j][k]) == false)
-			check = false;
-		k++;
-	}
-	if (check == false)
-		break ;
-	k = 0;
-	j++;
-}
-
-*/
-
 static bool	is_number(char **rgb)
 {
 	int		j;
 	int		k;
 	bool	check;
-	//bool	is_num;
 
 	k = 0;
 	j = 0;

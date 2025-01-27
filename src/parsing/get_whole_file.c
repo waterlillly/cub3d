@@ -1,70 +1,253 @@
 #include "../../cub3d.h"
 
-static int	line_count(t_game *game, char *path)
+char	**modify_line(char *line, t_game *game)
 {
-	int		fd;
-	int		line_count;
-	char	*line;
+	char	*temp;
+	char	**res;
+	int		len;
 
-	line_count = 0;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		exit_failure(MAP_FILE_NOT_FOUND, game);
-	else
+	len = ft_strlen(line) - 1;
+	if (len < 0)
 	{
-		line = get_next_line(fd);
-		while (line != NULL)
-		{
-			line_count++;
-			free(line);
-			line = get_next_line(fd);
-		}
-		close(fd);
+		(free(line), line = NULL);
+		exit_failure("Invalid line", game);
 	}
-	return (line_count);
+	if (line[len] != '\n')
+	{
+		(free(line), line = NULL);
+		exit_failure("Invalid line", game);
+	}
+	temp = ft_substr(line, 0, len);//maybe use strtrim
+	if (!temp)
+	{
+		(free(line), line = NULL);
+		exit_failure("substr failed", game);
+	}
+	res = ft_split(temp, ' ');
+	(free(temp), temp = NULL);
+	if (!res)
+		exit_failure("split failed", game);
+	return (res);
 }
 
-static void	get2D_array(t_game *game)
+bool	is_empty(char *s)
+{
+	int	i;
+	
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != ' ' && s[i] != '\n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	add_to_map(char *line, t_game *game)
+{
+	char	*temp;
+
+	if (!game->data.data)
+	{
+		game->data.data = ft_strdup(line);
+		if (!game->data.data)
+			return (ft_putendl_fd("Error: strdup failed", 2), false);
+		return (true);
+	}
+	temp = ft_strjoin(game->data.data, line);
+	if (!temp)
+		return (ft_putendl_fd("Error: strjoin failed", 2), false);
+	free(game->data.data);
+	game->data.data = temp;
+	return (true);
+}
+
+bool	is_texture(char *line)
+{
+	if (ft_strcmp(line, "NO") && ft_strcmp(line, "SO")
+		&& ft_strcmp(line, "WE") && ft_strcmp(line, "EA"))
+		return (false);
+	return (true);
+}
+
+bool	check_rgb(char *split, t_game *game, int fc)
+{
+	char	**rgb;
+	int		nbr[3];
+	int		i;
+
+	rgb = ft_split(split, ',');
+	if (!rgb)
+		return (false);
+	if (ft_arrlen(rgb) != 3)
+		return (false);
+	i = 0;
+	while (rgb[i])
+	{
+		if (ft_strlen(rgb[i]) > 3 || ft_strlen(rgb[i]) <= 0
+			|| !only_digits(rgb[i]))
+			return (ft_free_2d(rgb), false);
+		nbr[i] = ft_atoi(rgb[i]);
+		if (nbr[i] < 0 || nbr[i] > 255)
+			return (ft_free_2d(rgb), false);
+		if (fc == 0)
+		{
+			game->data.floor_color[i] = nbr[i];
+			if (i == 2)
+				game->data.floor_color_set = true;
+		}
+		else
+		{
+			game->data.ceiling_color[i] = nbr[i];
+			if (i == 2)
+				game->data.ceiling_color_set = true;
+		}
+		i++;
+	}
+	return (ft_free_2d(rgb), true);
+}
+
+bool	check_color_element(char **split, int *col_count, t_game *game)
+{
+	if (split[1])
+	{
+		if ((ft_strcmp(split[0], "F") && check_rgb(split[1], game, 0))
+			|| (ft_strcmp(split[0], "C") && check_rgb(split[1], game, 1)))
+		{
+			(*col_count)++;
+			return (true);
+		}
+	}
+	return (false);
+}		
+
+bool	check_texture_element(char **split, int *tex_count, t_game *game)
+{
+	if (split[1] && access(split[1], F_OK) == 0)
+	{
+		if (!ft_strcmp(split[0], "NO"))
+		{
+			if (game->textures[NORTH].name)
+				return(ft_free_2d(split), false);//exit_failure("Duplicate north texture", game));
+			game->textures[NORTH].name = ft_strdup(split[1]);
+			if (!game->textures[NORTH].name)
+				return(ft_free_2d(split), false);//exit_failure("strdup", game));
+		}
+		else if (!ft_strcmp(split[0], "SO"))
+		{
+			if (game->textures[SOUTH].name)
+				return(ft_free_2d(split), false);//exit_failure("Duplicate south texture", game));
+			game->textures[SOUTH].name = ft_strdup(split[1]);
+			if (!game->textures[SOUTH].name)
+				return(ft_free_2d(split), false);//exit_failure("strdup", game));
+		}
+		else if (!ft_strcmp(split[0], "EA"))
+		{
+			if (game->textures[EAST].name)
+				return(ft_free_2d(split), false);//exit_failure("Duplicate east texture", game));
+			game->textures[EAST].name = ft_strdup(split[1]);
+			if (!game->textures[EAST].name)
+				return(ft_free_2d(split), false);//exit_failure("strdup", game));
+		}
+		else if (!ft_strcmp(split[0], "WE"))
+		{
+			if (game->textures[WEST].name)
+				return(ft_free_2d(split), false);//exit_failure("Duplicate west texture", game));
+			game->textures[WEST].name = ft_strdup(split[1]);
+			if (!game->textures[WEST].name)
+				return(ft_free_2d(split), false);//exit_failure("strdup", game));
+		}
+		ft_free_2d(split);
+		(*tex_count)++;
+		return (true);
+	}
+	return (false);
+}
+
+bool	is_color(char *trim)
+{
+	if (ft_strcmp(trim, "F") && ft_strcmp(trim, "C"))
+		return (false);
+	return (true);
+}
+
+bool	check_line(char *line, t_game *game)
+{
+	static int	tex_count = 0;
+	static int	col_count = 0;
+	char		**split;
+
+	if ((tex_count < 4 || col_count < 2) && !game->data.data)
+	{
+		if (is_empty(line))
+			return (true);
+		split = modify_line(line, game);
+		if (split[0] && split[1] && is_texture(split[0]))
+			return (check_texture_element(split, &tex_count, game));
+		else if (split[0] && split[1] && is_color(split[0]))
+			return (check_color_element(split, &col_count, game));
+		else
+			return (false);
+	}
+	else if (line && is_empty(line) && tex_count >= 4
+		&& col_count >= 2 && !game->data.data)
+		return (true);
+	else if (line && !is_empty(line) && tex_count >= 4 && col_count >= 2)
+		return (add_to_map(line, game));
+	return (false);
+}
+
+static void	split_map(t_game *game)
 {
 	int		i;
-	int		row;
-	size_t	column;
-	char	*line;
+	char	**map;
 
 	i = 0;
-	row = 0;
-	column = 0;
-	line = get_next_line(game->data.fd);
-	while (line != NULL)
+	map = NULL;
+	game->data.map = ft_split(game->data.data, '\n');
+	if (!game->data.map)
+		exit_failure("split failed", game);
+	max_line_len(game);
+	map = ft_calloc(ft_arrlen(game->data.map) + 1, sizeof(char *));
+	if (!map)
+		exit_failure("calloc failed", game);
+	while (game->data.map[i])
 	{
-		game->data.file_data[row] = ft_calloc(ft_strlen(line) + 1,
-				sizeof(char));
-		if (!game->data.file_data[row])
-			exit_failure(MALLOC_FAILED, game);
-		while (line[i] != '\0')
-			game->data.file_data[row][column++] = line[i++];
-		column = 0;
-		i = 0;
-		free(line);
-		line = get_next_line(game->data.fd);
-		row++;
+		map[i] = ft_calloc(game->data.max_column + 1, sizeof(char));
+		if (!map)
+			exit_failure("calloc failed", game);
+		ft_memset(map[i], ' ', game->data.max_column);
+		ft_memcpy(map[i], game->data.map[i], ft_strlen(game->data.map[i]));
+		i++;
 	}
-	game->data.file_data[row] = NULL;
+	ft_free_2d(game->data.map);
+	game->data.map = map;
 }
 
-void	get_whole_file(t_game *game, char *path)
+void	check_file(int fd, t_game *game)
 {
-	game->data.line_count = line_count(game, path);
-	game->data.path = path;
-	game->data.file_data = malloc(sizeof(char *) * (game->data.line_count + 1));
-	if (!game->data.file_data)
-		exit_failure(MALLOC_FAILED, game);
-	game->data.fd = open(path, O_RDONLY);
-	if (game->data.fd < 0)
-		exit_failure(MAP_FILE_NOT_FOUND, game);
-	else
+	char	*line;
+
+	line = NULL;
+	line = get_next_line(fd);
+	ft_bzero(&game->data, sizeof(t_data));
+	game->data.floor_color_set = false;//TODO: add into init instead of here
+	game->data.ceiling_color_set = false;
+	while (line)
 	{
-		get2D_array(game);
-		close(game->data.fd);
+		if (!check_line(line, game))
+		{
+			free(line);
+			line = NULL;
+			close(fd);
+			exit_failure("Invalid file", game);
+		}
+		free(line);
+		line = NULL;
+		line = get_next_line(fd);
 	}
+	split_map(game);
+	if (game->data.map)
+		ft_print_array(game->data.map);
 }

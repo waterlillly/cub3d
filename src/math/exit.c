@@ -4,6 +4,8 @@ void free_all(t_game *game)
 {
 	if (game->data.map)
 		ft_free_2d(game->data.map);
+	if (game->data.data)
+		free(game->data.data);
 	if (game->data.file_data)
 		ft_free_2d(game->data.file_data);
 	if (game->textures[NORTH].name)

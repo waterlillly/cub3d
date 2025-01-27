@@ -188,12 +188,16 @@ typedef struct s_data
 	int				last_row;
 	int				num_of_rows;
 	int				num_of_columns;
-	int				max_column;
+	size_t			max_column;
 	int				num_of_player;
 	int				num_of_orientations;
 	int				p_orientation;
 	int				floor_color[3];
+	bool			floor_color_set;
 	int				ceiling_color[3];
+	bool			ceiling_color_set;
+	char			*textures[4];
+	char			*colors[2];
 }					t_data;
 
 typedef struct s_control
@@ -240,7 +244,7 @@ typedef struct s_game
 /* maps.c */
 void	init_map_with_doors(t_game *game);
 void	init_map_hallway(t_game *game);
-void	init_map(t_game *game);
+// void	init_map(t_game *game);
 void	init_map_tiny(t_game *game);
 
 // ************** PARS **************
@@ -250,11 +254,12 @@ void				args_handler(int ac, char **av, t_game *game);
 void				validator(t_game *game, char **av);
 void				read_file(t_game *game, char *av, char **map_temp);
 // void				ft_error_msg_free_exit(char *msg, t_game *game);
+void				max_line_len(t_game *game);
 void				get_whole_file(t_game *game, char *path);
 char				*ft_strjoin_gnl(char *s1, char *s2);
 int					file_data(t_game *game, char **file_data);
 int					map_creating(t_game *game, char **file, int row);
-void 				valid_map(t_game *game);
+// void 				valid_map(t_game *game);
 void 				check_elements(t_game *game);
 
 // ************** UTILS **************
@@ -262,6 +267,8 @@ int 				ascii_print(char c);
 void				initialization_of_vars(t_game *game);
 char				**m_split(char const *s, char c);
 char				*ft_strappend(char **s1, const char *s2);
+bool				only_digits(char *s);
+void 				max_line_len(t_game *game);
 
 /* exit.c */
 void 				free_all(t_game *game);
@@ -315,5 +322,23 @@ bool				crashed(t_game *game, double x1, double y1);
 
 /* minimap.c */
 void				render_minimap(t_game *game);
+
+/*TEXTURE COLOR*/
+bool	is_texture(char *line);
+//bool	check_path(char *trim);
+bool	is_color(char *trim);
+bool	check_rgb(char *trim, t_game *game, int fc);
+bool	check_color_element(char **split, int *col_count, t_game *game);
+bool	check_texture_element(char **split, int *tex_count, t_game *game);
+
+/*CHECK FILE LINE*/
+char	**modify_line(char *line, t_game *game);
+bool	is_empty(char *s);
+bool	check_line(char *line, t_game *game);
+void	check_file(int fd, t_game *game);
+
+bool	valid_map(t_game *game);
+void	modify_map(t_game *game);
+void	check_input_file(char *file, t_game *game);
 
 #endif

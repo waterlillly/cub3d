@@ -22,6 +22,7 @@ CFILES = $(addprefix $(SRC_DIR), \
 ) $(addprefix $(UTILS_DIR), \
 		strappend.c m_split.c \
 		ascii_print.c init.c \
+		only_digits.c max_line_len.c \
 ) $(addprefix $(PARSE_DIR), \
 		args_handler.c validator.c read_file.c \
 		get_whole_file.c file_data.c add_texture.c \
