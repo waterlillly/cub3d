@@ -52,7 +52,7 @@ void	exit_failure(char *s, t_game *game)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(s, STDERR_FILENO);
-	mlx_do_key_autorepeaton(game->cub.mlx_con);
+	//mlx_do_key_autorepeaton(game->cub.mlx_con);
 	free_data(game);
 	exit(EXIT_FAILURE);
 }

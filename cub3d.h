@@ -261,6 +261,7 @@ int					file_data(t_game *game, char **file_data);
 int					map_creating(t_game *game, char **file, int row);
 // void 				valid_map(t_game *game);
 void 				check_elements(t_game *game);
+void				is_valid_map(t_game *game);
 
 // ************** UTILS **************
 int 				ascii_print(char c);

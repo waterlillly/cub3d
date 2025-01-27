@@ -67,6 +67,7 @@ bool	validate_color_element(char **split, int *col_count, t_game *game)
 			return (true);
 		}
 	}
+	//ft_free_2d(split);
 	return (false);
 }		
 
@@ -128,8 +129,11 @@ bool	process_line(char *line, t_game *game)
 			return (validate_texture_element(split, &tex_count, game));
 		else if (split[0] && split[1] && is_color_identifier(split[0]))
 			return (validate_color_element(split, &col_count, game));
-		else
+		else{
+			ft_free_2d(split);
 			return (false);
+		}
+		//ft_free_2d(split);
 	}
 	else if (line && is_line_empty(line) && tex_count >= 4
 		&& col_count >= 2 && !game->data.data)

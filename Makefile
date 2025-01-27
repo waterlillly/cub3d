@@ -25,12 +25,11 @@ CFILES = $(addprefix $(SRC_DIR), \
 		only_digits.c max_line_len.c \
 		split_line_into_words.c is_line_empty.c \
 		is_texture_identifier.c is_color_identifier.c \
-		\
 ) $(addprefix $(PARSE_DIR), \
 		args_handler.c validate_game.c read_file.c \
 		parse_map_file.c file_data.c add_texture.c \
 		add_color.c map_creating.c map_validator.c \
-		check_map_elements.c \
+		check_map_elements.c is_valid_map.c \
 )
 
 OFILES = $(CFILES:.c=.o)
