@@ -15,7 +15,6 @@ void	is_valid_map(t_game *game)
 
 static void validate_border(t_game *game)
 {
-    puts("\nVALIDATING BORDER");
     int row;
     int column;
     int width;
@@ -40,24 +39,20 @@ static void validate_border(t_game *game)
             }
         }
     }
-    printf("\tSURROUNDED BY WALLS\n");
 }
 
 static void validate_row_and_column(t_game *game)
 {
-    puts("\nVALIDATING ROW AND COLUMN");
     if (game->data.map == NULL)
         exit_failure("Map missing", game);
     if (game->data.num_of_rows < 3)
         exit_failure("Map is too small", game);
     if (game->data.max_column < 3)
         exit_failure("Map is too small", game);
-    printf("\tROW AND COLUMN VALIDATED\n");
 }
 
 static void validate_element(t_game *game)
 {
-    puts("\nVALIDATING ELEMENT");
     int row;
     int column;
     
@@ -77,12 +72,10 @@ static void validate_element(t_game *game)
             }
         }
     }
-    printf("\tELEMENT VALIDATED\n");
 }
 
 static void validate_player(t_game *game)
 {
-    puts("\nVALIDATING PLAYER");
     int players;
     int row;
     int column;
@@ -100,5 +93,4 @@ static void validate_player(t_game *game)
     }
     if (players != 1)
         exit_failure("Player missing or too many players", game);
-    printf("\tPLAYER VALIDATED\n");
 }

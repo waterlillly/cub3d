@@ -196,7 +196,7 @@ typedef struct s_data
 	bool			floor_color_set;
 	int				ceiling_color[3];
 	bool			ceiling_color_set;
-	char			*textures[4];
+//	char			*textures[4];
 	char			*colors[2];
 }					t_data;
 

@@ -6,9 +6,6 @@ bool	process_line(char *line, t_game *game)
 	static int	col_count = 0;
 	char		**split;
 
-	//TODO: is this static variable necessary?
-	//because of norminatte. When we init var here and not
-	//in the same line then it doesn't work for some reason.
 	if ((tex_count < 4 || col_count < 2) && !game->data.data)
 	{
 		if (is_line_empty(line))
@@ -54,6 +51,4 @@ void	parse_file(int fd, t_game *game)
 		line = get_next_line(fd);
 	}
 	split_map_into_grid(game);
-	if (game->data.map)
-		ft_print_array(game->data.map);
 }

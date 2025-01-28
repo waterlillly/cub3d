@@ -29,7 +29,6 @@ CFILES = $(addprefix $(SRC_DIR), \
 ) $(addprefix $(PARSE_DIR), \
 		args_handler.c validate_game.c \
 		parse_map_file.c validate_input_file.c \
-		map_validator.c \
 		is_valid_map.c \
 )
 
