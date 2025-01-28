@@ -1,63 +1,5 @@
 #include "../../cub3d.h"
 
-static int	handle_keyrelease(int keycode, t_game *game)
-{
-	if (keycode == XK_W || keycode == XK_w)
-		(game->control.forward = 0, game->control.forward_velo = 0);
-	if (keycode == XK_S || keycode == XK_s)
-		(game->control.backward = 0, game->control.backward_velo = 0);
-	if (keycode == XK_A || keycode == XK_a)
-		(game->control.left = 0, game->control.left_velo = 0);
-	if (keycode == XK_D || keycode == XK_d)
-		(game->control.right = 0, game->control.right_velo = 0);
-	if (keycode == XK_Left)
-		(game->control.turn_left = 0, game->control.turn_left_velo = 0);
-	if (keycode == XK_Right)
-		(game->control.turn_right = 0, game->control.turn_right_velo = 0);
-	return (0);
-}
-
-static int	keypress(t_game *game)
-{
-	if (game->control.forward == 1)
-		move_forward(game);
-	if (game->control.backward == 1)
-		move_backward(game);
-	if (game->control.left == 1)
-		move_left(game);
-	if (game->control.right == 1)
-		move_right(game);
-	if (game->control.turn_left == 1)
-		turn_left(game);
-	if (game->control.turn_right == 1)
-		turn_right(game);
-	return (0);
-}
-
-static int	handle_keypress(int keycode, t_game *game)
-{
-	if (keycode == XK_Escape || keycode == 17)
-		exit_success(game);
-	if (keycode == XK_W || keycode == XK_w)
-		game->control.forward = 1;
-	if (keycode == XK_S || keycode == XK_s)
-		game->control.backward = 1;
-	if (keycode == XK_A || keycode == XK_a)
-		game->control.left = 1;
-	if (keycode == XK_D || keycode == XK_d)
-		game->control.right = 1;
-	if (keycode == XK_Left)
-		game->control.turn_left = 1;
-	if (keycode == XK_Right)
-		game->control.turn_right = 1;
-	if (keycode == XK_space)
-	{
-		toggle_door(game, game->ray.map.x / TILE_SIZE,
-			game->ray.map.y / TILE_SIZE);
-	}
-	return (0);
-}
-
 static void	clear_frame(t_game *game)
 {
 	int	x;
@@ -77,30 +19,7 @@ static void	clear_frame(t_game *game)
 	}
 }
 
-static void	check_doors(t_game *game)
-{
-	int	time;
-	int	c;
-
-	c = 0;
-	time = get_time(game);
-	if (time == -1)
-		exit_failure("get time", game);
-	time += 5;
-	while (c < game->num_doors)
-	{
-		if (game->doors[c].open == true
-			&& game->doors[c].open_time + 5000 <= time
-			&& is_door(game, (int)game->player.pos.x / TILE_SIZE, (int)game->player.pos.y / TILE_SIZE) == -1)
-		{
-			game->doors[c].open = false;
-			game->doors[c].open_time = 0;
-		}
-		c++;
-	}
-}
-
-static int mouse_loop(int x, int y, t_game *game)
+static int	mouse_loop(int x, int y, t_game *game)
 {
 	static int	i = 0;
 
@@ -146,7 +65,8 @@ int	mlx_handler(t_game *game)
 	mlx_hook(game->cub.mlx_win, KeyRelease, KeyReleaseMask, handle_keyrelease,
 		game);
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
-	mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, mouse_loop, game);
+	mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, mouse_loop,
+		game);
 	mlx_loop_hook(game->cub.mlx_con, render, game);
 	return (0);
 }

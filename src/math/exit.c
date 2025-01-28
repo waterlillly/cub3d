@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-void free_all(t_game *game)
+void	free_all(t_game *game)
 {
 	if (game->data.map)
 		ft_free_2d(game->data.map);

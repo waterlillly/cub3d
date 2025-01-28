@@ -25,13 +25,36 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 	int	y;
 	int	nbr;
 
-	x = floor(new_x / (TILE_SIZE));
-	y = floor(new_y / (TILE_SIZE));
-	if (x < 0 || x >= game->data.map_width || y < 0 || y >= game->data.map_height)
+	x = floor(new_x / (game->macro.tile_size));
+	y = floor(new_y / (game->macro.tile_size));
+	if (x < 0 || x >= game->data.map_width || y < 0
+		|| y >= game->data.map_height)
 		return (true);
 	nbr = is_door(game, x, y);
 	if (nbr >= 0 && is_open(game, nbr))
 		return (false);
-	return (game->data.map[y][x] == '1' || game->data.map[y][x] == ' ' || game->data.map[y][x] == 'D');
-	// TODO: add check for doors etc in bonus
+	return (game->data.map[y][x] == '1' || game->data.map[y][x] == 'D');
+}
+
+void	check_doors(t_game *game)
+{
+	int	time;
+	int	c;
+
+	c = 0;
+	time = get_time(game);
+	if (time == -1)
+		exit_failure("get time", game);
+	time += 5;
+	while (c < game->num_doors)
+	{
+		if (game->doors[c].open == true && game->doors[c].open_time
+			+ 5000 <= time && is_door(game, (int)game->player.pos.x / game->macro.tile_size,
+				(int)game->player.pos.y / game->macro.tile_size) == -1)
+		{
+			game->doors[c].open = false;
+			game->doors[c].open_time = 0;
+		}
+		c++;
+	}
 }

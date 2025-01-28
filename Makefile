@@ -18,7 +18,7 @@ CFILES = $(addprefix $(SRC_DIR), \
 		init.c mlx_events.c pixels.c \
 		exit.c movement.c utils.c rotation.c \
 		raycasting.c minimap.c checking.c \
-		raycasting2.c doors.c \
+		raycasting2.c doors.c mlx_handle_input.c \
 ) $(addprefix $(UTILS_DIR), \
 		strappend.c m_split.c \
 		ascii_print.c init.c \

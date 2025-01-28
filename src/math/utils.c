@@ -1,8 +1,14 @@
 #include "../../cub3d.h"
 
-/* Normalize a vector
-	= scaling it to the length of 1 (unit vector) while keeping its direction
-	length gets the actual length of the given vector */
+int	get_time(t_game *game)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) < 0)
+		exit_failure("gettimeofday", game);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
 t_dvec	norm(t_dvec vec)
 {
 	double	length;
@@ -21,7 +27,8 @@ bool	crashed(t_game *game, double x1, double y1)
 
 	x = x1;
 	y = y1;
-	if (x < 0 || x >= game->data.map_width || y < 0 || y >= game->data.map_height)
+	if (x < 0 || x >= game->data.map_width || y < 0
+		|| y >= game->data.map_height)
 		return (true);
 	return (game->data.map[y][x] == '1');
 }
