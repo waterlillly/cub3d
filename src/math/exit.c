@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-void free_all(t_game *game)
+void	free_all(t_game *game)
 {
 	if (game->data.map)
 		ft_free_2d(game->data.map);
@@ -8,14 +8,14 @@ void free_all(t_game *game)
 		free(game->data.data);
 	if (game->data.file_data)
 		ft_free_2d(game->data.file_data);
-	if (game->textures[NORTH].name)
-		free(game->textures[NORTH].name);
-	if (game->textures[SOUTH].name)
-		free(game->textures[SOUTH].name);
-	if (game->textures[EAST].name)
-		free(game->textures[EAST].name);
-	if (game->textures[WEST].name)
-		free(game->textures[WEST].name);
+	// if (game->textures[NORTH].name)
+	// 	free(game->textures[NORTH].name);
+	// if (game->textures[SOUTH].name)
+	// 	free(game->textures[SOUTH].name);
+	// if (game->textures[EAST].name)
+	// 	free(game->textures[EAST].name);
+	// if (game->textures[WEST].name)
+	// 	free(game->textures[WEST].name);
 }
 
 static void	destroy_mlx(t_game *game)
@@ -43,7 +43,7 @@ static void	free_data(t_game *game)
 {
 	if (!game)
 		return ;
-	// free_all(game);
+	free_all(game);
 	free(game->doors);
 	destroy_mlx(game);
 }
@@ -52,7 +52,8 @@ void	exit_failure(char *s, t_game *game)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(s, STDERR_FILENO);
-	//mlx_do_key_autorepeaton(game->cub.mlx_con);
+	mlx_do_key_autorepeaton(game->cub.mlx_con);
+	mlx_mouse_show(game->cub.mlx_con, game->cub.mlx_win);
 	free_data(game);
 	exit(EXIT_FAILURE);
 }
@@ -60,6 +61,7 @@ void	exit_failure(char *s, t_game *game)
 int	exit_success(t_game *game)
 {
 	mlx_do_key_autorepeaton(game->cub.mlx_con);
+	mlx_mouse_show(game->cub.mlx_con, game->cub.mlx_win);
 	free_data(game);
 	exit(EXIT_SUCCESS);
 }

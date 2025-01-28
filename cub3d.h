@@ -68,12 +68,6 @@
 
 //TODO: change macro-function and add them to init
 # define WIN_SIZE 640
-# define TILE_SIZE (WIN_SIZE * 0.1)
-# define MINIMAP_SIZE floor(WIN_SIZE * 0.2)
-# define MINI_TILE_WIDTH (MINIMAP_SIZE / game->data.map_width)
-# define MINI_TILE_HEIGHT (MINIMAP_SIZE / game->data.map_height)
-# define FOV 60 * (M_PI / 180)
-
 # define BLACK 0x00000000
 # define WHITE 0x00FFFFFF
 # define RED 0x00FF0000
@@ -223,18 +217,28 @@ typedef struct s_doors
 	int				open_time;
 }					t_doors;
 
+typedef struct s_macros
+{
+	double			tile_size;
+	double			minimap_size;
+	double			mini_tile_width;
+	double			mini_tile_height;
+	double			fov;
+}					t_macros;
+
 typedef struct s_game
 {
 	t_data			data;
 	t_image 		textures[5];
-	int				c_color;
-	int				f_color;
 	t_control		control;
 	t_cub			cub;
 	t_player		player;
 	t_ray			ray;
 	t_dvec			plane;
 	t_doors			*doors;
+	t_macros		macro;
+	int				c_color;
+	int				f_color;
 	int				num_doors;
 	int 			exit_status; // needed?
 }					t_game;
@@ -280,12 +284,18 @@ void				init_cub(t_game *game);
 
 /* doors.c */
 int					is_door(t_game *game, int x, int y);
-bool				is_open(t_game *game, int nbr);//int x, int y);
-int					get_time(t_game *game);
+bool				is_open(t_game *game, int nbr);
 void				toggle_door(t_game *game, int x, int y);
+void				parse_doors(t_game *game);
 
 /* mlx_events.c */
+void				init_macros(t_game *game);
 int					mlx_handler(t_game *game);
+
+/* mlx_handle_input.c */
+int					handle_keyrelease(int keycode, t_game *game);
+int					keypress(t_game *game);
+int					handle_keypress(int keycode, t_game *game);
 
 /* movement.c */
 void				move_forward(t_game *game);
@@ -315,8 +325,10 @@ void				get_direction(t_game *game);
 void				get_colors(t_game *game);
 void				check_texture(t_game *game, int i);
 bool				is_wall(t_game *game, double new_x, double new_y);
+void				check_doors(t_game *game);
 
 /* utils.c */
+int					get_time(t_game *game);
 t_dvec				norm(t_dvec vec);
 bool				crashed(t_game *game, double x1, double y1);
 

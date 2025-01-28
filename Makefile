@@ -2,7 +2,7 @@ CC = cc
 
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux
+CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux -pthread
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -18,7 +18,7 @@ CFILES = $(addprefix $(SRC_DIR), \
 		init.c mlx_events.c pixels.c \
 		exit.c movement.c utils.c rotation.c \
 		raycasting.c minimap.c checking.c \
-		raycasting2.c doors.c \
+		raycasting2.c doors.c mlx_handle_input.c \
 ) $(addprefix $(UTILS_DIR), \
 		init.c append_line_to_map.c validate_and_set_rgb.c \
 		only_digits.c max_line_len.c validate_color_element.c \

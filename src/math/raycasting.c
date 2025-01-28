@@ -57,7 +57,7 @@ static void	cast_ray(t_game *game, int x)
 				+ (game->ray.tex.y * game->ray.texture.len + game->ray.tex.x
 					* (game->ray.texture.bpp / 8)));
 		if (game->ray.side == 1)
-			game->ray.color = (game->ray.color >> 1) & 8355711; // TODO: wtf
+			game->ray.color = (game->ray.color >> 1) & 8355711;
 		put_my_pixel(game, x, y, game->ray.color);
 		y++;
 	}

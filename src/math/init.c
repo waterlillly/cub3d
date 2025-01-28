@@ -5,9 +5,9 @@ static void	load_textures(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
-		if (access(game->textures[i].name, F_OK))
+		if (access(game->textures[i].name, R_OK))
 			exit_failure("texture not found", game);
 		game->textures[i].img = mlx_xpm_file_to_image(game->cub.mlx_con,
 				game->textures[i].name, &game->textures[i].width,
@@ -26,6 +26,11 @@ static void	load_textures(t_game *game)
 
 static void	init_mlx(t_game *game)
 {
+	t_ivec	size;
+
+	mlx_get_screen_size(game->cub.mlx_con, &size.x, &size.y);
+	if (size.x < WIN_SIZE || size.y < WIN_SIZE)
+		exit_failure("screensize too small", game);
 	game->cub.mlx_win = mlx_new_window(game->cub.mlx_con, WIN_SIZE, WIN_SIZE,
 			"cub3d");
 	if (!game->cub.mlx_win)
@@ -66,18 +71,18 @@ static void	get_orientation(t_game *game)
 
 static void	init_player(t_game *game)
 {
-	game->player.pos.x = 9.5 * TILE_SIZE;
-	game->player.pos.y = 5.5 * TILE_SIZE;
+	game->player.pos.x = 9.5 * game->macro.tile_size;
+	game->player.pos.y = 5.5 * game->macro.tile_size;
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{
-		game->plane.x = tan(FOV / 2.0);
+		game->plane.x = tan(game->macro.fov / 2.0);
 		game->plane.y = 0.0;
 	}
 	else
 	{
 		game->plane.x = 0.0;
-		game->plane.y = tan(FOV / 2.0);
+		game->plane.y = tan(game->macro.fov / 2.0);
 	}
 	game->control.forward_velo = 0;
 	game->control.backward_velo = 0;
@@ -89,49 +94,12 @@ static void	init_player(t_game *game)
 	game->player.turn_speed = 0.1;
 }
 
-static void	parse_doors(t_game *game)
-{
-	int		c;
-	t_ivec	xy;
-
-	game->num_doors = 0;
-	xy.y = -1;
-	while (game->data.map[++xy.y])
-	{
-		xy.x = -1;
-		while (game->data.map[xy.y][++xy.x])
-		{
-			if (game->data.map[xy.y][xy.x] == 'D')
-				game->num_doors++;
-		}
-	}
-	game->doors = ft_calloc(game->num_doors + 1, sizeof(t_doors));
-	if (!game->doors)
-		exit_failure("ft_calloc", game);
-	c = 0;
-	xy.y = -1;
-	while (game->data.map[++xy.y])
-	{
-		xy.x = -1;
-		while (game->data.map[xy.y][++xy.x])
-		{
-			if (game->data.map[xy.y][xy.x] == 'D')
-			{
-				game->doors[c].open = false;
-				game->doors[c].pos.x = xy.x;
-				game->doors[c].pos.y = xy.y;
-				game->doors[c].open_time = 0;
-				c++;
-			}
-		}
-	}
-}
-
 void	init_cub(t_game *game)
 {
 	game->cub.mlx_con = mlx_init();
 	if (!game->cub.mlx_con)
 		exit_failure("mlx_con", game);
+	init_mlx(game);
 	ft_bzero(&game->ray, sizeof(t_ray));
 	// game->data.ceiling_color[0] = 5; // TODO: get actual colors
 	// game->data.ceiling_color[1] = 10;
@@ -142,8 +110,8 @@ void	init_cub(t_game *game)
 	get_colors(game);
 	// init_map_with_doors(game);
 	parse_doors(game);
-	init_mlx(game);
-	// game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";//TODO: use for storing textures
+	init_macros(game);
+	// game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
 	// game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
 	// game->textures[EAST].name = "assets/textures/purple_brick_wall_trippy.xpm";
 	// game->textures[WEST].name = "assets/textures/purple_brick_wall_trippy.xpm";

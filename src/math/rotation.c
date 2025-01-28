@@ -24,7 +24,6 @@ void	turn_left(t_game *game)
 {
 	if (game->control.turn_left_velo < game->player.turn_speed)
 		game->control.turn_left_velo += 0.01;
-	// printf("turn_left: %f\n", game->control.turn_left_velo);
 	rotate_dir(game, -game->control.turn_left_velo);
 	rotate_plane(game, -game->control.turn_left_velo);
 }
@@ -33,7 +32,6 @@ void	turn_right(t_game *game)
 {
 	if (game->control.turn_right_velo < game->player.turn_speed)
 		game->control.turn_right_velo += 0.01;
-	// printf("turn_right: %f\n", game->control.turn_right_velo);
 	rotate_dir(game, game->control.turn_right_velo);
 	rotate_plane(game, game->control.turn_right_velo);
 }
