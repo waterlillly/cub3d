@@ -248,32 +248,20 @@ void	init_map_hallway(t_game *game);
 void	init_map_tiny(t_game *game);
 
 // ************** PARS **************
-int 				add_color(t_game *game, char *line, int column);
-int					add_texture(t_game *game, char *line, int column);
 void				args_handler(int ac, char **av, t_game *game);
 void				validate_game(t_game *game, char **av);
-void				read_file(t_game *game, char *av, char **map_temp);
-// void				ft_error_msg_free_exit(char *msg, t_game *game);
-void				max_line_len(t_game *game);
-void				get_whole_file(t_game *game, char *path);
-char				*ft_strjoin_gnl(char *s1, char *s2);
-int					file_data(t_game *game, char **file_data);
-int					map_creating(t_game *game, char **file, int row);
-// void 				valid_map(t_game *game);
-void 				check_elements(t_game *game);
 void				is_valid_map(t_game *game);
+void				max_line_len(t_game *game);
 
 // ************** UTILS **************
-int 				ascii_print(char c);
 void				initialization_of_vars(t_game *game);
-char				**m_split(char const *s, char c);
-char				*ft_strappend(char **s1, const char *s2);
 bool				only_digits(char *s);
-void 				max_line_len(t_game *game);
 bool				is_line_empty(char *s);
 char				**split_line_into_words(char *line, t_game *game);
 bool				is_texture_identifier(char *line);
 bool				is_color_identifier(char *trim);
+int 				ft_strlen_skip_space(char *str);
+void				get_player_orientation(char orientation, t_game *game);
 
 /* exit.c */
 void 				free_all(t_game *game);

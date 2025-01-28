@@ -166,6 +166,7 @@ static void	split_map_into_grid(t_game *game)
 		ft_memcpy(map[i], game->data.map[i], ft_strlen(game->data.map[i]));
 		i++;
 	}
+	game->data.num_of_rows = i;
 	ft_free_2d(game->data.map);
 	game->data.map = map;
 }

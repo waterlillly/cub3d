@@ -8,7 +8,6 @@ int	main(int ac, char **av)
 	initialization_of_vars(&game);
 	args_handler(ac, av, &game);
 	validate_game(&game, av);
-	puts("validator done");
 	init_cub(&game);
 	// if (mlx_handler(&game) != 0)
 	// 	exit_failure("mlx_handler", &game);

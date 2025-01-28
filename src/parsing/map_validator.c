@@ -1,21 +1,5 @@
 #include "../../cub3d.h"
 
-int ft_strlen_skip_space(char *str)
-{
-    int i = 0;
-    int j = 0;
-    while (str[i] != '\0'){
-        i++;
-    }
-    while (i > j)
-    {
-        if (str[i] == ' ')
-            i--;
-        else
-            break;
-    }
-    return (i);
-}
 
 // static void map_border(t_game *game)
 // {

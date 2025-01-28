@@ -17,7 +17,4 @@ void validate_game(t_game *game, char **av)
 {
     validate_input_file(av[1], game);
 	is_valid_map(game);
-    // get_whole_file(game, av[1]);
-	// file_data(game, game->data.file_data);
-	// is_valid_map(game);//TODO: needs more checks
 }
