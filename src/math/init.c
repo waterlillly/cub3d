@@ -71,8 +71,8 @@ static void	get_orientation(t_game *game)
 
 static void	init_player(t_game *game)
 {
-	game->player.pos.x = 9.5 * game->macro.tile_size;
-	game->player.pos.y = 5.5 * game->macro.tile_size;
+	game->player.pos.x *= game->macro.tile_size;
+	game->player.pos.y *= game->macro.tile_size;
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{

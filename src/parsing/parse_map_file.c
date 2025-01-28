@@ -15,7 +15,8 @@ bool	process_line(char *line, t_game *game)
 			return (validate_texture_element(split, &tex_count, game));
 		else if (split[0] && split[1] && is_color_identifier(split[0]) && !split[2])
 			return (validate_color_element(split, &col_count, game));
-		else{
+		else
+		{
 			ft_free_2d(split);
 			return (false);
 		}
