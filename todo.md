@@ -14,7 +14,7 @@
 <!-- -> rotate the view with the mouse -->
 -> add animated sprites
 <!-- -> fix textures being displayed mirrored -->
--> display textures for doors
+<!-- -> display textures for doors -->
 
 
 *Monika*

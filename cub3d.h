@@ -141,7 +141,6 @@ typedef struct s_cub
 	void			*mlx_win;
 	t_image			img;
 	unsigned int	buffer[WIN_SIZE][WIN_SIZE];
-	t_ivec			mouse_pos;
 }					t_cub;
 
 typedef struct s_ray
@@ -216,10 +215,10 @@ typedef struct s_doors
 
 typedef struct s_macros
 {
-	int				tile_size;
-	int				minimap_size;
-	int				mini_tile_width;
-	int				mini_tile_height;
+	double			tile_size;
+	double			minimap_size;
+	double			mini_tile_width;
+	double			mini_tile_height;
 	double			fov;
 }					t_macros;
 
@@ -283,6 +282,7 @@ void				toggle_door(t_game *game, int x, int y);
 void				parse_doors(t_game *game);
 
 /* mlx_events.c */
+void				init_macros(t_game *game);
 int					mlx_handler(t_game *game);
 
 /* mlx_handle_input.c */

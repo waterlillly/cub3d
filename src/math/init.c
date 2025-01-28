@@ -7,7 +7,7 @@ static void	load_textures(t_game *game)
 	i = 0;
 	while (i < 5)
 	{
-		if (access(game->textures[i].name, F_OK))
+		if (access(game->textures[i].name, R_OK))
 			exit_failure("texture not found", game);
 		game->textures[i].img = mlx_xpm_file_to_image(game->cub.mlx_con,
 				game->textures[i].name, &game->textures[i].width,
@@ -26,6 +26,11 @@ static void	load_textures(t_game *game)
 
 static void	init_mlx(t_game *game)
 {
+	t_ivec	size;
+
+	mlx_get_screen_size(game->cub.mlx_con, &size.x, &size.y);
+	if (size.x < WIN_SIZE || size.y < WIN_SIZE)
+		exit_failure("screensize too small", game);
 	game->cub.mlx_win = mlx_new_window(game->cub.mlx_con, WIN_SIZE, WIN_SIZE,
 			"cub3d");
 	if (!game->cub.mlx_win)
@@ -94,6 +99,7 @@ void	init_cub(t_game *game)
 	game->cub.mlx_con = mlx_init();
 	if (!game->cub.mlx_con)
 		exit_failure("mlx_con", game);
+	init_mlx(game);
 	ft_bzero(&game->ray, sizeof(t_ray));
 	game->data.ceiling_color[0] = 5;
 	game->data.ceiling_color[1] = 10;
@@ -104,7 +110,7 @@ void	init_cub(t_game *game)
 	get_colors(game);
 	init_map_with_doors(game);
 	parse_doors(game);
-	init_mlx(game);
+	init_macros(game);
 	game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
 	game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
 	game->textures[EAST].name = "assets/textures/purple_brick_wall_trippy.xpm";

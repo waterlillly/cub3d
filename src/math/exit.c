@@ -51,6 +51,7 @@ void	exit_failure(char *s, t_game *game)
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(s, STDERR_FILENO);
 	mlx_do_key_autorepeaton(game->cub.mlx_con);
+	mlx_mouse_show(game->cub.mlx_con, game->cub.mlx_win);
 	free_data(game);
 	exit(EXIT_FAILURE);
 }
@@ -58,6 +59,7 @@ void	exit_failure(char *s, t_game *game)
 int	exit_success(t_game *game)
 {
 	mlx_do_key_autorepeaton(game->cub.mlx_con);
+	mlx_mouse_show(game->cub.mlx_con, game->cub.mlx_win);
 	free_data(game);
 	exit(EXIT_SUCCESS);
 }

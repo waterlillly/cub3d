@@ -1,5 +1,14 @@
 #include "../../cub3d.h"
 
+void	init_macros(t_game *game)
+{
+	game->macro.tile_size = WIN_SIZE * 0.1;
+	game->macro.minimap_size = floor(WIN_SIZE * 0.2);
+	game->macro.mini_tile_width = (game->macro.minimap_size / game->data.map_width);
+	game->macro.mini_tile_height = (game->macro.minimap_size / game->data.map_height);
+	game->macro.fov = 60 * (M_PI / 180);
+}
+
 static void	clear_frame(t_game *game)
 {
 	int	x;
@@ -21,27 +30,20 @@ static void	clear_frame(t_game *game)
 
 static int	mouse_loop(int x, int y, t_game *game)
 {
-	static int	i = 0;
-
-	if (i == 0)
-	{
-		game->cub.mouse_pos.x = x;
-		game->cub.mouse_pos.y = y;
-		i++;
-		return (0);
-	}
-	if (x < game->cub.mouse_pos.x)
+	(void)y;
+	if (x < WIN_SIZE / 2)
 	{
 		rotate_dir(game, -game->player.turn_speed * 0.2);
 		rotate_plane(game, -game->player.turn_speed * 0.2);
 	}
-	else
+	else if (x > WIN_SIZE / 2)
 	{
 		rotate_dir(game, game->player.turn_speed * 0.2);
 		rotate_plane(game, game->player.turn_speed * 0.2);
 	}
-	game->cub.mouse_pos.x = x;
-	game->cub.mouse_pos.y = y;
+	if (x < (WIN_SIZE / 2) || x > (WIN_SIZE / 2))
+		mlx_mouse_move(game->cub.mlx_con, game->cub.mlx_win, WIN_SIZE / 2, WIN_SIZE / 2);
+	mlx_mouse_hide(game->cub.mlx_con, game->cub.mlx_win);
 	return (0);
 }
 
