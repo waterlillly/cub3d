@@ -58,36 +58,6 @@ static int	handle_keypress(int keycode, t_game *game)
 	return (0);
 }
 
-static void handle_mouse_movement(int x_offset, int y_offset, t_game *game)
-{
-	static t_ivec	prev = {0, 0};
-	t_ivec			d;
-	double			norm;
-
-	d.x = x_offset - prev.x;
-	d.y = y_offset - prev.y;
-	norm = sqrt(d.x * d.x + d.y * d.y);
-	if (norm > 0.001)
-	{
-		d.x /= norm;
-		d.y /= norm;
-	}
-	game->player.dir.x += d.x * game->player.turn_speed;
-	game->player.dir.y += d.y * game->player.turn_speed;
-	prev.x = x_offset;
-	prev.y = y_offset;
-}
-
-static int mouse_loop(t_game *game)
-{
-	t_ivec	pos;
-
-	mlx_mouse_move(game->cub.mlx_con, game->cub.mlx_win, pos.x, pos.y);
-	if (mlx_mouse_get_pos(game->cub.mlx_con, game->cub.mlx_win, &pos.x, &pos.y) != -1)
-		handle_mouse_movement(pos.x, pos.y, game);
-	return (0);
-}
-
 static void	clear_frame(t_game *game)
 {
 	int	x;
@@ -130,11 +100,39 @@ static void	check_doors(t_game *game)
 	}
 }
 
+static int mouse_loop(int x, int y, t_game *game)
+{
+	static int	i = 0;
+
+	if (i == 0)
+	{
+		game->cub.mouse_pos.x = x;
+		game->cub.mouse_pos.y = y;
+		i++;
+		return (0);
+	}
+	if (x < game->cub.mouse_pos.x)
+	{
+		rotate_dir(game, -game->player.turn_speed * 0.2);
+		rotate_plane(game, -game->player.turn_speed * 0.2);
+	}
+	else
+	{
+		rotate_dir(game, game->player.turn_speed * 0.2);
+		rotate_plane(game, game->player.turn_speed * 0.2);
+	}
+	game->cub.mouse_pos.x = x;
+	game->cub.mouse_pos.y = y;
+	return (0);
+}
+
 static int	render(t_game *game)
 {
-	check_doors(game);
+	if (!game->cub.mlx_win)
+		exit_failure("no mlx_win", game);
 	clear_frame(game);
 	keypress(game);
+	check_doors(game);
 	raycasting(game);
 	render_minimap(game);
 	buffer_to_image(game);

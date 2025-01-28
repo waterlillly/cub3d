@@ -2,7 +2,7 @@ CC = cc
 
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux
+CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux -pthread
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@

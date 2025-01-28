@@ -147,6 +147,7 @@ typedef struct s_cub
 	void			*mlx_win;
 	t_image			img;
 	unsigned int	buffer[WIN_SIZE][WIN_SIZE];
+	t_ivec			mouse_pos;
 }					t_cub;
 
 typedef struct s_ray

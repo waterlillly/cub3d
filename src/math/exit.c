@@ -6,14 +6,14 @@ void free_all(t_game *game)
 		ft_free_2d(game->data.map);
 	if (game->data.file_data)
 		ft_free_2d(game->data.file_data);
-	if (game->textures[NORTH].name)
-		free(game->textures[NORTH].name);
-	if (game->textures[SOUTH].name)
-		free(game->textures[SOUTH].name);
-	if (game->textures[EAST].name)
-		free(game->textures[EAST].name);
-	if (game->textures[WEST].name)
-		free(game->textures[WEST].name);
+	// if (game->textures[NORTH].name)
+	// 	free(game->textures[NORTH].name);
+	// if (game->textures[SOUTH].name)
+	// 	free(game->textures[SOUTH].name);
+	// if (game->textures[EAST].name)
+	// 	free(game->textures[EAST].name);
+	// if (game->textures[WEST].name)
+	// 	free(game->textures[WEST].name);
 }
 
 static void	destroy_mlx(t_game *game)
@@ -41,7 +41,7 @@ static void	free_data(t_game *game)
 {
 	if (!game)
 		return ;
-	// free_all(game);
+	free_all(game);
 	free(game->doors);
 	destroy_mlx(game);
 }
