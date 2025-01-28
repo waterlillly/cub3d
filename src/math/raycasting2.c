@@ -53,8 +53,29 @@ void	calc_side_dist(t_game *game)
 	}
 }
 
+static void	display_door(t_game *game)
+{
+	game->ray.texture = game->textures[DOOR];
+	if (game->ray.side == 0)
+		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x)
+			/ TILE_SIZE;
+	else
+		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y)
+			/ TILE_SIZE;
+	if (game->ray.side == 0)
+		game->ray.wall_x = (game->ray.map.y + game->ray.correct_dist
+				* game->ray.dir.y) / (double)TILE_SIZE;
+	else
+		game->ray.wall_x = (game->ray.map.x + game->ray.correct_dist
+				* game->ray.dir.x) / (double)TILE_SIZE;
+	game->ray.wall_x -= floor(game->ray.wall_x);
+}
+
 void	get_direction(t_game *game)
 {
+	if (is_door(game, (game->ray.map.x / TILE_SIZE), (game->ray.map.y
+				/ TILE_SIZE)) != -1)
+		return (display_door(game));
 	if (game->ray.side == 0)
 	{
 		game->ray.texture = game->textures[WEST];

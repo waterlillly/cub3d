@@ -5,7 +5,7 @@ static void	load_textures(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		if (access(game->textures[i].name, F_OK))
 			exit_failure("texture not found", game);
