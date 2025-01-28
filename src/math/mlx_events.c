@@ -128,8 +128,6 @@ static int mouse_loop(int x, int y, t_game *game)
 
 static int	render(t_game *game)
 {
-	if (!game->cub.mlx_win)
-		exit_failure("no mlx_win", game);
 	clear_frame(game);
 	keypress(game);
 	check_doors(game);
@@ -143,12 +141,12 @@ static int	render(t_game *game)
 
 int	mlx_handler(t_game *game)
 {
-	mlx_loop_hook(game->cub.mlx_con, render, game);
 	mlx_hook(game->cub.mlx_win, DestroyNotify, StructureNotifyMask,
 		exit_success, game);
 	mlx_hook(game->cub.mlx_win, KeyRelease, KeyReleaseMask, handle_keyrelease,
 		game);
 	mlx_hook(game->cub.mlx_win, KeyPress, KeyPressMask, handle_keypress, game);
 	mlx_hook(game->cub.mlx_win, MotionNotify, PointerMotionMask, mouse_loop, game);
+	mlx_loop_hook(game->cub.mlx_con, render, game);
 	return (0);
 }
