@@ -190,8 +190,6 @@ typedef struct s_data
 	bool			floor_color_set;
 	int				ceiling_color[3];
 	bool			ceiling_color_set;
-//	char			*textures[4];
-	char			*colors[2];
 }					t_data;
 
 typedef struct s_control
@@ -229,7 +227,7 @@ typedef struct s_macros
 typedef struct s_game
 {
 	t_data			data;
-	t_image 		textures[5];
+	t_image 		textures[4];
 	t_control		control;
 	t_cub			cub;
 	t_player		player;
@@ -262,7 +260,7 @@ void				parse_file(int fd, t_game *game);
 void				initialization_of_vars(t_game *game);
 bool				only_digits(char *s);
 bool				is_line_empty(char *s);
-char				**split_line_into_words(char *line, t_game *game);
+char				**split_line_into_words(char *line);
 bool				is_texture_identifier(char *line);
 bool				is_color_identifier(char *trim);
 int 				ft_strlen_skip_space(char *str);
@@ -271,8 +269,8 @@ bool				append_line_to_map(char *line, t_game *game);
 bool				validate_and_set_rgb(char *split, t_game *game, int fc);
 bool				validate_color_element(char **split, int *col_count, t_game *game);
 bool				validate_texture_element(char **split, int *tex_count, t_game *game);
-void 				is_rgb_valid_format(char *str, t_game *game);
-void				split_map_into_grid(t_game *game);
+bool 				is_rgb_valid_format(char *str);
+bool				split_map_into_grid(t_game *game);
 
 /* exit.c */
 void 				free_all(t_game *game);

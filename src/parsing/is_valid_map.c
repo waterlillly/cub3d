@@ -47,8 +47,12 @@ static void validate_row_and_column(t_game *game)
         exit_failure("Map missing", game);
     if (game->data.num_of_rows < 3)
         exit_failure("Map is too small", game);
+	else
+		game->data.map_height = game->data.num_of_rows;
     if (game->data.max_column < 3)
         exit_failure("Map is too small", game);
+	else
+		game->data.map_width = game->data.max_column;
 }
 
 static void validate_element(t_game *game)

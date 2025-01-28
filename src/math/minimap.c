@@ -59,23 +59,25 @@ static void	display_minimap(t_game *game, t_ivec xy, int color)
 void	render_minimap(t_game *game)
 {
 	t_ivec	xy;
-	int		nbr;
+	// int		nbr;
 	int		color;
 
 	xy.y = -1;
+	// printf("%d\n", game->data.map_height);
 	while (++xy.y < game->data.map_height)
 	{
 		xy.x = -1;
+		// printf("%d\n", game->data.map_width);
 		while (++xy.x < game->data.map_width)
 		{
-			nbr = is_door(game, xy.x, xy.y);
+			// nbr = is_door(game, xy.x, xy.y);
 			color = WHITE;
 			if (crashed(game, xy.x, xy.y))
 				color = BLACK;
-			else if (nbr >= 0 && !is_open(game, nbr))
-				color = RED;
-			else if (nbr >= 0 && is_open(game, nbr))
-				color = GREEN;
+			// else if (nbr >= 0 && !is_open(game, nbr))
+			// 	color = RED;
+			// else if (nbr >= 0 && is_open(game, nbr))
+			// 	color = GREEN;
 			display_minimap(game, xy, color);
 		}
 	}

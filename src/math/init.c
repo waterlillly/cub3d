@@ -5,7 +5,7 @@ static void	load_textures(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 4)
 	{
 		if (access(game->textures[i].name, R_OK))
 			exit_failure("texture not found", game);
@@ -71,8 +71,8 @@ static void	get_orientation(t_game *game)
 
 static void	init_player(t_game *game)
 {
-	game->player.pos.x *= game->macro.tile_size;
-	game->player.pos.y *= game->macro.tile_size;
+	game->player.pos.x = (game->player.pos.x + 0.5) * game->macro.tile_size;
+	game->player.pos.y = (game->player.pos.y + 0.5) * game->macro.tile_size;
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{
@@ -100,22 +100,12 @@ void	init_cub(t_game *game)
 	if (!game->cub.mlx_con)
 		exit_failure("mlx_con", game);
 	init_mlx(game);
+	init_macros(game);
 	ft_bzero(&game->ray, sizeof(t_ray));
-	// game->data.ceiling_color[0] = 5; // TODO: get actual colors
-	// game->data.ceiling_color[1] = 10;
-	// game->data.ceiling_color[2] = 150;
-	// game->data.floor_color[0] = 0;
-	// game->data.floor_color[1] = 150;
-	// game->data.floor_color[2] = 50;
 	get_colors(game);
 	// init_map_with_doors(game);
-	parse_doors(game);
-	init_macros(game);
-	// game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	// game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	// game->textures[EAST].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	// game->textures[WEST].name = "assets/textures/purple_brick_wall_trippy.xpm";
-	game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
+	// parse_doors(game);
+	// game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
 }

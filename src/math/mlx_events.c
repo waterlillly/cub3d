@@ -51,7 +51,7 @@ static int	render(t_game *game)
 {
 	clear_frame(game);
 	keypress(game);
-	check_doors(game);
+	// check_doors(game);
 	raycasting(game);
 	render_minimap(game);
 	buffer_to_image(game);

@@ -11,6 +11,6 @@ bool	validate_color_element(char **split, int *col_count, t_game *game)
 			return (true);
 		}
 	}
-	//ft_free_2d(split);
+	ft_free_2d(split);
 	return (false);
 }

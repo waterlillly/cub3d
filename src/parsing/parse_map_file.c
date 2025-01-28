@@ -10,11 +10,19 @@ bool	process_line(char *line, t_game *game)
 	{
 		if (is_line_empty(line))
 			return (true);
-		split = split_line_into_words(line, game);
+		split = split_line_into_words(line);
+		if (!split)
+			return (false);
 		if (split[0] && split[1] && is_texture_identifier(split[0]) && !split[2])
-			return (validate_texture_element(split, &tex_count, game));
+		{
+			if (!validate_texture_element(split, &tex_count, game))
+				return (ft_free_2d(split), false);
+		}
 		else if (split[0] && split[1] && is_color_identifier(split[0]) && !split[2])
-			return (validate_color_element(split, &col_count, game));
+		{
+			if (!validate_color_element(split, &col_count, game))
+				return (ft_free_2d(split), false);
+		}
 		else
 		{
 			ft_free_2d(split);
@@ -33,17 +41,17 @@ void	parse_file(int fd, t_game *game)
 {
 	char	*line;
 
-	line = NULL;
-	line = get_next_line(fd);
 	ft_bzero(&game->data, sizeof(t_data));
 	game->data.floor_color_set = false;//TODO: add into init instead of here
 	game->data.ceiling_color_set = false;
+	line = get_next_line(fd);
+	if (!line)
+		(close(fd), exit_failure("get next line", game));
 	while (line)
 	{
 		if (!process_line(line, game))
 		{
 			free(line);
-			line = NULL;
 			close(fd);
 			exit_failure("Invalid file", game);
 		}
@@ -51,5 +59,7 @@ void	parse_file(int fd, t_game *game)
 		line = NULL;
 		line = get_next_line(fd);
 	}
-	split_map_into_grid(game);
+	close(fd);
+	if (!split_map_into_grid(game))
+		exit_failure("split map failed", game);
 }

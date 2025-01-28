@@ -1,56 +1,53 @@
 #include "../../cub3d.h"
 
-static void rgb_format(char **str, t_game *game);
-static void check_len_and_newline(char *line, int len, t_game *game);
+static bool rgb_format(char **str);
+static bool check_len_and_newline(char *line, int len);
 
-char	**split_line_into_words(char *line, t_game *game)
+char	**split_line_into_words(char *line)
 {
 	char	*temp;
 	char	**res;
 	int		len;
 
 	len = ft_strlen(line) - 1;
-	check_len_and_newline(line, len, game);
-	temp = ft_substr(line, 0, len);//maybe use strtrim
+	if (!check_len_and_newline(line, len))
+		return (NULL);
+	temp = ft_substr(line, 0, len);
 	if (!temp)
-	{
-		(free(line), line = NULL);
-		exit_failure("substr failed", game);
-	}
+		return (NULL);
 	res = ft_split(temp, ' ');
-	(free(temp), temp = NULL);
+	free(temp);
 	if (!res)
-		exit_failure("split failed", game);
-	rgb_format(res, game);
+		return (NULL);
+	if (!rgb_format(res))
+		return (ft_free_2d(res), NULL);
 	return (res);
 }
 
-static void check_len_and_newline(char *line, int len, t_game *game)
+static bool check_len_and_newline(char *line, int len)
 {
-	if (len < 0)
-	{
-		(free(line), line = NULL);
-		exit_failure("Invalid line", game);
-	}
-	if (line[len] != '\n')
-	{
-		(free(line), line = NULL);
-		exit_failure("Invalid line", game);
-	}
+	if (len < 0 || line[len] != '\n')
+		return (false);
+	return (true);
 }
 
-static void rgb_format(char **str, t_game *game)
+static bool rgb_format(char **str)
 {
 	int i;
 	int j;
 
 	i = -1;
-	while (str[++i]){
+	while (str[++i])
+	{
 		if (ft_strchr(str[0], 'C') || ft_strchr(str[0], 'F'))
 		{
 			j = -1;
 			while (str[1][++j])
-				is_rgb_valid_format(str[1], game);
+			{
+				if (!is_rgb_valid_format(str[1]))
+					return (false);// (ft_free_2d(str), exit_failure("invalid rgb values", game));
+			}
 		}
 	}
+	return (true);
 }

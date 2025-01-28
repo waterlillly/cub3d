@@ -27,7 +27,7 @@
 // 	printf("PLAYER ORIENTATION: |%d|\n", game->data.p_orientation);
 // 	printf("FLOOR COLOR SET: |%d|\n", game->data.floor_color_set);
 // 	printf("CEILING COLOR SET: |%d|\n", game->data.ceiling_color_set);
-// 	printf("COLORS: |%s|, |%s|\n", game->data.colors[0], game->data.colors[1]);
+// 	// printf("COLORS: |%s|, |%s|\n", game->data.colors[0], game->data.colors[1]);
 // 	printf("EXIT STATUS: |%d|\n", game->exit_status);
 // 	//UNUSED VARS FROM STRUCT
 // 	printf("\033[0;31m\tUNUSED VARS FROM STRUCT\033[0m\n");
