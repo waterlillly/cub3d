@@ -20,14 +20,15 @@ CFILES = $(addprefix $(SRC_DIR), \
 		raycasting.c minimap.c checking.c \
 		raycasting2.c doors.c \
 ) $(addprefix $(UTILS_DIR), \
-		init.c \
-		only_digits.c max_line_len.c \
-		split_line_into_words.c is_line_empty.c \
+		init.c append_line_to_map.c validate_and_set_rgb.c \
+		only_digits.c max_line_len.c validate_color_element.c \
+		split_line_into_words.c is_line_empty.c validate_texture_element.c \
 		is_texture_identifier.c is_color_identifier.c \
 		ft_strlen_skip_space.c get_player_orientation.c \
+		is_rgb_valid_format.c split_map_into_grid.c \
 ) $(addprefix $(PARSE_DIR), \
 		args_handler.c validate_game.c \
-		parse_map_file.c \
+		parse_map_file.c validate_input_file.c \
 		map_validator.c \
 		is_valid_map.c \
 )

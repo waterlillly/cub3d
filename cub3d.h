@@ -242,16 +242,17 @@ typedef struct s_game
 /* ************ PROTOTYPES ************ */
 
 /* maps.c */
-void	init_map_with_doors(t_game *game);
-void	init_map_hallway(t_game *game);
-// void	init_map(t_game *game);
-void	init_map_tiny(t_game *game);
+void				init_map_with_doors(t_game *game);
+void				init_map_hallway(t_game *game);
+void				init_map_tiny(t_game *game);
 
 // ************** PARS **************
 void				args_handler(int ac, char **av, t_game *game);
 void				validate_game(t_game *game, char **av);
 void				is_valid_map(t_game *game);
 void				max_line_len(t_game *game);
+void				validate_input_file(char *file, t_game *game);
+void				parse_file(int fd, t_game *game);
 
 // ************** UTILS **************
 void				initialization_of_vars(t_game *game);
@@ -262,6 +263,12 @@ bool				is_texture_identifier(char *line);
 bool				is_color_identifier(char *trim);
 int 				ft_strlen_skip_space(char *str);
 void				get_player_orientation(char orientation, t_game *game);
+bool				append_line_to_map(char *line, t_game *game);
+bool				validate_and_set_rgb(char *split, t_game *game, int fc);
+bool				validate_color_element(char **split, int *col_count, t_game *game);
+bool				validate_texture_element(char **split, int *tex_count, t_game *game);
+void 				is_rgb_valid_format(char *str, t_game *game);
+void				split_map_into_grid(t_game *game);
 
 /* exit.c */
 void 				free_all(t_game *game);
@@ -315,23 +322,5 @@ bool				crashed(t_game *game, double x1, double y1);
 
 /* minimap.c */
 void				render_minimap(t_game *game);
-
-/*TEXTURE COLOR*/
-bool	is_texture(char *line);
-//bool	check_path(char *trim);
-bool	is_color(char *trim);
-bool	check_rgb(char *trim, t_game *game, int fc);
-bool	check_color_element(char **split, int *col_count, t_game *game);
-bool	check_texture_element(char **split, int *tex_count, t_game *game);
-
-/*CHECK FILE LINE*/
-char	**modify_line(char *line, t_game *game);
-bool	is_empty(char *s);
-bool	check_line(char *line, t_game *game);
-void	parse_file(int fd, t_game *game);
-
-bool	valid_map(t_game *game);
-void	modify_map(t_game *game);
-void	check_input_file(char *file, t_game *game);
 
 #endif
