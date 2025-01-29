@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:24:17 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/01/28 20:01:55 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:13:31 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ char	*read_create_buffer(int fd, char *rest_str)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*rest_str;
+	static char	*rest_str = NULL;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
+		return (free(rest_str), NULL);
 	rest_str = read_create_buffer(fd, rest_str);
 	if (!rest_str)
 		return (NULL);

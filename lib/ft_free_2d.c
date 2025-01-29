@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:51:35 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/14 15:47:34 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:20:52 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_free_2d(char **in)
 	int i;
 
 	i = -1;
+	if (!in)
+		return ;
 	while (in && in[++i])
 		free(in[i]);
-	free(in);
 }
