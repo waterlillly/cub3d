@@ -1,24 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 12:35:52 by msimic            #+#    #+#             */
+/*   Updated: 2025/01/29 12:42:34 by msimic           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
-// static void init_map(t_game *game)
-// {
-// 	game->data.map = NULL;
-// 	game->data.num_of_rows = 0;
-// 	game->data.max_column = 0;
-// }
-
-void initialization_of_vars(t_game *game)
+void	initialization_of_vars(t_game *game)
 {
 	ft_bzero(&game->data, sizeof(t_data));
 	game->data.win_height = WIN_SIZE;
 	game->data.win_width = WIN_SIZE;
-	// game->data.texture_px = NULL;
-	// game->data.texture = NULL;
-	// game->data.path = NULL;
-	// game->data.line_count = 0;
-	// game->data.num_of_rows = 0;
-	// game->data.num_of_columns = 0;
-	// game->data.num_of_player = 0;
-	// game->data.num_of_orientations = 0;
-	// init_map(game);
 }

@@ -1,16 +1,30 @@
-int ft_strlen_skip_space(char *str)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlen_skip_space.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 12:35:43 by msimic            #+#    #+#             */
+/*   Updated: 2025/01/29 12:40:59 by msimic           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int	ft_strlen_skip_space(char *str)
 {
-    int i = 0;
-    int j = 0;
-    while (str[i] != '\0'){
-        i++;
-    }
-    while (i > j)
-    {
-        if (str[i] == ' ' || str[i] == '\n')
-            i--;
-        else
-            break;
-    }
-    return (i);
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i] != '\0')
+		i++;
+	while (i > j)
+	{
+		if (str[i] == ' ' || str[i] == '\n')
+			i--;
+		else
+			break ;
+	}
+	return (i);
 }

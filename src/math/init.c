@@ -104,8 +104,13 @@ void	init_cub(t_game *game)
 	ft_bzero(&game->ray, sizeof(t_ray));
 	get_colors(game);
 	// init_map_with_doors(game);
-	// parse_doors(game);
-	// game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
+	parse_doors(game);
+	init_macros(game);
+	// game->textures[NORTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	// game->textures[SOUTH].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	// game->textures[EAST].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	// game->textures[WEST].name = "assets/textures/purple_brick_wall_trippy.xpm";
+	//game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
 }
