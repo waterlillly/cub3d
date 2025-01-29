@@ -23,6 +23,7 @@
 -> check for one one player, also needs at least one
 -> add check for ".cub" file being only ".cub", if yes: error. has to have at least some character before that (=like this: "x.cub")
 -> empty lines inside the file can ONLY have a newline, no spaces etc.
+-> invalid_space.cub doesnt display an error
 
 1. Map Format and Structure
 

@@ -219,15 +219,16 @@ typedef struct s_macros
 {
 	double			tile_size;
 	double			minimap_size;
-	double			mini_tile_width;
-	double			mini_tile_height;
+	double			mini_tile_size;
+	// double			mini_tile_width;
+	// double			mini_tile_height;
 	double			fov;
 }					t_macros;
 
 typedef struct s_game
 {
 	t_data			data;
-	t_image 		textures[4];
+	t_image 		textures[5];
 	t_control		control;
 	t_cub			cub;
 	t_player		player;
@@ -238,7 +239,6 @@ typedef struct s_game
 	int				c_color;
 	int				f_color;
 	int				num_doors;
-	int 			exit_status; // needed?
 }					t_game;
 
 /* ************ PROTOTYPES ************ */
