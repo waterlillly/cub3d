@@ -10,10 +10,11 @@ bool	process_line(char *line, t_game *game)
 	{
 		if (is_line_empty(line))
 			return (true);
+		split = NULL;
 		split = split_line_into_words(line);
 		if (!split)
 			return (false);
-		else if (split[0] && split[1] && is_texture_identifier(split[0]) && !split[2])
+		if (split[0] && split[1] && is_texture_identifier(split[0]) && !split[2])
 		{
 			if (!validate_texture_element(split, &tex_count, game))
 				return (ft_free_2d(split), false);
