@@ -37,19 +37,16 @@ int *col_count, t_game *game)
 		&& !split[2])
 	{
 		if (!validate_texture_element(split, tex_count, game))
-			return (ft_free_2d(split), false);
+			return (false);
 	}
 	else if (split[0] && split[1] && is_color_identifier(split[0])
 		&& !split[2])
 	{
 		if (!validate_color_element(split, col_count, game))
-			return (ft_free_2d(split), false);
+			return (false);
 	}
 	else
-	{
-		ft_free_2d(split);
 		return (false);
-	}
 	return (true);
 }
 
@@ -69,7 +66,8 @@ static bool	process_line(char *line, t_game *game)
 			return (false);
 		if (validate_and_process_split(split, &tex_count,
 				&col_count, game) == false)
-			return (false);
+			return (ft_free_2d(split), false);
+		ft_free_2d(split);
 	}
 	else if (line && is_line_empty(line) && tex_count >= 4
 		&& col_count >= 2 && !game->data.data)
