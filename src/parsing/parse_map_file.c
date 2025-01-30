@@ -42,6 +42,7 @@ void	parse_file(int fd, t_game *game)
 		exit_failure("empty file", game);
 	if (!split_map_into_grid(game))
 		exit_failure("split map failed", game);
+	// ft_print_array(game->data.map);
 }
 
 static bool	validate_and_process_split(char **split, int *tex_count,

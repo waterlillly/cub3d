@@ -67,7 +67,7 @@
 # define FORM_FEED '\f'
 
 //TODO: change macro-function and add them to init
-# define WIN_SIZE 640
+# define WIN_SIZE 1000
 # define BLACK 0x00000000
 # define WHITE 0x00FFFFFF
 # define RED 0x00FF0000
@@ -220,8 +220,8 @@ typedef struct s_macros
 	double			tile_size;
 	double			minimap_size;
 	double			mini_tile_size;
-	// double			mini_tile_width;
-	// double			mini_tile_height;
+	double			mini_tile_width;
+	double			mini_tile_height;
 	double			fov;
 }					t_macros;
 
