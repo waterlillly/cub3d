@@ -37,7 +37,7 @@ static void	validate_element(t_game *game)
 		column = -1;
 		while (game->data.map[row][++column])
 		{
-			if (!ft_strchr(" 01NSEW", game->data.map[row][column]))
+			if (!ft_strchr(" 01NSEWD", game->data.map[row][column]))
 				exit_failure("Invalid character in map", game);
 			if (ft_strchr("NSEW", game->data.map[row][column]))
 			{
