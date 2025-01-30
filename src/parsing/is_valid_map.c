@@ -44,6 +44,8 @@ static void	validate_element(t_game *game)
 				get_player_orientation(game->data.map[row][column], game);
 				game->player.pos.x = column;
 				game->player.pos.y = row;
+				if (game->player.pos.x == -1 || game->player.pos.y == -1)
+					exit_failure("Player position not found", game);
 			}
 		}
 	}
