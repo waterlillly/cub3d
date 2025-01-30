@@ -8,7 +8,7 @@ char	**split_line_into_words(char *line)
 	char	**res;
 	int		len;
 
-	len = ft_strlen(line) - 1;
+	len = (int)ft_strlen(line) - 1;
 	if (!check_len_and_newline(line, len))
 		return (NULL);
 	temp = ft_substr(line, 0, len);

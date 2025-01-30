@@ -90,7 +90,7 @@ static void	init_player(t_game *game)
 			game->plane.y *= -1;
 	}
 	ft_bzero(&game->control, sizeof(t_control));
-	game->player.move_speed = 3;
+	game->player.move_speed = 5;
 	game->player.turn_speed = 0.1;
 }
 

@@ -14,7 +14,7 @@ void	parse_file(int fd, t_game *game)
 	{
 		line = get_next_line(fd);
 		if (errno == ENOMEM)
-			exit_failure("Invalid file", game);
+			(free(line), close(fd), exit_failure("get_next_line", game));
 		if (!line)
 			break ;
 		if (!process_line(line, game))
@@ -33,14 +33,14 @@ void	parse_file(int fd, t_game *game)
 static bool	validate_and_process_split(char **split, int *tex_count,
 int *col_count, t_game *game)
 {
-	if (split[0] && split[1] && is_texture_identifier(split[0])
-		&& !split[2])
+	if (split[2])
+		return (false);
+	if (split[0] && split[1] && is_texture_identifier(split[0]))
 	{
 		if (!validate_texture_element(split, tex_count, game))
 			return (false);
 	}
-	else if (split[0] && split[1] && is_color_identifier(split[0])
-		&& !split[2])
+	else if (split[0] && split[1] && is_color_identifier(split[0]))
 	{
 		if (!validate_color_element(split, col_count, game))
 			return (false);
