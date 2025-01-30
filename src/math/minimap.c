@@ -6,17 +6,22 @@ static void	render_mini_arrow(t_game *game)
 	t_ivec	axy;
 	double	t;
 
-	axy.x = (game->player.pos.x / game->macro.tile_size * game->macro.mini_tile_width)
-		+ game->player.dir.x * game->macro.mini_tile_width;
-	axy.y = (game->player.pos.y / game->macro.tile_size * game->macro.mini_tile_height)
-		+ game->player.dir.y * game->macro.mini_tile_height;
+	axy.x = (game->player.pos.x / game->macro.tile_size
+			* game->macro.mini_tile_width) + game->player.dir.x
+		* game->macro.mini_tile_width;
+	axy.y = (game->player.pos.y / game->macro.tile_size
+			* game->macro.mini_tile_height) + game->player.dir.y
+		* game->macro.mini_tile_height;
 	t = 0.0;
 	while (t <= 1.0)
 	{
-		xy.x = floor((game->player.pos.x / game->macro.tile_size * game->macro.mini_tile_width) + t
-				* (axy.x - (game->player.pos.x / game->macro.tile_size * game->macro.mini_tile_width)));
-		xy.y = floor((game->player.pos.y / game->macro.tile_size * game->macro.mini_tile_height) + t
-				* (axy.y - (game->player.pos.y / game->macro.tile_size
+		xy.x = floor((game->player.pos.x / game->macro.tile_size
+					* game->macro.mini_tile_width) + t * (axy.x
+					- (game->player.pos.x / game->macro.tile_size
+						* game->macro.mini_tile_width)));
+		xy.y = floor((game->player.pos.y / game->macro.tile_size
+					* game->macro.mini_tile_height) + t * (axy.y
+					- (game->player.pos.y / game->macro.tile_size
 						* game->macro.mini_tile_height)));
 		put_my_pixel(game, xy.x, xy.y, RED);
 		t += 0.01;
@@ -34,8 +39,9 @@ static void	render_mini_player(t_game *game)
 		while (++xy.x < game->macro.mini_tile_width / 2)
 		{
 			put_my_pixel(game, (game->player.pos.x / game->macro.tile_size
-					* game->macro.mini_tile_width) - game->macro.mini_tile_width / 4 + xy.x,
-				(game->player.pos.y / game->macro.tile_size * game->macro.mini_tile_height)
+					* game->macro.mini_tile_width) - game->macro.mini_tile_width
+				/ 4 + xy.x, (game->player.pos.y / game->macro.tile_size
+					* game->macro.mini_tile_height)
 				- game->macro.mini_tile_height / 4 + xy.y, BLUE);
 		}
 	}

@@ -81,7 +81,8 @@ static void	init_player(t_game *game)
 		if (game->data.p_orientation == SOUTH)
 			game->plane.x *= -1;
 	}
-	else if (game->data.p_orientation == EAST || game->data.p_orientation == WEST)
+	else if (game->data.p_orientation == EAST
+		|| game->data.p_orientation == WEST)
 	{
 		game->plane.x = 0.0;
 		game->plane.y = tan(game->macro.fov / 2.0);
