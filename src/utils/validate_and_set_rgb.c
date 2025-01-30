@@ -18,14 +18,14 @@ bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 	{
 		if (ft_strlen(rgb[i]) > 3 || ft_strlen(rgb[i]) <= 0
 			|| !only_digits(rgb[i]))
-			return (ft_free_2d(rgb), false);
+			return (false);
 		nbr[i] = ft_atoi(rgb[i]);
 		if (nbr[i] < 0 || nbr[i] > 255)
-			return (ft_free_2d(rgb), false);
+			return (false);
 		check_color_and_set(nbr, i, game, fc);
 		i++;
 	}
-	return (ft_free_2d(rgb), true);
+	return (true);
 }
 
 static void	check_color_and_set(int *nbr, int i, t_game *game, int fc)

@@ -4,7 +4,7 @@ WE ./assets/textures/purple_brick_wall_trippy.xpm
 EA ./assets/textures/purple_brick_wall_trippy.xpm
 
 F 60,100,220
-C 0,200,150
+C 0,200,150,
 
 11111111111111111111111111111111
 10000000000000000000000000000001
