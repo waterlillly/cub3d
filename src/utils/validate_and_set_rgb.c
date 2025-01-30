@@ -1,6 +1,8 @@
 #include "../../cub3d.h"
 
 static void	check_color_and_set(int *nbr, int i, t_game *game, int fc);
+static bool check_for_correct_values(int nbr);
+static bool	check_for_comma(char *split);
 
 bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 {
@@ -8,23 +10,25 @@ bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 	int		nbr[3];
 	int		i;
 
+	if (check_for_comma(split) == false)
+		return (puts("Error: RGB values must be separated by commas"), false);
 	rgb = ft_split(split, ',');
 	if (!rgb)
 		return (false);
 	if (ft_arrlen(rgb) != 3)
 		return (false);
-	i = 0;
-	while (rgb[i])
+	i = -1;
+	while (rgb[++i])
 	{
-		if (ft_strlen(rgb[i]) > 3 || ft_strlen(rgb[i]) <= 0
-			|| !only_digits(rgb[i]))
-			return (ft_free_2d(rgb), false);
+		if (only_digits(rgb[i]) == false)
+			return (puts("must be num"),ft_free_2d(rgb), false);
 		nbr[i] = ft_atoi(rgb[i]);
-		if (nbr[i] < 0 || nbr[i] > 255)
+		if (check_for_correct_values(nbr[i]) == false)
 			return (ft_free_2d(rgb), false);
 		check_color_and_set(nbr, i, game, fc);
-		i++;
 	}
+	if (i != 3 || rgb[i] != NULL)
+		return (ft_free_2d(rgb), false);
 	return (ft_free_2d(rgb), true);
 }
 
@@ -42,4 +46,36 @@ static void	check_color_and_set(int *nbr, int i, t_game *game, int fc)
 		if (i == 2)
 			game->data.ceiling_color_set = true;
 	}
+}
+
+static bool check_for_correct_values(int nbr)
+{
+	if (nbr < 0 || nbr > 255)
+		return (puts("Error: RGB values must be between 0 and 255"), false);
+	return (true);
+}
+
+static bool	check_for_comma(char *split)
+{
+	int i;
+	int comma_count;
+	int comma_position;
+
+	i = 0;
+	comma_count = 0;
+	comma_position = -1;
+	while (split[i])
+	{
+		if (split[i] == ',')
+		{
+			comma_count++;
+			comma_position = i;
+		}
+		i++;
+	}
+	if (comma_count != 2)
+		return (false);
+	if (comma_position == 0 || comma_position == i - 1)
+		return (false);
+	return (true);
 }
