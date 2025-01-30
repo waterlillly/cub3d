@@ -67,7 +67,7 @@
 # define FORM_FEED '\f'
 
 //TODO: change macro-function and add them to init
-# define WIN_SIZE 1000
+# define WIN_SIZE 640
 # define BLACK 0x00000000
 # define WHITE 0x00FFFFFF
 # define RED 0x00FF0000

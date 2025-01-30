@@ -43,9 +43,9 @@ static void	free_data(t_game *game)
 {
 	if (!game)
 		return ;
-	free_all(game);
 	if (game->doors)
 		free(game->doors);
+	free_all(game);
 	destroy_mlx(game);
 }
 
