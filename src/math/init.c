@@ -71,8 +71,8 @@ static void	get_orientation(t_game *game)
 
 static void	init_player(t_game *game)
 {
-	game->player.pos.x = (game->player.pos.x + 0.5);
-	game->player.pos.y = (game->player.pos.y + 0.5);
+	game->player.pos.x = (game->player.pos.x + 0.5) * game->macro.tile_size;
+	game->player.pos.y = (game->player.pos.y + 0.5) * game->macro.tile_size;
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{
@@ -90,7 +90,7 @@ static void	init_player(t_game *game)
 	game->control.right_velo = 0;
 	game->control.turn_left_velo = 0;
 	game->control.turn_right_velo = 0;
-	game->player.move_speed = 2;
+	game->player.move_speed = 3;
 	game->player.turn_speed = 0.1;
 }
 

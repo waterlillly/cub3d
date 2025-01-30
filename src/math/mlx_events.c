@@ -2,9 +2,10 @@
 
 void	init_macros(t_game *game)
 {
-	// game->macro.tile_size = WIN_SIZE * 0.1;
-	game->macro.minimap_size = WIN_SIZE * 0.2;
-	game->macro.mini_tile_size = game->macro.minimap_size / fmax((double)game->data.map_width, (double)game->data.map_height);
+	game->macro.tile_size = WIN_SIZE * 0.1;
+	game->macro.minimap_size = floor(WIN_SIZE * 0.2);
+	game->macro.mini_tile_width = (game->macro.minimap_size / game->data.map_width);
+	game->macro.mini_tile_height = (game->macro.minimap_size / game->data.map_height);
 	game->macro.fov = 60 * (M_PI / 180);
 }
 
