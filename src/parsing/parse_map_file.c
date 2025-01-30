@@ -14,12 +14,14 @@ bool	process_line(char *line, t_game *game)
 		split = split_line_into_words(line);
 		if (!split)
 			return (false);
-		if (split[0] && split[1] && is_texture_identifier(split[0]) && !split[2])
+		if (split[0] && split[1] && is_texture_identifier(split[0])
+			&& !split[2])
 		{
 			if (!validate_texture_element(split, &tex_count, game))
 				return (ft_free_2d(split), false);
 		}
-		else if (split[0] && split[1] && is_color_identifier(split[0]) && !split[2])
+		else if (split[0] && split[1] && is_color_identifier(split[0])
+			&& !split[2])
 		{
 			if (!validate_color_element(split, &col_count, game))
 				return (ft_free_2d(split), false);
@@ -49,9 +51,9 @@ void	parse_file(int fd, t_game *game)
 	while (true)
 	{
 		line = get_next_line(fd);
-		if(errno == ENOMEM)
+		if (errno == ENOMEM)
 			exit_failure("Invalid file", game);
-		if(!line)
+		if (!line)
 			break ;
 		if (!process_line(line, game))
 		{
@@ -66,5 +68,4 @@ void	parse_file(int fd, t_game *game)
 		exit_failure("empty file", game);
 	if (!split_map_into_grid(game))
 		exit_failure("split map failed", game);
-	// ft_print_array(game->data.map);
 }
