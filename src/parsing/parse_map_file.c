@@ -45,8 +45,6 @@ void	parse_file(int fd, t_game *game)
 	char	*line;
 
 	ft_bzero(&game->data, sizeof(t_data));
-	game->data.floor_color_set = false;//TODO: add into init instead of here
-	game->data.ceiling_color_set = false;
 	errno = 0;
 	while (true)
 	{
