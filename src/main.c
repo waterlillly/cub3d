@@ -20,7 +20,6 @@ void check_vars_from_parsing(t_game *game)
 	//GENERAL
 	printf("\033[0;31m\tGENERAL\033[0m\n");
 	printf("NUM OF ROWS: |%d|\n", game->data.num_of_rows);
-	printf("NUM OF COLUMNS: |%d|\n", game->data.num_of_columns);
 	printf("MAX COLUMN: |%zu|\n", game->data.max_column);
 	printf("NUM OF PLAYER: |%d|\n", game->data.num_of_player);
 	printf("NUM OF ORIENTATIONS: |%d|\n", game->data.num_of_orientations);

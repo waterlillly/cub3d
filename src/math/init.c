@@ -78,18 +78,17 @@ static void	init_player(t_game *game)
 	{
 		game->plane.x = tan(game->macro.fov / 2.0);
 		game->plane.y = 0.0;
+		if (game->data.p_orientation == SOUTH)
+			game->plane.x *= -1;
 	}
-	else
+	else if (game->data.p_orientation == EAST || game->data.p_orientation == WEST)
 	{
 		game->plane.x = 0.0;
 		game->plane.y = tan(game->macro.fov / 2.0);
+		if (game->data.p_orientation == WEST)
+			game->plane.y *= -1;
 	}
-	game->control.forward_velo = 0;
-	game->control.backward_velo = 0;
-	game->control.left_velo = 0;
-	game->control.right_velo = 0;
-	game->control.turn_left_velo = 0;
-	game->control.turn_right_velo = 0;
+	ft_bzero(&game->control, sizeof(t_control));
 	game->player.move_speed = 3;
 	game->player.turn_speed = 0.1;
 }

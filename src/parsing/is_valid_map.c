@@ -42,8 +42,8 @@ static void	validate_element(t_game *game)
 			if (ft_strchr("NSEW", game->data.map[row][column]))
 			{
 				get_player_orientation(game->data.map[row][column], game);
-				game->player.pos.x = row;
-				game->player.pos.y = column;
+				game->player.pos.x = column;
+				game->player.pos.y = row;
 			}
 		}
 	}
