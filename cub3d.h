@@ -255,6 +255,7 @@ void				is_valid_map(t_game *game);
 void				max_line_len(t_game *game);
 void				validate_input_file(char *file, t_game *game);
 void				parse_file(int fd, t_game *game);
+void				validate_border(t_game *game);
 
 // ************** UTILS **************
 void				initialization_of_vars(t_game *game);

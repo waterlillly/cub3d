@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_game.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 16:38:06 by msimic            #+#    #+#             */
+/*   Updated: 2025/01/29 16:38:53 by msimic           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
-void validate_game(t_game *game, char **av)
+void	validate_game(t_game *game, char **av)
 {
-    validate_input_file(av[1], game);
+	validate_input_file(av[1], game);
 	is_valid_map(game);
 }

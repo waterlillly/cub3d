@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_and_set_rgb.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 12:36:22 by msimic            #+#    #+#             */
+/*   Updated: 2025/01/29 16:02:32 by msimic           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
+
+static void	check_color_and_set(int *nbr, int i, t_game *game, int fc);
 
 bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 {
@@ -20,19 +34,24 @@ bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 		nbr[i] = ft_atoi(rgb[i]);
 		if (nbr[i] < 0 || nbr[i] > 255)
 			return (ft_free_2d(rgb), false);
-		if (fc == 0)
-		{
-			game->data.floor_color[i] = nbr[i];
-			if (i == 2)
-				game->data.floor_color_set = true;
-		}
-		else
-		{
-			game->data.ceiling_color[i] = nbr[i];
-			if (i == 2)
-				game->data.ceiling_color_set = true;
-		}
+		check_color_and_set(nbr, i, game, fc);
 		i++;
 	}
 	return (ft_free_2d(rgb), true);
+}
+
+static void	check_color_and_set(int *nbr, int i, t_game *game, int fc)
+{
+	if (fc == 0)
+	{
+		game->data.floor_color[i] = nbr[i];
+		if (i == 2)
+			game->data.floor_color_set = true;
+	}
+	else
+	{
+		game->data.ceiling_color[i] = nbr[i];
+		if (i == 2)
+			game->data.ceiling_color_set = true;
+	}
 }

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   args_handler.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 16:21:18 by msimic            #+#    #+#             */
+/*   Updated: 2025/01/29 16:21:56 by msimic           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
-void args_handler(int ac, char **av, t_game *game)
+void	args_handler(int ac, char **av, t_game *game)
 {
-	int arg_len;
-	int fd;
+	int	arg_len;
+	int	fd;
 
 	arg_len = ft_strlen(av[1]);
 	if (ac != 2)
