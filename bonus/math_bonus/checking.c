@@ -45,13 +45,12 @@ void	check_doors(t_game *game)
 	time = get_time(game);
 	if (time == -1)
 		exit_failure("get time", game);
-	// time += 5;
 	while (c < game->num_doors)
 	{
 		if (game->doors[c].open == true
-			&& game->doors[c].open_time + 5000 >= time
+			&& game->doors[c].open_time + 5000 <= time
 			&& is_door(game, (int)game->player.pos.x / game->macro.tile_size,
-			(int)game->player.pos.y / game->macro.tile_size) != -1)
+			(int)game->player.pos.y / game->macro.tile_size) == -1)
 		{
 			game->doors[c].open = false;
 			game->doors[c].open_time = 0;

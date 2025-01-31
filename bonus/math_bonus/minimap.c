@@ -76,7 +76,6 @@ void	render_minimap(t_game *game)
 		{
 			nbr = is_door(game, xy.x, xy.y);
 			color = WHITE;
-			puts("here");
 			if (crashed(game, xy.x, xy.y))
 				color = BLACK;
 			else if (nbr >= 0 && !is_open(game, nbr))

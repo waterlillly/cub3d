@@ -6,8 +6,6 @@ bool	split_map_into_grid(t_game *game)
 	char	**map;
 
 	i = 0;
-	map = NULL;
-	game->data.map = NULL;
 	game->data.map = ft_split(game->data.data, '\n');
 	if (!game->data.map)
 		return (false);
@@ -24,6 +22,8 @@ bool	split_map_into_grid(t_game *game)
 		ft_memcpy(map[i], game->data.map[i], ft_strlen(game->data.map[i]));
 		i++;
 	}
+	if (i < ft_arrlen(game->data.map))
+		return (ft_free_2d(map), false);
 	game->data.num_of_rows = i;
 	ft_free_2d(game->data.map);
 	game->data.map = map;

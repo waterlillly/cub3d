@@ -27,7 +27,6 @@ bool	is_open(t_game *game, int nbr)
 void	toggle_door(t_game *game, int x, int y)
 {
 	int	c;
-
 	c = is_door(game, x, y);
 	if (c >= 0 && !is_open(game, c))
 	{
@@ -50,9 +49,10 @@ static void	init_doors(t_game *game)
 		{
 			if (game->data.map[xy.y][xy.x] == 'D')
 			{
-				ft_bzero(&game->doors[c], sizeof(t_doors));
+				game->doors[c].open = false;
 				game->doors[c].pos.x = xy.x;
 				game->doors[c].pos.y = xy.y;
+				game->doors[c].open_time = 0;
 				c++;
 			}
 		}

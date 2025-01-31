@@ -28,6 +28,8 @@ static void	destroy_mlx(t_game *game)
 		mlx_destroy_image(game->cub.mlx_con, game->textures[NORTH].img);
 	if (game && game->cub.mlx_con && game->textures[SOUTH].img)
 		mlx_destroy_image(game->cub.mlx_con, game->textures[SOUTH].img);
+	if (game && game->cub.mlx_con && game->textures[DOOR].img)
+		mlx_destroy_image(game->cub.mlx_con, game->textures[DOOR].img);
 	if (game && game->cub.mlx_con && game->cub.img.img)
 		mlx_destroy_image(game->cub.mlx_con, game->cub.img.img);
 	if (game && game->cub.mlx_con && game->cub.mlx_win)

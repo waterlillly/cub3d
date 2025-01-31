@@ -101,16 +101,7 @@ To ensure your parser is robust, test these scenarios:
     Missing NO, SO, WE, or EA.
     F 255,255, or C 0,,255.
     A disconnected map section.
+                
+ % ./cub3d_bonus .test.cub
 
-
-8. NEED FIX
-color:	-missing one value
-		-negative value
-		-value bigger than 255
-
-texture:
-		-two double id texture
-
-doors
-
-invalid file if space on newline between map and other stuff
+ % ./cub3d_bonus ./.cub
