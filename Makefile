@@ -41,7 +41,6 @@ CFILES = $(addprefix $(SRC_DIR), \
 )
 
 OFILES = $(CFILES:.c=.o)
-#OFILES = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(CFILES))
 
 BONUSFILES = $(addprefix $(BONUS_DIR), \
 		main.c \
@@ -64,7 +63,6 @@ BONUSFILES = $(addprefix $(BONUS_DIR), \
 )
 
 BONUSOFILES = $(BONUSFILES:.c=.o)
-#BONUSOFILES = $(patsubst $(BONUS_DIR)%.c, $(BONUS_OBJ_DIR)%.o, $(BONUSFILES))
 
 all: $(NAME)
 
@@ -89,7 +87,6 @@ bonus: $(BONUSOFILES)
 clean:
 	$(MAKE) -C ./lib clean
 	rm -rf $(OFILES) $(BONUSOFILES)
-# rm -rf $(OBJ_DIR) $(BONUS_OBJ_DIR)
 
 fclean: clean
 	$(MAKE) -C ./lib fclean
