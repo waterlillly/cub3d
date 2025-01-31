@@ -112,3 +112,5 @@ texture:
 		-two double id texture
 
 doors
+
+invalid file if space on newline between map and other stuff

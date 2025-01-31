@@ -5,7 +5,7 @@ static void	load_textures(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		if (access(game->textures[i].name, R_OK))
 			exit_failure("texture not found", game);
@@ -103,6 +103,8 @@ void	init_cub(t_game *game)
 	init_macros(game);
 	ft_bzero(&game->ray, sizeof(t_ray));
 	get_colors(game);
+	parse_doors(game);
+	game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
 }

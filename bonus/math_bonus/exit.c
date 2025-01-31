@@ -55,7 +55,10 @@ void	exit_failure(char *s, t_game *game)
 	ft_putendl_fd(s, STDERR_FILENO);
 	get_next_line(-1);
 	if (game->cub.mlx_win)
+	{
 		mlx_do_key_autorepeaton(game->cub.mlx_con);
+		mlx_mouse_show(game->cub.mlx_con, game->cub.mlx_win);
+	}
 	free_data(game);
 	exit(EXIT_FAILURE);
 }
@@ -63,7 +66,10 @@ void	exit_failure(char *s, t_game *game)
 int	exit_success(t_game *game)
 {
 	if (game->cub.mlx_win)
+	{
 		mlx_do_key_autorepeaton(game->cub.mlx_con);
+		mlx_mouse_show(game->cub.mlx_con, game->cub.mlx_win);
+	}
 	free_data(game);
 	exit(EXIT_SUCCESS);
 }

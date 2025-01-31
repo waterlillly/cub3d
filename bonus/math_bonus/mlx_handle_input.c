@@ -67,5 +67,8 @@ int	handle_keypress(int keycode, t_game *game)
 		game->control.turn_left = 1;
 	if (keycode == XK_Right)
 		game->control.turn_right = 1;
+	if (keycode == XK_space)
+		toggle_door(game, game->ray.map.x, game->ray.map.y
+			/ game->macro.tile_size);
 	return (0);
 }

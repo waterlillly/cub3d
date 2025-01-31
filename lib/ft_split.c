@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 18:17:03 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/01/29 14:03:30 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:04:32 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ char	**ft_split(char const *s, char c)
 		result[x] = ft_substr(s, last_pos, ft_place(s, c, last_pos) - last_pos);
 		if (!result[x++])
 		{
-			while (x > 0)
-				free(result[--x]);
-			free(result);
+			ft_free_2d(result);
 			return (NULL);
 		}
 		last_pos = ft_place(s, c, last_pos + 1);

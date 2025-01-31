@@ -281,7 +281,7 @@ int					exit_success(t_game *game);
 /* init.c */
 void				init_cub(t_game *game);
 
-/* doors.c */
+/* BONUS: doors.c */
 int					is_door(t_game *game, int x, int y);
 bool				is_open(t_game *game, int nbr);
 void				toggle_door(t_game *game, int x, int y);
@@ -324,14 +324,14 @@ void				get_direction(t_game *game);
 void				get_colors(t_game *game);
 void				check_texture(t_game *game, int i);
 bool				is_wall(t_game *game, double new_x, double new_y);
-void				check_doors(t_game *game);
+void				check_doors(t_game *game);//BONUS
 
 /* utils.c */
-int					get_time(t_game *game);
+int					get_time(t_game *game);//BONUS
 t_dvec				norm(t_dvec vec);
 bool				crashed(t_game *game, double x1, double y1);
 
 /* minimap.c */
-void				render_minimap(t_game *game);
+void				render_minimap(t_game *game);//BONUS
 
 #endif
