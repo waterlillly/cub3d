@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-static bool	check_len_and_newline(char *line, int len);
+// static bool	check_len_and_newline(char *line, int len);
 
 char	**split_line_into_words(char *line)
 {
@@ -9,7 +9,7 @@ char	**split_line_into_words(char *line)
 	int		len;
 
 	len = (int)ft_strlen(line) - 1;
-	if (!check_len_and_newline(line, len))
+	if (len <= 0)
 		return (NULL);
 	temp = ft_substr(line, 0, len);
 	if (!temp)
@@ -22,9 +22,9 @@ char	**split_line_into_words(char *line)
 	return (res);
 }
 
-static bool	check_len_and_newline(char *line, int len)
-{
-	if (len < 0 || line[len] != '\n')
-		return (false);
-	return (true);
-}
+// static bool	check_len_and_newline(char *line, int len)
+// {
+// 	if (len < 0 || line[len] != '\n')
+// 		return (false);
+// 	return (true);
+// }

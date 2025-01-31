@@ -6,7 +6,7 @@
 #    By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/06 18:13:23 by lbaumeis          #+#    #+#              #
-#    Updated: 2025/01/26 14:08:57 by lbaumeis         ###   ########.fr        #
+#    Updated: 2025/01/31 15:58:30 by lbaumeis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CFILES += ft_strcmp_bool.c ft_strnstr_bool.c ft_atoi_long.c ft_itoa_long.c
 CFILES += ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c 
 CFILES += ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 CFILES += ft_strcat.c ft_strlen_2d.c ft_realloc_2d.c ft_free_2d.c ft_strncpy.c
-CFILES += ft_print_array_fd.c ft_strspn.c ft_strappend.c ft_realloc.c
+CFILES += ft_print_array_fd.c ft_strspn.c ft_strappend.c ft_realloc.c ft_only_white.c
 
 OFILES = $(CFILES:.c=.o)
 

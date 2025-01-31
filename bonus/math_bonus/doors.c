@@ -50,10 +50,9 @@ static void	init_doors(t_game *game)
 		{
 			if (game->data.map[xy.y][xy.x] == 'D')
 			{
-				game->doors[c].open = false;
+				ft_bzero(&game->doors[c], sizeof(t_doors));
 				game->doors[c].pos.x = xy.x;
 				game->doors[c].pos.y = xy.y;
-				game->doors[c].open_time = 0;
 				c++;
 			}
 		}

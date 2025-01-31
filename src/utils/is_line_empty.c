@@ -2,14 +2,7 @@
 
 bool	is_line_empty(char *s)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] != ' ' && s[i] != '\n')
-			return (false);
-		i++;
-	}
-	return (true);
+	if (s && s[0] == '\n')
+		return (true);
+	return (false);
 }

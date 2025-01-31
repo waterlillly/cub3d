@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 16:53:55 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/01/29 13:01:52 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:58:21 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void	ft_free_2d(char **in);
 char	*ft_strncpy(char *dest, char *src, int n);
 size_t	ft_strspn(const char *s, const char *accept);
 char	*ft_strappend(char **s1, const char *s2);
+bool	ft_only_white(char *line);
 
 #endif

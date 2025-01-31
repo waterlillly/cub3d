@@ -72,6 +72,9 @@ static bool	process_line(char *line, t_game *game)
 	else if (line && is_line_empty(line) && tex_count >= 4
 		&& col_count >= 2 && !game->data.data)
 		return (true);
+	else if (line && (is_line_empty(line) || ft_only_white(line)) && tex_count >= 4
+		&& col_count >= 2 && game->data.data)
+		return (false);
 	else if (line && !is_line_empty(line) && tex_count >= 4 && col_count >= 2)
 		return (append_line_to_map(line, game));
 	return (true);
