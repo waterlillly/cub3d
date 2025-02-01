@@ -1,0 +1,15 @@
+NO ./assets/textures/purple_brick_wall_trippy.xpm
+SO ./assets/textures/arrow.xpm
+WE ./assets/textures/purple_brick_wall_trippy.xpm
+EA ./assets/textures/purple_brick_wall_trippy.xpm
+
+F 60,100,220
+C 0,200,150
+
+1111111
+1100011
+1000001
+1000001
+1000001
+110S011
+1111111
