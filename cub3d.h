@@ -228,7 +228,7 @@ typedef struct s_macros
 typedef struct s_game
 {
 	t_data			data;
-	t_image 		textures[5];
+	t_image 		textures[4];
 	t_control		control;
 	t_cub			cub;
 	t_player		player;
@@ -242,11 +242,6 @@ typedef struct s_game
 }					t_game;
 
 /* ************ PROTOTYPES ************ */
-
-/* maps.c */
-void				init_map_with_doors(t_game *game);
-void				init_map_hallway(t_game *game);
-void				init_map_tiny(t_game *game);
 
 // ************** PARS **************
 void				args_handler(int ac, char **av, t_game *game);
@@ -280,12 +275,6 @@ int					exit_success(t_game *game);
 
 /* init.c */
 void				init_cub(t_game *game);
-
-/* BONUS: doors.c */
-int					is_door(t_game *game, int x, int y);
-bool				is_open(t_game *game, int nbr);
-void				toggle_door(t_game *game, int x, int y);
-void				parse_doors(t_game *game);
 
 /* mlx_events.c */
 void				init_macros(t_game *game);
@@ -324,14 +313,9 @@ void				get_direction(t_game *game);
 void				get_colors(t_game *game);
 void				check_texture(t_game *game, int i);
 bool				is_wall(t_game *game, double new_x, double new_y);
-void				check_doors(t_game *game);//BONUS
 
 /* utils.c */
-int					get_time(t_game *game);//BONUS
 t_dvec				norm(t_dvec vec);
 bool				crashed(t_game *game, double x1, double y1);
-
-/* minimap.c */
-void				render_minimap(t_game *game);//BONUS
 
 #endif

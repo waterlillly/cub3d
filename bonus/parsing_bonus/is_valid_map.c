@@ -1,17 +1,5 @@
 #include "../../cub3d_bonus.h"
 
-static void	validate_row_and_column(t_game *game);
-static void	validate_element(t_game *game);
-static void	validate_player(t_game *game);
-
-void	is_valid_map(t_game *game)
-{
-	validate_border(game);
-	validate_row_and_column(game);
-	validate_element(game);
-	validate_player(game);
-}
-
 static void	validate_row_and_column(t_game *game)
 {
 	if (game->data.map == NULL)
@@ -70,4 +58,12 @@ static void	validate_player(t_game *game)
 	}
 	if (players != 1)
 		exit_failure("Player missing or too many players", game);
+}
+
+void	is_valid_map(t_game *game)
+{
+	validate_border(game);
+	validate_row_and_column(game);
+	validate_element(game);
+	validate_player(game);
 }

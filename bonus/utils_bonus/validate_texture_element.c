@@ -42,6 +42,19 @@ static int	check_texture_and_set_ea_we(t_game *game, char **split)
 	return (true);
 }
 
+static int	check_texture_and_set_do(t_game *game, char **split)
+{
+	if (!ft_strcmp(split[0], "DO"))
+	{
+		if (game->textures[DOOR].name)
+			return (false);
+		game->textures[DOOR].name = ft_strdup(split[1]);
+		if (!game->textures[DOOR].name)
+			return (false);
+	}
+	return (true);
+}
+
 bool	validate_texture_element(char **split, int *tex_count, t_game *game)
 {
 	if (split[1] && access(split[1], R_OK) == 0 && !split[2])
@@ -53,6 +66,9 @@ bool	validate_texture_element(char **split, int *tex_count, t_game *game)
 			return (false);
 		else if ((!ft_strcmp(split[0], "EA") || !ft_strcmp(split[0], "WE"))
 			&& check_texture_and_set_ea_we(game, split) == false)
+			return (false);
+		else if (!ft_strcmp(split[0], "DO")
+			&& check_texture_and_set_do(game, split) == false)
 			return (false);
 		(*tex_count)++;
 		return (true);

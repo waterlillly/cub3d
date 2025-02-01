@@ -26,7 +26,7 @@ static bool	process_line(char *line, t_game *game)
 	static int	col_count = 0;
 	char		**split;
 
-	if ((tex_count < 4 || col_count < 2) && !game->data.data)
+	if ((tex_count < 5 || col_count < 2) && !game->data.data)
 	{
 		if (is_line_empty(line))
 			return (true);
@@ -37,13 +37,13 @@ static bool	process_line(char *line, t_game *game)
 			return (ft_free_2d(split), false);
 		return (ft_free_2d(split), true);
 	}
-	else if (is_line_empty(line) && tex_count >= 4 && col_count >= 2
+	else if (is_line_empty(line) && tex_count >= 5 && col_count >= 2
 		&& !game->data.data)
 		return (true);
-	else if (ft_only_white(line) && tex_count >= 4 && col_count >= 2
+	else if (ft_only_white(line) && tex_count >= 5 && col_count >= 2
 		&& !game->data.data)
 		return (false);
-	else if (!is_line_empty(line) && !ft_only_white(line) && tex_count >= 4
+	else if (!is_line_empty(line) && !ft_only_white(line) && tex_count >= 5
 		&& col_count >= 2)
 		return (append_line_to_map(line, game));
 	return (false);

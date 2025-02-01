@@ -104,7 +104,7 @@ void	init_cub(t_game *game)
 	ft_bzero(&game->ray, sizeof(t_ray));
 	get_colors(game);
 	parse_doors(game);
-	game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
+	// game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
 }
