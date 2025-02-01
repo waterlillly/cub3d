@@ -3,7 +3,7 @@
 static bool	valid_split(char **split, int *tex_count, int *col_count,
 		t_game *game)
 {
-	if (split[2])
+	if (!split || !split[0] || !split[1] || split[2])
 		return (false);
 	if (split[0] && split[1] && is_texture_identifier(split[0]))
 	{
@@ -43,7 +43,7 @@ static bool	process_line(char *line, t_game *game)
 	else if (ft_only_white(line) && tex_count >= 5 && col_count >= 2
 		&& !game->data.data)
 		return (false);
-	else if (!is_line_empty(line) && !ft_only_white(line) && tex_count >= 5
+	else if ((is_line_empty(line) || !ft_only_white(line)) && tex_count >= 4
 		&& col_count >= 2)
 		return (append_line_to_map(line, game));
 	return (false);

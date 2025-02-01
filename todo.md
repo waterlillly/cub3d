@@ -105,3 +105,9 @@ To ensure your parser is robust, test these scenarios:
  % ./cub3d_bonus .test.cub
 
  % ./cub3d_bonus ./.cub
+
+ bonus: doors open to the right
+
+ squished minimap
+
+ sprint button

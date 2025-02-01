@@ -6,6 +6,8 @@ bool	split_map_into_grid(t_game *game)
 	char	**map;
 
 	i = -1;
+	if (!game->data.data)
+		return (false);
 	game->data.map = ft_split(game->data.data, '\n');
 	if (!game->data.map)
 		return (false);
