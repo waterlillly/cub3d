@@ -87,3 +87,4 @@ void	render_minimap(t_game *game)
 	}
 	render_mini_player(game);
 }
+

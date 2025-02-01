@@ -2,7 +2,7 @@
 
 bool	validate_color_element(char **split, int *col_count, t_game *game)
 {
-	if (split[1] && !split[2])
+	if (split && split[0] && split[1] && !split[2])
 	{
 		if ((!ft_strcmp(split[0], "F")
 				&& validate_and_set_rgb(split[1], game, 0))
