@@ -16,6 +16,8 @@ void	free_all(t_game *game)
 		free(game->textures[EAST].name);
 	if (game->textures[WEST].name)
 		free(game->textures[WEST].name);
+	if (game->textures[DOOR].name)
+		free(game->textures[DOOR].name);
 }
 
 static void	destroy_mlx(t_game *game)

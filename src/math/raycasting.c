@@ -42,7 +42,9 @@ static void	cast_ray(t_game *game, int x)
 
 	game->ray.tex.x = game->ray.texture.width - (int)(game->ray.wall_x
 			* game->ray.texture.width);
-	if ((game->ray.side == 0 && game->ray.dir.x > 0) || (game->ray.side == 1
+	if (game->ray.tex.x == game->ray.texture.width)
+		game->ray.tex.x--;
+	else if ((game->ray.side == 0 && game->ray.dir.x > 0) || (game->ray.side == 1
 			&& game->ray.dir.y < 0))
 		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
 	game->ray.s = 1.0 * game->ray.texture.height / game->ray.wall_height;

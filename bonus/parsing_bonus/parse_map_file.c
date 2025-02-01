@@ -49,12 +49,25 @@ static bool	process_line(char *line, t_game *game)
 	return (false);
 }
 
+static void	init_textures(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		ft_bzero(&game->textures[i], sizeof(t_image));
+		i++;
+	}
+}
+
 void	parse_file(int fd, t_game *game)
 {
 	char	*line;
 
 	ft_bzero(&game->data, sizeof(t_data));
 	errno = 0;
+	init_textures(game);
 	while (true)
 	{
 		line = get_next_line(fd);

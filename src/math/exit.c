@@ -43,8 +43,6 @@ static void	free_data(t_game *game)
 {
 	if (!game)
 		return ;
-	if (game->doors)
-		free(game->doors);
 	free_all(game);
 	destroy_mlx(game);
 }
