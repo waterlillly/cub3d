@@ -10,8 +10,8 @@ static bool	valid_file(char *s)
 
 void	args_handler(int ac, char **av, t_game *game)
 {
-	int arg_len;
-	int fd;
+	int	arg_len;
+	int	fd;
 
 	arg_len = ft_strlen(av[1]);
 	if (ac != 2)

@@ -1,6 +1,6 @@
 #include "../../cub3d_bonus.h"
 
-static bool check_for_correct_values(int nbr)
+static bool	check_for_correct_values(int nbr)
 {
 	if (nbr < 0 || nbr > 255)
 		return (false);
@@ -9,9 +9,9 @@ static bool check_for_correct_values(int nbr)
 
 static bool	check_for_comma(char *split)
 {
-	int i;
-	int comma_count;
-	int comma_position;
+	int	i;
+	int	comma_count;
+	int	comma_position;
 
 	i = 0;
 	comma_count = 0;

@@ -36,4 +36,3 @@ void	validate_border(t_game *game)
 		}
 	}
 }
-

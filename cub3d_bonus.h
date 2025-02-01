@@ -66,8 +66,8 @@
 # define VERTICAL_TAB '\v'
 # define FORM_FEED '\f'
 
-//TODO: change macro-function and add them to init
-# define WIN_SIZE 640
+# define WIN_WIDTH 1000
+# define WIN_HEIGHT 1000
 # define BLACK 0x00000000
 # define WHITE 0x00FFFFFF
 # define RED 0x00FF0000
@@ -140,7 +140,7 @@ typedef struct s_cub
 	void			*mlx_con;
 	void			*mlx_win;
 	t_image			img;
-	unsigned int	buffer[WIN_SIZE][WIN_SIZE];
+	unsigned int	buffer[WIN_HEIGHT][WIN_WIDTH];
 }					t_cub;
 
 typedef struct s_ray
@@ -200,6 +200,7 @@ typedef struct s_control
 	bool			right;
 	bool			turn_left;
 	bool			turn_right;
+	bool			sprint;
 	double			forward_velo;
 	double			backward_velo;
 	double			left_velo;
@@ -217,8 +218,10 @@ typedef struct s_doors
 
 typedef struct s_macros
 {
-	double			tile_size;
-	double			minimap_size;
+	double			tile_width;
+	double			tile_height;
+	double			minimap_width;
+	double			minimap_height;
 	double			mini_tile_size;
 	double			mini_tile_width;
 	double			mini_tile_height;
@@ -301,6 +304,7 @@ void				move_forward(t_game *game);
 void				move_backward(t_game *game);
 void				move_left(t_game *game);
 void				move_right(t_game *game);
+void				sprint(t_game *game);
 
 /* rotation.c */
 void				rotate_plane(t_game *game, double angle);

@@ -29,13 +29,15 @@ static void	init_mlx(t_game *game)
 	t_ivec	size;
 
 	mlx_get_screen_size(game->cub.mlx_con, &size.x, &size.y);
-	if (size.x < WIN_SIZE || size.y < WIN_SIZE)
+	if (size.x < WIN_WIDTH || size.y < WIN_HEIGHT)
 		exit_failure("screensize too small", game);
-	game->cub.mlx_win = mlx_new_window(game->cub.mlx_con, WIN_SIZE, WIN_SIZE,
+	else if (WIN_HEIGHT != WIN_WIDTH)
+		exit_failure("the window has to be square", game);
+	game->cub.mlx_win = mlx_new_window(game->cub.mlx_con, WIN_WIDTH, WIN_HEIGHT,
 			"cub3d");
 	if (!game->cub.mlx_win)
 		exit_failure("mlx_new_window", game);
-	game->cub.img.img = mlx_new_image(game->cub.mlx_con, WIN_SIZE, WIN_SIZE);
+	game->cub.img.img = mlx_new_image(game->cub.mlx_con, WIN_WIDTH, WIN_HEIGHT);
 	if (!game->cub.img.img)
 		exit_failure("mlx_new_image", game);
 	game->cub.img.addr = mlx_get_data_addr(game->cub.img.img,
@@ -71,8 +73,8 @@ static void	get_orientation(t_game *game)
 
 static void	init_player(t_game *game)
 {
-	game->player.pos.x = (game->player.pos.x + 0.5) * game->macro.tile_size;
-	game->player.pos.y = (game->player.pos.y + 0.5) * game->macro.tile_size;
+	game->player.pos.x = (game->player.pos.x + 0.5) * game->macro.tile_width;
+	game->player.pos.y = (game->player.pos.y + 0.5) * game->macro.tile_height;
 	get_orientation(game);
 	if (game->data.p_orientation == NORTH || game->data.p_orientation == SOUTH)
 	{
@@ -104,7 +106,6 @@ void	init_cub(t_game *game)
 	ft_bzero(&game->ray, sizeof(t_ray));
 	get_colors(game);
 	parse_doors(game);
-	// game->textures[DOOR].name = "assets/textures/metal_door_bars.xpm";
 	load_textures(game);
 	init_player(game);
 }

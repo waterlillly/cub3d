@@ -2,11 +2,13 @@
 
 void	init_macros(t_game *game)
 {
-	game->macro.tile_size = WIN_SIZE * 0.1;
-	game->macro.minimap_size = floor(WIN_SIZE * 0.2);
-	game->macro.mini_tile_width = (game->macro.minimap_size
+	game->macro.tile_width = WIN_WIDTH * 0.1;
+	game->macro.tile_height = WIN_HEIGHT * 0.1;
+	game->macro.minimap_width = floor(WIN_WIDTH * 0.2);
+	game->macro.minimap_height = floor(WIN_HEIGHT * 0.2);
+	game->macro.mini_tile_width = (game->macro.minimap_width
 			/ game->data.map_width);
-	game->macro.mini_tile_height = (game->macro.minimap_size
+	game->macro.mini_tile_height = (game->macro.minimap_height
 			/ game->data.map_height);
 	game->macro.fov = 60 * (M_PI / 180);
 }
@@ -18,10 +20,10 @@ static void	clear_frame(t_game *game)
 
 	y = 0;
 	mlx_clear_window(game->cub.mlx_con, game->cub.mlx_win);
-	while (y < WIN_SIZE)
+	while (y < WIN_HEIGHT)
 	{
 		x = 0;
-		while (x < WIN_SIZE)
+		while (x < WIN_WIDTH)
 		{
 			put_my_pixel(game, x, y, BLACK);
 			x++;
@@ -33,19 +35,19 @@ static void	clear_frame(t_game *game)
 static int	mouse_loop(int x, int y, t_game *game)
 {
 	(void)y;
-	if (x < WIN_SIZE / 2)
+	if (x < WIN_WIDTH / 2)
 	{
 		rotate_dir(game, -game->player.turn_speed * 0.2);
 		rotate_plane(game, -game->player.turn_speed * 0.2);
 	}
-	else if (x > WIN_SIZE / 2)
+	else if (x > WIN_WIDTH / 2)
 	{
 		rotate_dir(game, game->player.turn_speed * 0.2);
 		rotate_plane(game, game->player.turn_speed * 0.2);
 	}
-	if (x < (WIN_SIZE / 2) || x > (WIN_SIZE / 2))
-		mlx_mouse_move(game->cub.mlx_con, game->cub.mlx_win, WIN_SIZE / 2,
-			WIN_SIZE / 2);
+	if (x < (WIN_WIDTH / 2) || x > (WIN_WIDTH / 2))
+		mlx_mouse_move(game->cub.mlx_con, game->cub.mlx_win, WIN_WIDTH / 2,
+			WIN_HEIGHT / 2);
 	mlx_mouse_hide(game->cub.mlx_con, game->cub.mlx_win);
 	return (0);
 }

@@ -21,7 +21,7 @@ BONUS_UTILS_DIR = $(BONUS_DIR)utils_bonus/
 BONUS_MATH_DIR = $(BONUS_DIR)math_bonus/
 
 CFILES = $(addprefix $(SRC_DIR), \
-		main.c maps.c \
+		main.c \
 ) $(addprefix $(MATH_DIR), \
 		init.c mlx_events.c pixels.c \
 		exit.c movement.c utils.c rotation.c \

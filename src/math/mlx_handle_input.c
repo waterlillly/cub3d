@@ -30,6 +30,8 @@ int	handle_keyrelease(int keycode, t_game *game)
 		game->control.turn_left = 0;
 	if (keycode == XK_Right)
 		game->control.turn_right = 0;
+	if (keycode == XK_Q || keycode == XK_q)
+		game->control.sprint = 0;
 	reset_velo_on_keyrelease(game);
 	return (0);
 }
@@ -48,6 +50,8 @@ int	keypress(t_game *game)
 		turn_left(game);
 	if (game->control.turn_right == 1)
 		turn_right(game);
+	if (game->control.sprint == 1)
+		sprint(game);
 	return (0);
 }
 
@@ -67,5 +71,7 @@ int	handle_keypress(int keycode, t_game *game)
 		game->control.turn_left = 1;
 	if (keycode == XK_Right)
 		game->control.turn_right = 1;
+	if (keycode == XK_Q || keycode == XK_q)
+		game->control.sprint = 1;
 	return (0);
 }

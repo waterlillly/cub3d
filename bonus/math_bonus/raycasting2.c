@@ -5,7 +5,7 @@ void	floor_ceiling(t_game *game, int x)
 	int	i;
 
 	i = game->ray.bot - 1;
-	while (++i < WIN_SIZE)
+	while (++i < WIN_HEIGHT)
 		put_my_pixel(game, x, i, game->f_color);
 	i = -1;
 	while (++i < game->ray.top)
@@ -59,24 +59,24 @@ static void	display_door(t_game *game)
 	if (game->ray.side == 0)
 	{
 		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x)
-			/ game->macro.tile_size;
+			/ game->macro.tile_height;
 		game->ray.wall_x = (game->ray.map.y + game->ray.correct_dist
-				* game->ray.dir.y) / (double)game->macro.tile_size;
+				* game->ray.dir.y) / (double)game->macro.tile_height;
 	}
 	else
 	{
 		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y)
-			/ game->macro.tile_size;
+			/ game->macro.tile_height;
 		game->ray.wall_x = (game->ray.map.x + game->ray.correct_dist
-				* game->ray.dir.x) / (double)game->macro.tile_size;
+				* game->ray.dir.x) / (double)game->macro.tile_height;
 	}
 	game->ray.wall_x -= floor(game->ray.wall_x);
 }
 
 void	get_direction(t_game *game)
 {
-	if (is_door(game, (game->ray.map.x / game->macro.tile_size),
-			(game->ray.map.y / game->macro.tile_size)) != -1)
+	if (is_door(game, (game->ray.map.x / game->macro.tile_width),
+			(game->ray.map.y / game->macro.tile_height)) != -1)
 		return (display_door(game));
 	if (game->ray.side == 0)
 	{
@@ -84,9 +84,9 @@ void	get_direction(t_game *game)
 		if (game->ray.dir.x > 0)
 			game->ray.texture = game->textures[EAST];
 		game->ray.correct_dist = (game->ray.sidedist.x - game->ray.deltadist.x)
-			/ game->macro.tile_size;
+			/ game->macro.tile_height;
 		game->ray.wall_x = (game->ray.map.y + game->ray.correct_dist
-				* game->ray.dir.y) / (double)game->macro.tile_size;
+				* game->ray.dir.y) / (double)game->macro.tile_height;
 	}
 	else
 	{
@@ -94,9 +94,9 @@ void	get_direction(t_game *game)
 		if (game->ray.dir.y > 0)
 			game->ray.texture = game->textures[SOUTH];
 		game->ray.correct_dist = (game->ray.sidedist.y - game->ray.deltadist.y)
-			/ game->macro.tile_size;
+			/ game->macro.tile_height;
 		game->ray.wall_x = (game->ray.map.x + game->ray.correct_dist
-				* game->ray.dir.x) / (double)game->macro.tile_size;
+				* game->ray.dir.x) / (double)game->macro.tile_height;
 	}
 	game->ray.wall_x -= floor(game->ray.wall_x);
 }

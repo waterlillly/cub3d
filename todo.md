@@ -6,7 +6,7 @@
 <!-- -> stop textures from moving with the player -->
 <!-- -> check Error messages to start with "ERROR\n" and then having a description -->
 <!-- -> check minimapsize always being the same size, no matter the mapsize -->
--> check screen size and set error if too big?
+<!-- -> check screen size and set error if too big? -->
 <!-- -> try to be able to use 2 keys at once -->
 <!-- -> what if map is not a square? -->
 <!-- -> add doors which can open and close -->
@@ -20,7 +20,7 @@
 *Monika*
 -> check map if includes '2' or other characvters, also doesnt work with 'P'
 -> take out TAB etc
--> check for one one player, also needs at least one
+-> check for only one player, also needs at least one
 -> add check for ".cub" file being only ".cub", if yes: error. has to have at least some character before that (=like this: "x.cub")
 -> empty lines inside the file can ONLY have a newline, no spaces etc.
 -> invalid_space.cub doesnt display an error
@@ -28,7 +28,6 @@
 1. Map Format and Structure
 
     Empty map file: The map file is completely empty.
-    <!-- No newline at the end of the file: Some programs require a final newline. -->
     Unenclosed map: The map is not surrounded by walls (1), allowing leaks.
     Invalid characters or symbols inside map: Such as letters other than the defined ones (N, S, E, W, 1, 0, ).
     Multiple player start positions: More than one N, S, E, or W defined.
@@ -87,7 +86,6 @@
 
     Whitespace-only lines: Lines with only spaces or tabs. (are invalid!)
     Non-printable characters: Hidden or control characters in the file.
-    <!-- Nested paths: Texture paths with complex directory structures. -->
     Texture file format: Using textures in unsupported formats (e.g., .png instead of .xpm).
     Color overflow: Values like 255,255,256 or negative RGB values.
 
@@ -107,7 +105,5 @@ To ensure your parser is robust, test these scenarios:
  % ./cub3d_bonus ./.cub
 
  bonus: doors open to the right
-
- squished minimap
 
  sprint button
