@@ -20,10 +20,27 @@ static bool	valid_split(char **split, int *tex_count, int *col_count,
 	return (true);
 }
 
+static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
+{
+	if (is_line_empty(line) && !game->data.data)
+		return (true);
+	else if (ft_only_white(line) && !is_line_empty(line))
+		return (false);
+	else if (is_line_empty(line) && game->data.data)
+	{
+		*empty_line = true;
+		return (true);
+	}
+	else if (!ft_only_white(line) && !is_line_empty(line) && *empty_line == false)
+		return (append_line_to_map(line, game));
+	return (false);
+}
+
 static bool	process_line(char *line, t_game *game)
 {
 	static int	tex_count = 0;
 	static int	col_count = 0;
+	static bool	empty_line = false;
 	char		**split;
 
 	if ((tex_count < 4 || col_count < 2) && !game->data.data)
@@ -37,15 +54,8 @@ static bool	process_line(char *line, t_game *game)
 			return (ft_free_2d(split), false);
 		return (ft_free_2d(split), true);
 	}
-	else if (is_line_empty(line) && tex_count >= 4 && col_count >= 2
-		&& !game->data.data)
-		return (true);
-	else if (ft_only_white(line) && tex_count >= 4 && col_count >= 2
-		&& !game->data.data)
-		return (false);
-	else if ((is_line_empty(line) || !ft_only_white(line)) && tex_count >= 4
-		&& col_count >= 2)
-		return (append_line_to_map(line, game));
+	else if (tex_count >= 4 && col_count >= 2)
+		return (check_rest_map(line, game, &empty_line));
 	return (false);
 }
 

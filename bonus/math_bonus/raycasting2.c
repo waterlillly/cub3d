@@ -77,9 +77,7 @@ void	get_direction(t_game *game)
 {
 	if (is_door(game, (game->ray.map.x / game->macro.tile_size),
 			(game->ray.map.y / game->macro.tile_size)) != -1)
-	{
 		return (display_door(game));
-	}
 	if (game->ray.side == 0)
 	{
 		game->ray.texture = game->textures[WEST];

@@ -37,7 +37,6 @@ static void	calc_side(t_game *game)
 	}
 }
 
-
 static void	cast_ray(t_game *game, int x)
 {
 	int	y;
