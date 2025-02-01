@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 bool	split_map_into_grid(t_game *game)
 {

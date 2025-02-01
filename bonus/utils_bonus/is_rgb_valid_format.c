@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 bool	is_rgb_valid_format(char *str)
 {

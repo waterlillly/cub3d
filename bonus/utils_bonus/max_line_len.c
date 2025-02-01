@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 void	max_line_len(t_game *game)
 {

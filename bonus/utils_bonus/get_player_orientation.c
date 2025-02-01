@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 void	get_player_orientation(char orientation, t_game *game)
 {
