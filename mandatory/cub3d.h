@@ -159,7 +159,6 @@ typedef struct s_doors
 
 typedef struct s_macros
 {
-	// double			tile_size;
 	double			tile_width;
 	double			tile_height;
 	double			minimap_size;
@@ -225,9 +224,6 @@ void				move_backward(t_game *game);
 void				move_left(t_game *game);
 void				move_right(t_game *game);
 void				sprint(t_game *game);
-
-
-/* rotation.c */
 void				rotate_plane(t_game *game, double angle);
 void				rotate_dir(t_game *game, double angle);
 void				turn_left(t_game *game);

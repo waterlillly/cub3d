@@ -7,6 +7,15 @@ static bool	check_for_correct_values(int nbr)
 	return (true);
 }
 
+static int	only_digit_and_len(char **rgb, int i)
+{
+	if (ft_strlen(rgb[i]) > 3)
+		return (0);
+	if (only_digits(rgb[i]) == false)
+		return (0);
+	return (1);
+}
+
 static bool	check_for_comma(char *split)
 {
 	int	i;
@@ -64,9 +73,7 @@ bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 	i = -1;
 	while (rgb[++i])
 	{
-		if (ft_strlen(rgb[i]) > 3)
-			return (ft_free_2d(rgb), false);
-		if (only_digits(rgb[i]) == false)
+		if (only_digit_and_len(rgb, i) == 0)
 			return (ft_free_2d(rgb), false);
 		nbr[i] = ft_atoi(rgb[i]);
 		if (check_for_correct_values(nbr[i]) == false)
