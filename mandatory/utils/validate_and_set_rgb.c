@@ -64,6 +64,8 @@ bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 	i = -1;
 	while (rgb[++i])
 	{
+		if (ft_strlen(rgb[i]) > 3)
+			return (ft_free_2d(rgb), false);
 		if (only_digits(rgb[i]) == false)
 			return (ft_free_2d(rgb), false);
 		nbr[i] = ft_atoi(rgb[i]);
