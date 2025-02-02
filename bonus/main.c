@@ -1,4 +1,4 @@
-#include "../cub3d_bonus.h"
+#include "cub3d_bonus.h"
 
 int	main(int ac, char **av)
 {

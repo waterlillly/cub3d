@@ -19,7 +19,7 @@
 # include <unistd.h>
 // # include "minilibx-linux/mlx_int.h"//for mlx@home
 // # include "minilibx-linux/mlx.h"//for mlx@home
-# include "lib/libft.h"
+# include "../lib/libft.h"
 # include <errno.h>
 # include <error.h>
 # include <mlx.h> //for mlx@school
