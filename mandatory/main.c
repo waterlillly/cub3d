@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:34:55 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 21:10:33 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	main(int ac, char **av)
 {
 	t_game	*game;
 
+	game = NULL;
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
-		exit_failure("calloc failed", game);
-	ft_bzero(game, sizeof(t_game *));
+		exit_failure("calloc failed", NULL);
 	initialization_of_vars(game);
 	args_handler(ac, av, game);
 	validate_game(game, av);

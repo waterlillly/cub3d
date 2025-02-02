@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:27:08 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 20:27:14 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_strcpy(char *src, int start)
@@ -15,4 +27,3 @@ char	*ft_strcpy(char *src, int start)
 		dest[i++] = src[start++];
 	return (dest);
 }
-

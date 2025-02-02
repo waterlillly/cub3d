@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:30:18 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 20:30:35 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
@@ -7,26 +19,27 @@
 
 //************* INCLUDES *************
 
+# include "../lib/libft.h"
 # include <X11/X.h>
 # include <X11/ap_keysym.h>
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
+# include <errno.h>
+# include <error.h>
 # include <fcntl.h>
 # include <math.h>
+# include <mlx.h>
 # include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
-# include "../lib/libft.h"
-# include <errno.h>
-# include <error.h>
-# include <mlx.h> //for mlx@school
 # include <sys/time.h>
+# include <unistd.h>
 
 //************** ERROR MSG ***********
 
 # define MAP_FILE_NOT_FOUND "Map file not found"
-# define INVALID_EXTENSION_CUB "Invalid extension OR no extension. \
+# define INVALID_EXTENSION_CUB \
+	"Invalid extension OR no extension. \
 								Please provide a .cub file"
 # define ERROR_ARGS "Invalid arguments OR Invalid number of arguments"
 
@@ -126,9 +139,9 @@ typedef struct s_data
 	char			*data;
 	t_map			map_info;
 	char			**map;
-	int				fd;   
-	int 			map_width;
-	int 			map_height;
+	int				fd;
+	int				map_width;
+	int				map_height;
 	int				win_height;
 	int				win_width;
 	int				num_of_rows;
@@ -178,7 +191,7 @@ typedef struct s_macros
 typedef struct s_game
 {
 	t_data			data;
-	t_image 		textures[5];
+	t_image			textures[5];
 	t_control		control;
 	t_cub			cub;
 	t_player		player;
@@ -209,13 +222,15 @@ bool				is_line_empty(char *s);
 char				**split_line_into_words(char *line);
 bool				is_texture_identifier(char *line);
 bool				is_color_identifier(char *trim);
-int 				ft_strlen_skip_space(char *str);
+int					ft_strlen_skip_space(char *str);
 void				get_player_orientation(char orientation, t_game *game);
 bool				append_line_to_map(char *line, t_game *game);
 bool				validate_and_set_rgb(char *split, t_game *game, int fc);
-bool				validate_color_element(char **split, int *col_count, t_game *game);
-bool				validate_texture_element(char **split, int *tex_count, t_game *game);
-bool 				is_rgb_valid_format(char *str);
+bool				validate_color_element(char **split, int *col_count,
+						t_game *game);
+bool				validate_texture_element(char **split, int *tex_count,
+						t_game *game);
+bool				is_rgb_valid_format(char *str);
 bool				split_map_into_grid(t_game *game);
 
 // ************** MATH ****************
@@ -247,12 +262,12 @@ void				get_direction(t_game *game);
 void				get_colors(t_game *game);
 void				check_texture(t_game *game, int i);
 bool				is_wall(t_game *game, double new_x, double new_y);
-void				check_doors(t_game *game);//BONUS
-int					get_time(t_game *game);//BONUS
+void				check_doors(t_game *game);
+int					get_time(t_game *game);
 t_dvec				norm(t_dvec vec);
 bool				crashed(t_game *game, double x1, double y1);
-void				render_minimap(t_game *game);//BONUS
-void 				free_all(t_game *game);
+void				render_minimap(t_game *game);
+void				free_all(t_game *game);
 void				exit_failure(char *s, t_game *game);
 int					exit_success(t_game *game);
 

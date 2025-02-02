@@ -6,15 +6,15 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:01:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/14 15:51:20 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:28:02 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t ft_strlen_2d(char **in)
+size_t	ft_strlen_2d(char **in)
 {
-	size_t i;
+	size_t	i;
 
 	if (!in)
 		return (0);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doors.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:31:20 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 20:31:21 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d_bonus.h"
 
 int	is_door(t_game *game, int x, int y)
@@ -27,7 +39,7 @@ bool	is_open(t_game *game, int nbr)
 void	toggle_door(t_game *game, int x, int y)
 {
 	int	c;
-	
+
 	c = is_door(game, x, y);
 	if (c >= 0 && !is_open(game, c))
 	{

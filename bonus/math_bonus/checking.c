@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checking.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:31:13 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 20:31:14 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d_bonus.h"
 
 static int	color(int *color)
@@ -47,10 +59,10 @@ void	check_doors(t_game *game)
 		exit_failure("get time", game);
 	while (c < game->num_doors)
 	{
-		if (game->doors[c].open == true
-			&& game->doors[c].open_time + 5000 <= time
-			&& is_door(game, (int)game->player.pos.x / game->macro.tile_width,
-				(int)game->player.pos.y / game->macro.tile_height) == -1)
+		if (game->doors[c].open == true && game->doors[c].open_time
+			+ 5000 <= time && is_door(game, (int)game->player.pos.x
+				/ game->macro.tile_width, (int)game->player.pos.y
+				/ game->macro.tile_height) == -1)
 		{
 			game->doors[c].open = false;
 			game->doors[c].open_time = 0;

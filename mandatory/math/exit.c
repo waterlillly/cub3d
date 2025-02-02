@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:35:48 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 21:09:52 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	free_all(t_game *game)
@@ -45,25 +57,37 @@ static void	free_data(t_game *game)
 		return ;
 	free_all(game);
 	destroy_mlx(game);
-	if (game)
-		free(game);
 }
 
 void	exit_failure(char *s, t_game *game)
 {
+	if (!game)
+		exit(EXIT_FAILURE);
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(s, STDERR_FILENO);
 	get_next_line(-1);
 	if (game->cub.mlx_win)
 		mlx_do_key_autorepeaton(game->cub.mlx_con);
 	free_data(game);
+	if (game)
+	{
+		free(game);
+		game = NULL;
+	}
 	exit(EXIT_FAILURE);
 }
 
 int	exit_success(t_game *game)
 {
-	if (game->cub.mlx_win)
+	if (!game)
+		exit(EXIT_FAILURE);
+	if (game && game->cub.mlx_win)
 		mlx_do_key_autorepeaton(game->cub.mlx_con);
 	free_data(game);
+	if (game)
+	{
+		free(game);
+		game = NULL;
+	}
 	exit(EXIT_SUCCESS);
 }

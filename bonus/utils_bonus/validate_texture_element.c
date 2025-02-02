@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_texture_element.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:33:58 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 20:33:59 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d_bonus.h"
 
 static int	check_texture_and_set_no_so(t_game *game, char **split)
@@ -67,8 +79,8 @@ bool	validate_texture_element(char **split, int *tex_count, t_game *game)
 		else if ((!ft_strcmp(split[0], "EA") || !ft_strcmp(split[0], "WE"))
 			&& check_texture_and_set_ea_we(game, split) == false)
 			return (false);
-		else if (!ft_strcmp(split[0], "DO")
-			&& check_texture_and_set_do(game, split) == false)
+		else if (!ft_strcmp(split[0], "DO") && check_texture_and_set_do(game,
+				split) == false)
 			return (false);
 		(*tex_count)++;
 		return (true);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map_file.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:33:00 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 20:33:02 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d_bonus.h"
 
 static bool	valid_split(char **split, int *tex_count, int *col_count,
@@ -31,7 +43,8 @@ static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
 		*empty_line = true;
 		return (true);
 	}
-	else if (!ft_only_white(line) && !is_line_empty(line) && *empty_line == false)
+	else if (!ft_only_white(line) && !is_line_empty(line)
+		&& *empty_line == false)
 		return (append_line_to_map(line, game));
 	return (false);
 }

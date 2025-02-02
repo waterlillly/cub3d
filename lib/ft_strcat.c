@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgardesh <mgardesh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:05:04 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/22 18:43:05 by mgardesh         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:27:49 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strcat(char *dst, char *src)
 {
-	int	len_a;
-	int	len_b;
+	int		len_a;
+	int		len_b;
 	char	*tmp;
 
 	len_a = ft_strlen(dst);

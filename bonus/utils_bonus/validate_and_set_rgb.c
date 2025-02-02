@@ -1,4 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_and_set_rgb.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:33:38 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 20:33:39 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d_bonus.h"
+
+static int	only_digit_and_len(char **rgb, int i)
+{
+	if (ft_strlen(rgb[i]) > 3)
+		return (0);
+	if (only_digits(rgb[i]) == false)
+		return (0);
+	return (1);
+}
 
 static bool	check_for_correct_values(int nbr)
 {
@@ -64,7 +85,7 @@ bool	validate_and_set_rgb(char *split, t_game *game, int fc)
 	i = -1;
 	while (rgb[++i])
 	{
-		if (only_digits(rgb[i]) == false)
+		if (only_digit_and_len(rgb, i) == 0)
 			return (ft_free_2d(rgb), false);
 		nbr[i] = ft_atoi(rgb[i]);
 		if (check_for_correct_values(nbr[i]) == false)

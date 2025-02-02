@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/02 20:35:01 by lbaumeis          #+#    #+#             */
+/*   Updated: 2025/02/02 20:35:03 by lbaumeis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -7,28 +19,27 @@
 
 //************* INCLUDES *************
 
+# include "../lib/libft.h"
 # include <X11/X.h>
 # include <X11/ap_keysym.h>
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
+# include <errno.h>
+# include <error.h>
 # include <fcntl.h>
 # include <math.h>
+# include <mlx.h>
 # include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
-// # include "minilibx-linux/mlx_int.h"//for mlx@home
-// # include "minilibx-linux/mlx.h"//for mlx@home
-# include "../lib/libft.h"
-# include <errno.h>
-# include <error.h>
-# include <mlx.h> //for mlx@school
 # include <sys/time.h>
+# include <unistd.h>
 
 //************** ERROR MSG ***********
 
 # define MAP_FILE_NOT_FOUND "Map file not found"
-# define INVALID_EXTENSION_CUB "Invalid extension OR no extension. \
+# define INVALID_EXTENSION_CUB \
+	"Invalid extension OR no extension. \
 								Please provide a .cub file"
 # define ERROR_ARGS "Invalid arguments OR Invalid number of arguments"
 

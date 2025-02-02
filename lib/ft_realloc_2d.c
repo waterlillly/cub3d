@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:56:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/14 15:50:21 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:26:14 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**ft_realloc_2d(char **in, int add)
 {
-	int 	i;
+	int		i;
 	char	**out;
 
 	if (!add)
@@ -22,16 +22,16 @@ char	**ft_realloc_2d(char **in, int add)
 	i = ft_strlen_2d(in);
 	out = ft_calloc(i + add + 1, sizeof(char *));
 	if (!out)
-		return(ft_free_2d(in), NULL);
+		return (ft_free_2d(in), NULL);
 	i = -1;
 	while (in && in[++i])
 	{
 		out[i] = ft_strdup(in[i]);
 		if (!out[i])
-			return(ft_free_2d(in), ft_free_2d(out), NULL);
+			return (ft_free_2d(in), ft_free_2d(out), NULL);
 		free(in[i]);
 	}
 	if (in)
 		free(in);
-	return(out);
+	return (out);
 }
