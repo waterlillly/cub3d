@@ -27,6 +27,7 @@ bool	is_open(t_game *game, int nbr)
 void	toggle_door(t_game *game, int x, int y)
 {
 	int	c;
+	
 	c = is_door(game, x, y);
 	if (c >= 0 && !is_open(game, c))
 	{

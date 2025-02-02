@@ -1,5 +1,15 @@
 #include "../../cub3d.h"
 
+static bool	memory_set(t_game *game, char **map, int i)
+{
+	map[i] = ft_calloc(game->data.max_column + 1, sizeof(char));
+	if (!map[i])
+		return (false);
+	ft_memset(map[i], ' ', game->data.max_column);
+	ft_memcpy(map[i], game->data.map[i], ft_strlen(game->data.map[i]));
+	return (true);
+}
+
 bool	split_map_into_grid(t_game *game)
 {
 	int		i;
@@ -17,11 +27,8 @@ bool	split_map_into_grid(t_game *game)
 		return (false);
 	while (game->data.map[++i])
 	{
-		map[i] = ft_calloc(game->data.max_column + 1, sizeof(char));
-		if (!map[i])
+		if (!memory_set(game, map, i))
 			return (ft_free_2d(map), false);
-		ft_memset(map[i], ' ', game->data.max_column);
-		ft_memcpy(map[i], game->data.map[i], ft_strlen(game->data.map[i]));
 	}
 	if (i < ft_arrlen(game->data.map))
 		return (ft_free_2d(map), false);

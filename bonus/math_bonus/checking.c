@@ -25,8 +25,8 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 	int	y;
 	int	nbr;
 
-	x = floor(new_x / (game->macro.tile_size));
-	y = floor(new_y / (game->macro.tile_size));
+	x = floor(new_x / (game->macro.tile_width));
+	y = floor(new_y / (game->macro.tile_height));
 	if (x < 0 || x >= game->data.map_width || y < 0
 		|| y >= game->data.map_height)
 		return (true);
@@ -49,8 +49,8 @@ void	check_doors(t_game *game)
 	{
 		if (game->doors[c].open == true
 			&& game->doors[c].open_time + 5000 <= time
-			&& is_door(game, (int)game->player.pos.x / game->macro.tile_size,
-			(int)game->player.pos.y / game->macro.tile_size) == -1)
+			&& is_door(game, (int)game->player.pos.x / game->macro.tile_width,
+				(int)game->player.pos.y / game->macro.tile_height) == -1)
 		{
 			game->doors[c].open = false;
 			game->doors[c].open_time = 0;

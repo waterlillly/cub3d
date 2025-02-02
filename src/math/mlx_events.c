@@ -2,7 +2,8 @@
 
 void	init_macros(t_game *game)
 {
-	game->macro.tile_size = WIN_SIZE * 0.1;
+	game->macro.tile_width = WIN_WIDTH * 0.1;
+	game->macro.tile_height = WIN_HEIGHT * 0.1;
 	game->macro.fov = 60 * (M_PI / 180);
 }
 
@@ -13,10 +14,10 @@ static void	clear_frame(t_game *game)
 
 	y = 0;
 	mlx_clear_window(game->cub.mlx_con, game->cub.mlx_win);
-	while (y < WIN_SIZE)
+	while (y < WIN_HEIGHT)
 	{
 		x = 0;
-		while (x < WIN_SIZE)
+		while (x < WIN_WIDTH)
 		{
 			put_my_pixel(game, x, y, BLACK);
 			x++;

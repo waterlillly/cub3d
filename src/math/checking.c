@@ -24,8 +24,8 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 	int	x;
 	int	y;
 
-	x = floor(new_x / (game->macro.tile_size));
-	y = floor(new_y / (game->macro.tile_size));
+	x = floor(new_x / (game->macro.tile_width));
+	y = floor(new_y / (game->macro.tile_height));
 	if (x < 0 || x >= game->data.map_width || y < 0
 		|| y >= game->data.map_height)
 		return (true);

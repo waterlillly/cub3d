@@ -2,13 +2,13 @@
 
 static void	calc_wall_height(t_game *game)
 {
-	game->ray.wall_height = (int)(WIN_SIZE / game->ray.correct_dist);
-	game->ray.bot = WIN_SIZE / 2 - game->ray.wall_height / 2;
+	game->ray.wall_height = (int)(WIN_WIDTH / game->ray.correct_dist);
+	game->ray.bot = WIN_HEIGHT / 2 - game->ray.wall_height / 2;
 	if (game->ray.bot < 0)
 		game->ray.bot = 0;
-	game->ray.top = WIN_SIZE / 2 + game->ray.wall_height / 2;
-	if (game->ray.top >= WIN_SIZE)
-		game->ray.top = WIN_SIZE - 1;
+	game->ray.top = WIN_HEIGHT / 2 + game->ray.wall_height / 2;
+	if (game->ray.top >= WIN_HEIGHT)
+		game->ray.top = WIN_HEIGHT - 1;
 }
 
 static void	calc_side(t_game *game)
@@ -17,7 +17,6 @@ static void	calc_side(t_game *game)
 	{
 		if (game->ray.sidedist.x < game->ray.sidedist.y)
 		{
-
 			game->ray.sidedist.x += game->ray.deltadist.x;
 			game->ray.map.x += game->ray.step.x;
 			game->ray.side = 0;
@@ -45,11 +44,11 @@ static void	cast_ray(t_game *game, int x)
 			* game->ray.texture.width);
 	if (game->ray.tex.x == game->ray.texture.width)
 		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x;
-	else if ((game->ray.side == 0 && game->ray.dir.x > 0) || (game->ray.side == 1
-			&& game->ray.dir.y < 0))
+	else if ((game->ray.side == 0 && game->ray.dir.x > 0)
+		|| (game->ray.side == 1 && game->ray.dir.y < 0))
 		game->ray.tex.x = game->ray.texture.width - game->ray.tex.x - 1;
 	game->ray.s = 1.0 * game->ray.texture.height / game->ray.wall_height;
-	game->ray.tex_pos = (game->ray.bot - WIN_SIZE / 2 + game->ray.wall_height
+	game->ray.tex_pos = (game->ray.bot - WIN_HEIGHT / 2 + game->ray.wall_height
 			/ 2) * game->ray.s;
 	y = game->ray.bot;
 	while (y < game->ray.top)
@@ -72,9 +71,9 @@ void	raycasting(t_game *game)
 	double	camera;
 
 	x = 0;
-	while (x < WIN_SIZE)
+	while (x < WIN_WIDTH)
 	{
-		camera = 2.0 * x / WIN_SIZE - 1;
+		camera = 2.0 * x / WIN_WIDTH - 1;
 		game->ray.dir.x = game->player.dir.x + game->plane.x * camera;
 		game->ray.dir.y = game->player.dir.y + game->plane.y * camera;
 		floor_ceiling(game, x);
