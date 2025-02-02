@@ -31,7 +31,8 @@ static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
 		*empty_line = true;
 		return (true);
 	}
-	else if (!ft_only_white(line) && !is_line_empty(line) && *empty_line == false)
+	else if (!ft_only_white(line) && !is_line_empty(line)
+		&& *empty_line == false)
 		return (append_line_to_map(line, game));
 	return (false);
 }

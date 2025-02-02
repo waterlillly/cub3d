@@ -3,7 +3,7 @@ CC = cc
 NAME = cub3d
 BONUS_NAME = cub3d_bonus
 
-CFLAGS = -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux
+CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -21,7 +21,7 @@ BONUS_UTILS_DIR = $(BONUS_DIR)utils_bonus/
 BONUS_MATH_DIR = $(BONUS_DIR)math_bonus/
 
 CFILES = $(addprefix $(SRC_DIR), \
-		main.c maps.c \
+		main.c \
 ) $(addprefix $(MATH_DIR), \
 		init.c mlx_events.c pixels.c \
 		exit.c movement.c utils.c rotation.c \
@@ -77,8 +77,6 @@ $(BONUS_OBJ_DIR)%.o: $(BONUS_DIR)%.c
 $(NAME): $(OFILES)
 	($(MAKE) -C ./lib)
 	$(CC) $(OFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(NAME)
-#for @school: $(CC) $(OFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(NAME)
-#for @home: $(CC) $(OFILES) ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o $(NAME)
 
 bonus: $(BONUSOFILES)
 	($(MAKE) -C ./lib)
