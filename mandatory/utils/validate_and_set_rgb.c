@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_and_set_rgb.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: msimic <msimic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:37:11 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:37:12 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/02 21:53:21 by msimic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ static bool	check_for_correct_values(int nbr)
 
 static int	only_digit_and_len(char **rgb, int i)
 {
-	if (ft_strlen(rgb[i]) > 3)
+	int j = 0;
+	while (rgb[i][j] == '0')
+		j++;
+	if (ft_strlen(rgb[i] + j) > 3)
 		return (0);
-	if (only_digits(rgb[i]) == false)
+	if (only_digits(rgb[i] + j) == false)
 		return (0);
 	return (1);
 }
