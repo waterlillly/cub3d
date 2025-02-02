@@ -32,8 +32,8 @@
 
 //************** MACROS **************
 
-# define WIN_WIDTH 1000
-# define WIN_HEIGHT 1000
+# define WIN_WIDTH 700
+# define WIN_HEIGHT 700
 # define BLACK 0x00000000
 # define WHITE 0x00FFFFFF
 # define RED 0x00FF0000
