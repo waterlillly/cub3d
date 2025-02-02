@@ -2,17 +2,20 @@
 
 int	main(int ac, char **av)
 {
-	t_game	game;
+	t_game	*game;
 
-	ft_bzero(&game, sizeof(t_game));
-	initialization_of_vars(&game);
-	args_handler(ac, av, &game);
-	validate_game(&game, av);
-	init_cub(&game);
-	if (mlx_handler(&game) != 0)
-		exit_failure("mlx_handler", &game);
-	mlx_do_key_autorepeatoff(game.cub.mlx_con);
-	mlx_loop(game.cub.mlx_con);
-	mlx_do_key_autorepeaton(game.cub.mlx_con);
-	return (exit_success(&game));
+	game = ft_calloc(1, sizeof(t_game));
+	if (!game)
+		exit_failure("calloc failed", game);
+	ft_bzero(game, sizeof(t_game *));
+	initialization_of_vars(game);
+	args_handler(ac, av, game);
+	validate_game(game, av);
+	init_cub(game);
+	if (mlx_handler(game) != 0)
+		exit_failure("mlx_handler", game);
+	mlx_do_key_autorepeatoff(game->cub.mlx_con);
+	mlx_loop(game->cub.mlx_con);
+	mlx_do_key_autorepeaton(game->cub.mlx_con);
+	return (exit_success(game));
 }

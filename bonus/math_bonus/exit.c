@@ -51,6 +51,8 @@ static void	free_data(t_game *game)
 		free(game->doors);
 	free_all(game);
 	destroy_mlx(game);
+	if (game)
+		free(game);
 }
 
 void	exit_failure(char *s, t_game *game)
