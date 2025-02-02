@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 static char	*trim_inside_spaces(char *temp)
 {

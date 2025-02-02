@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 void	init_macros(t_game *game)
 {

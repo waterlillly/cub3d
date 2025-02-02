@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 static void	reset_velo_on_keyrelease(t_game *game)
 {

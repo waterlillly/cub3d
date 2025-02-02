@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 void	rotate_plane(t_game *game, double angle)
 {

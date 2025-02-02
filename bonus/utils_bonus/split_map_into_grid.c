@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 static bool	memory_set(t_game *game, char **map, int i)
 {

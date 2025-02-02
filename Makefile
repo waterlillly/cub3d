@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-SRC_DIR = src/
+SRC_DIR = mandatory/
 OBJ_DIR = obj/
 PARSE_DIR = $(SRC_DIR)parsing/
 UTILS_DIR = $(SRC_DIR)utils/

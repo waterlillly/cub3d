@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 bool	validate_color_element(char **split, int *col_count, t_game *game)
 {

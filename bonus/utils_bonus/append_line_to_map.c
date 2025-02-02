@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 bool	append_line_to_map(char *line, t_game *game)
 {

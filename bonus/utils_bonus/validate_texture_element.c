@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 static int	check_texture_and_set_no_so(t_game *game, char **split)
 {

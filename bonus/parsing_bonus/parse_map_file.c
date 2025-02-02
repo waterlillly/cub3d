@@ -1,4 +1,4 @@
-#include "../../cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 static bool	valid_split(char **split, int *tex_count, int *col_count,
 		t_game *game)
