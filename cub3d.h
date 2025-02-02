@@ -122,8 +122,6 @@ typedef struct s_data
 	int				map_height;
 	int				win_height;
 	int				win_width;
-	int				**texture; // not used??
-	char			*path; // not used??
 	int				num_of_rows;
 	size_t			max_column;
 	int				p_orientation;
