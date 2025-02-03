@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:31:25 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:31:26 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:44:07 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	render_minimap(t_game *game)
 			color = WHITE;
 			if (crashed(game, xy.x, xy.y))
 				color = BLACK;
-			else if (nbr >= 0 && !is_open(game, nbr))
+			else if (game->valid_door && nbr >= 0 && !is_open(game, nbr))
 				color = RED;
-			else if (nbr >= 0 && is_open(game, nbr))
+			else if (game->valid_door && nbr >= 0 && is_open(game, nbr))
 				color = GREEN;
 			display_minimap(game, xy, color);
 		}

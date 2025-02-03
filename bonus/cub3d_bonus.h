@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:30:18 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:30:35 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:30:24 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@
 # include <error.h>
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
+# include "../minilibx-linux/mlx_int.h"//for mlx@home
+# include "../minilibx-linux/mlx.h"//for mlx@home
+// # include <mlx.h> //for @school
 # include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
@@ -202,6 +204,8 @@ typedef struct s_game
 	int				c_color;
 	int				f_color;
 	int				num_doors;
+	bool			has_door;
+	bool			valid_door;
 }					t_game;
 
 /* ************ PROTOTYPES ************ */
@@ -230,6 +234,7 @@ bool				validate_color_element(char **split, int *col_count,
 						t_game *game);
 bool				validate_texture_element(char **split, int *tex_count,
 						t_game *game);
+int					check_texture_and_set_do(t_game *game, char **split);
 bool				is_rgb_valid_format(char *str);
 bool				split_map_into_grid(t_game *game);
 

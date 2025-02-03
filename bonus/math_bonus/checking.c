@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:31:13 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:31:14 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:52:04 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ bool	is_wall(t_game *game, double new_x, double new_y)
 	if (x < 0 || x >= game->data.map_width || y < 0
 		|| y >= game->data.map_height)
 		return (true);
+	if (!game->valid_door && game->data.map[y][x] == 'D')
+		return (false);
 	nbr = is_door(game, x, y);
 	if (nbr >= 0 && is_open(game, nbr))
 		return (false);
@@ -54,6 +56,8 @@ void	check_doors(t_game *game)
 	int	c;
 
 	c = 0;
+	if (!game->valid_door)
+		return ;
 	time = get_time(game);
 	if (time == -1)
 		exit_failure("get time", game);

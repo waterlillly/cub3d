@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:30:47 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:30:48 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:42:47 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	display_door(t_game *game)
 
 void	get_direction(t_game *game)
 {
-	if (is_door(game, (game->ray.map.x / game->macro.tile_width),
+	if (game->valid_door && is_door(game, (game->ray.map.x / game->macro.tile_width),
 			(game->ray.map.y / game->macro.tile_height)) != -1)
 		return (display_door(game));
 	if (game->ray.side == 0)

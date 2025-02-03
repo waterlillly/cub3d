@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:36:06 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:36:07 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:50:23 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ void	validate_border(t_game *game)
 	int	row;
 	int	column;
 	int	width;
-	int	height;
 
 	row = -1;
-	height = game->data.num_of_rows;
 	while (game->data.map[++row])
 	{
 		column = -1;

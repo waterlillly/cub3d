@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:32:27 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:32:28 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:11:49 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 static void	load_textures(t_game *game)
 {
 	int	i;
+	int	max;
 
 	i = 0;
-	while (i < 5)
+	max = 4;
+	if (game->textures[DOOR].name)
+		max = 5;
+	while (i < max)
 	{
 		if (access(game->textures[i].name, R_OK))
 			exit_failure("texture not found", game);

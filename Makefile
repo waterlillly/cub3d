@@ -76,11 +76,15 @@ $(BONUS_OBJ_DIR)%.o: $(BONUS_DIR)%.c
 
 $(NAME): $(OFILES)
 	($(MAKE) -C ./lib)
-	$(CC) $(OFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(OFILES) ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o $(NAME)
+#for @school: $(CC) $(OFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(NAME)
+#for @home: $(CC) $(OFILES) ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o $(NAME)
 
 bonus: $(BONUSOFILES)
 	($(MAKE) -C ./lib)
-	$(CC) $(BONUSOFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(BONUS_NAME)
+	$(CC) $(BONUSOFILES) ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o $(BONUS_NAME)
+#for @school: $(CC) $(BONUSOFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(BONUS_NAME)
+#for @home: $(CC) $(BONUSOFILES) ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o $(BONUS_NAME)
 
 clean:
 	$(MAKE) -C ./lib clean

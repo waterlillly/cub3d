@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:31:20 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:31:21 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:46:02 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	toggle_door(t_game *game, int x, int y)
 {
 	int	c;
 
+	if (!game->valid_door)
+		return ;
 	c = is_door(game, x, y);
 	if (c >= 0 && !is_open(game, c))
 	{
@@ -76,6 +78,8 @@ void	parse_doors(t_game *game)
 {
 	t_ivec	xy;
 
+	if (!game->valid_door)
+		return ;
 	game->num_doors = 0;
 	xy.y = -1;
 	while (game->data.map[++xy.y])

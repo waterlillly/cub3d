@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:32:23 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 21:14:53 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:17:03 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	free_all(t_game *game)
 		free(game->textures[EAST].name);
 	if (game->textures[WEST].name)
 		free(game->textures[WEST].name);
-	if (game->textures[DOOR].name)
-		free(game->textures[DOOR].name);
 }
 
 static void	destroy_mlx(t_game *game)
@@ -42,8 +40,6 @@ static void	destroy_mlx(t_game *game)
 		mlx_destroy_image(game->cub.mlx_con, game->textures[NORTH].img);
 	if (game && game->cub.mlx_con && game->textures[SOUTH].img)
 		mlx_destroy_image(game->cub.mlx_con, game->textures[SOUTH].img);
-	if (game && game->cub.mlx_con && game->textures[DOOR].img)
-		mlx_destroy_image(game->cub.mlx_con, game->textures[DOOR].img);
 	if (game && game->cub.mlx_con && game->cub.img.img)
 		mlx_destroy_image(game->cub.mlx_con, game->cub.img.img);
 	if (game && game->cub.mlx_con && game->cub.mlx_win)
@@ -61,6 +57,12 @@ static void	free_data(t_game *game)
 		return ;
 	if (game->doors)
 		free(game->doors);
+	if (game->textures[DOOR].name)
+	{
+		free(game->textures[DOOR].name);
+		if (game && game->cub.mlx_con && game->textures[DOOR].img)
+			mlx_destroy_image(game->cub.mlx_con, game->textures[DOOR].img);
+	}
 	free_all(game);
 	destroy_mlx(game);
 }

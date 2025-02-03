@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:33:00 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/02 20:33:02 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:59:02 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static bool	valid_split(char **split, int *tex_count, int *col_count,
 
 static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
 {
+	if (ft_strchr(line, 'D'))
+		game->has_door = true;
 	if (is_line_empty(line) && !game->data.data)
 		return (true);
 	else if (ft_only_white(line) && !is_line_empty(line))
@@ -44,19 +46,19 @@ static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
 		return (true);
 	}
 	else if (!ft_only_white(line) && !is_line_empty(line)
-		&& *empty_line == false)
+			&& *empty_line == false)
 		return (append_line_to_map(line, game));
 	return (false);
 }
 
 static bool	process_line(char *line, t_game *game)
 {
-	static int	tex_count = 0;
-	static int	col_count = 0;
-	static bool	empty_line = false;
-	char		**split;
+	static int		tex_count = 0;
+	static int		col_count = 0;
+	static bool		empty_line = false;
+	char			**split;
 
-	if ((tex_count < 5 || col_count < 2) && !game->data.data)
+	if ((tex_count < 4 || col_count < 2) && !game->data.data)
 	{
 		if (is_line_empty(line))
 			return (true);
@@ -67,8 +69,22 @@ static bool	process_line(char *line, t_game *game)
 			return (ft_free_2d(split), false);
 		return (ft_free_2d(split), true);
 	}
-	else if (tex_count >= 5 && col_count >= 2)
-		return (check_rest_map(line, game, &empty_line));
+	else if (tex_count >= 4 && col_count >= 2)
+	{
+		if (!empty_line)
+			return (check_rest_map(line, game, &empty_line));
+		else if (game->has_door && !game->valid_door && !is_line_empty(line))
+		{
+			split = split_line_into_words(line);
+			if (!split)
+				return (false);
+			if (!check_texture_and_set_do(game, split))
+				return (ft_free_2d(split), false);
+			game->valid_door = true;
+			return (ft_free_2d(split), true);
+		}
+		return (true);
+	}
 	return (false);
 }
 
@@ -82,6 +98,8 @@ static void	init_textures(t_game *game)
 		ft_bzero(&game->textures[i], sizeof(t_image));
 		i++;
 	}
+	game->has_door = false;
+	game->valid_door = false;
 }
 
 void	parse_file(int fd, t_game *game)
@@ -107,6 +125,8 @@ void	parse_file(int fd, t_game *game)
 		free(line);
 	}
 	close(fd);
+	if (game->has_door && !game->valid_door)
+		exit_failure("No door texture found", game);
 	if (!split_map_into_grid(game))
 		exit_failure("split map failed", game);
 }
