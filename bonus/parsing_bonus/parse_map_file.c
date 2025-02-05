@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:33:00 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/03 23:59:02 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:45:32 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,23 @@ static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
 {
 	if (ft_strchr(line, 'D'))
 		game->has_door = true;
-	if (is_line_empty(line) && !game->data.data)
-		return (true);
-	else if (ft_only_white(line) && !is_line_empty(line))
-		return (false);
-	else if (is_line_empty(line) && game->data.data)
+	if (is_line_empty(line) && game->data.data)
+		(empty_line = true);
+	if (!empty_line && !is_line_empty(line) && is_inside_map(line))
 	{
-		*empty_line = true;
-		return (true);
+		if (ft_only_white(line))
+			return (false);
+		else if (*empty_line == false)
+			return (append_line_to_map(line, game));
+		return (false);
 	}
-	else if (!ft_only_white(line) && !is_line_empty(line)
-			&& *empty_line == false)
-		return (append_line_to_map(line, game));
-	return (false);
+	else if (!is_line_empty(line) && !is_inside_map(line)
+		&& !empty_line && game->data.data)
+		return (false);
+	else if (game->has_door && !game->textures[DOOR].name
+		&& !is_line_empty(line))
+		return (check_for_door_texture(game, line));
+	return (true);
 }
 
 static bool	process_line(char *line, t_game *game)
@@ -70,21 +74,7 @@ static bool	process_line(char *line, t_game *game)
 		return (ft_free_2d(split), true);
 	}
 	else if (tex_count >= 4 && col_count >= 2)
-	{
-		if (!empty_line)
-			return (check_rest_map(line, game, &empty_line));
-		else if (game->has_door && !game->valid_door && !is_line_empty(line))
-		{
-			split = split_line_into_words(line);
-			if (!split)
-				return (false);
-			if (!check_texture_and_set_do(game, split))
-				return (ft_free_2d(split), false);
-			game->valid_door = true;
-			return (ft_free_2d(split), true);
-		}
-		return (true);
-	}
+		return (check_rest_map(line, game, &empty_line));
 	return (false);
 }
 

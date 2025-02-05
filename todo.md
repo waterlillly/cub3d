@@ -1,0 +1,1 @@
+-> if DO texture directly before map (no newline in between) its valid (idk if thats okay)

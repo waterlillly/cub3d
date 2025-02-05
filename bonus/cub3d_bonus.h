@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:30:18 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/03 23:30:24 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:43:12 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,10 +228,12 @@ bool				is_texture_identifier(char *line);
 bool				is_color_identifier(char *trim);
 int					ft_strlen_skip_space(char *str);
 void				get_player_orientation(char orientation, t_game *game);
+bool				is_inside_map(char *line);
 bool				append_line_to_map(char *line, t_game *game);
 bool				validate_and_set_rgb(char *split, t_game *game, int fc);
 bool				validate_color_element(char **split, int *col_count,
 						t_game *game);
+bool				check_for_door_texture(t_game *game, char *line);
 bool				validate_texture_element(char **split, int *tex_count,
 						t_game *game);
 int					check_texture_and_set_do(t_game *game, char **split);

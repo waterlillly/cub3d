@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:33:58 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/03 23:41:10 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:17:51 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,24 @@ int	check_texture_and_set_do(t_game *game, char **split)
 			game->textures[DOOR].name = ft_strdup(split[1]);
 			if (!game->textures[DOOR].name)
 				return (false);
+			game->valid_door = true;
 			return (true);
 		}
 	}
 	return (false);
+}
+
+bool	check_for_door_texture(t_game *game, char *line)
+{
+	char	**split;
+
+	split = split_line_into_words(line);
+	if (!split)
+		return (false);
+	if (!check_texture_and_set_do(game, split))
+		return (ft_free_2d(split), false);
+	game->valid_door = true;
+	return (ft_free_2d(split), true);
 }
 
 bool	validate_texture_element(char **split, int *tex_count, t_game *game)
@@ -87,9 +101,8 @@ bool	validate_texture_element(char **split, int *tex_count, t_game *game)
 		else if ((!ft_strcmp(split[0], "EA") || !ft_strcmp(split[0], "WE"))
 			&& check_texture_and_set_ea_we(game, split) == false)
 			return (false);
-		// else if (!ft_strcmp(split[0], "DO") && check_texture_and_set_do(game,
-		// 		split) == false)
-		// 	return (false);
+		else if (!ft_strcmp(split[0], "DO"))
+			return (check_texture_and_set_do(game, split));
 		(*tex_count)++;
 		return (true);
 	}

@@ -2,10 +2,10 @@ NO ./assets/textures/purple_brick_wall_trippy.xpm
 SO ./assets/textures/purple_brick_wall_trippy.xpm
 WE ./assets/textures/purple_brick_wall_trippy.xpm
 EA ./assets/textures/purple_brick_wall_trippy.xpm
-DO ./assets/textures/metal_door_bars.xpm
 
 F 60,100,220
 C 0,200,150     
+DO ./assets/textures/metal_door_bars.xpm
 
 1111111111111111111111111111111
   11000000000000110000000000001  
