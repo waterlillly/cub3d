@@ -1,14 +1,14 @@
 NO ./assets/textures/purple_brick_wall_trippy.xpm 
-SO ./assets/textures/purple_brick_wall_trippy.xpm
-WE ./assets/textures/purple_brick_wall_trippy.xpm
-EA ./assets/textures/purple_brick_wall_trippy.xpm
+SO ./assets/textures/white_cartoon_bricks.xpm
+WE ./assets/textures/moon.xpm
+EA ./assets/textures/pattern.xpm
 
-F 60,100,220
-C 0,200,150     
-DO ./assets/textures/metal_door_bars.xpm
+F 207,139,1
+C 12,21,197     
+
 
 1111111111111111111111111111111
-  11000000000000110000000000001  
+  11000000000000110000000000001
    11111D1100000111000000000001
     11111111100000000000000000111111
             11110001D1100N0011100001
@@ -25,4 +25,5 @@ DO ./assets/textures/metal_door_bars.xpm
 
 
 
+DO ./assets/textures/metal_door_bars.xpm
 

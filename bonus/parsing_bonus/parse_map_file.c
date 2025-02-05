@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:33:00 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/05 12:45:32 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/05 20:12:35 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
 	if (ft_strchr(line, 'D'))
 		game->has_door = true;
 	if (is_line_empty(line) && game->data.data)
-		(empty_line = true);
-	if (!empty_line && !is_line_empty(line) && is_inside_map(line))
+		*empty_line = true;
+	if (is_line_empty(line) && !game->data.data)
+		return (true);
+	if (!*empty_line && !is_line_empty(line) && is_inside_map(line))
 	{
 		if (ft_only_white(line))
 			return (false);
-		else if (*empty_line == false)
-			return (append_line_to_map(line, game));
-		return (false);
+		return (append_line_to_map(line, game));
 	}
 	else if (!is_line_empty(line) && !is_inside_map(line)
-		&& !empty_line && game->data.data)
+		&& !*empty_line && game->data.data)
 		return (false);
 	else if (game->has_door && !game->textures[DOOR].name
 		&& !is_line_empty(line))
