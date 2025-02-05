@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:33:00 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/05 20:12:35 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/05 20:44:22 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
 			return (false);
 		return (append_line_to_map(line, game));
 	}
-	else if (!is_line_empty(line) && !is_inside_map(line)
-		&& !*empty_line && game->data.data)
+	else if (!is_line_empty(line) && !is_inside_map(line) && !*empty_line
+		&& game->data.data)
 		return (false);
 	else if (game->has_door && !game->textures[DOOR].name
 		&& !is_line_empty(line))
@@ -57,10 +57,10 @@ static bool	check_rest_map(char *line, t_game *game, bool *empty_line)
 
 static bool	process_line(char *line, t_game *game)
 {
-	static int		tex_count = 0;
-	static int		col_count = 0;
-	static bool		empty_line = false;
-	char			**split;
+	static int	tex_count = 0;
+	static int	col_count = 0;
+	static bool	empty_line = false;
+	char		**split;
 
 	if ((tex_count < 4 || col_count < 2) && !game->data.data)
 	{
