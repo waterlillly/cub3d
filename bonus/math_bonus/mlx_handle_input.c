@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:32:19 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/08 12:51:23 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/08 12:52:51 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ int	handle_keypress(int keycode, t_game *game)
 	if (keycode == XK_E || keycode == XK_e)
 	{
 		toggle_door(game, ((game->player.pos.x + game->player.dir.x
-				* game->macro.tile_width) / game->macro.tile_width),
-			((game->player.pos.y + game->player.dir.y
-				* game->macro.tile_height) / game->macro.tile_height));
+					* game->macro.tile_width) / game->macro.tile_width),
+			((game->player.pos.y + game->player.dir.y * game->macro.tile_height)
+				/ game->macro.tile_height));
 	}
 	if (keycode == XK_Q || keycode == XK_q)
 		game->control.sprint = 1;
