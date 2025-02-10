@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:32:27 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/03 23:11:49 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:54:19 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ static void	init_player(t_game *game)
 			game->plane.y *= -1;
 	}
 	ft_bzero(&game->control, sizeof(t_control));
-	game->player.move_speed = 5;
-	game->player.turn_speed = 0.1;
+	game->player.move_speed = 7;
+	game->player.turn_speed = 0.05;
 }
 
 void	init_cub(t_game *game)
