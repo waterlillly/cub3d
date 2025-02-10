@@ -6,7 +6,7 @@
 /*   By: lbaumeis <lbaumeis@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:30:18 by lbaumeis          #+#    #+#             */
-/*   Updated: 2025/02/05 12:43:12 by lbaumeis         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:08:57 by lbaumeis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 # include <error.h>
 # include <fcntl.h>
 # include <math.h>
-# include "../minilibx-linux/mlx_int.h"//for mlx@home
-# include "../minilibx-linux/mlx.h"//for mlx@home
-// # include <mlx.h> //for @school
+	//# include "../minilibx-linux/mlx_int.h"//for mlx@home
+//# include "../minilibx-linux/mlx.h"//for mlx@home
+# include <mlx.h> //for @school
 # include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
