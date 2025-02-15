@@ -12,5 +12,4 @@
 *.dSYM/
 *.DS_Store
 *.directory
-mo_main.c
 cub3d

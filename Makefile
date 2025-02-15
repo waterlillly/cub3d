@@ -66,14 +66,6 @@ BONUSOFILES = $(BONUSFILES:.c=.o)
 
 all: $(NAME)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(BONUS_OBJ_DIR)%.o: $(BONUS_DIR)%.c
-	@mkdir -p $(BONUS_OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
 $(NAME): $(OFILES)
 	($(MAKE) -C ./lib)
 	$(CC) $(OFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(NAME)
