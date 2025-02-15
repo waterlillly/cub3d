@@ -12,31 +12,33 @@
 
 #include "../cub3d.h"
 
-static char	*trim_inside_spaces(char *temp)
+static char	*trim_inside_spaces(char *temp, char *res)
 {
 	int		i;
-	int		j;
-	int		space;
-	char	*new;
+	char	**new;
+	char	*temp1;
 
-	i = -1;
-	space = 0;
-	while (temp[++i])
-	{
-		if (temp[i] == ' ')
-			space++;
-	}
-	new = ft_calloc(ft_strlen(temp) - space + 1, sizeof(char));
+	new = ft_split(temp, ',');
 	if (!new)
 		return (NULL);
 	i = -1;
-	j = -1;
-	while (temp[++i])
+	res = NULL;
+	while (new[++i])
 	{
-		if (temp[i] != ' ')
-			new[++j] = temp[i];
+		temp1 = ft_strtrim(new[i], " ");
+		if (!temp1)
+			return (ft_free_2d(new), free(res), NULL);
+		res = ft_strjoin_free_both(res, temp1);
+		if (!res)
+			return (ft_free_2d(new), NULL);
+		if (i < 2)
+		{
+			res = ft_strjoin_free_one(res, ",");
+			if (!res)
+				return (ft_free_2d(new), NULL);
+		}
 	}
-	return (new);
+	return (ft_free_2d(new), res);
 }
 
 static char	**split_for_rgb(char *res)
@@ -60,7 +62,7 @@ static char	**split_for_rgb(char *res)
 	temp = ft_strcpy(res, 1);
 	if (!temp)
 		return (ft_free_2d(new), NULL);
-	new[1] = trim_inside_spaces(temp);
+	new[1] = trim_inside_spaces(temp, new[1]);
 	free(temp);
 	if (!new[1])
 		return (ft_free_2d(new), NULL);
