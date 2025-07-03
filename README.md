@@ -13,7 +13,7 @@ This version includes the **mandatory features** and **bonus features** (such as
 ## 🛠️ Mandatory Features
 
 - Parse a `.cub` configuration file:
-  - Resolution, textures (walls), colors (floor/ceiling).
+  - Textures (walls), colors (floor/ceiling).
   - Map with correct walls, player starting position, and closed structure.
 - Raycasting engine:
   - Render a 3D environment using walls from a 2D map.
