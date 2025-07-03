@@ -44,7 +44,7 @@ The following additional features were implemented:
   - Smooth view rotation using the mouse
 
 - **Doors**:
-  - Openable doors rendered in the environment
+  - Doors rendered in the environment
   - Open on keypress (`E`)
   - Closing automatically after a few seconds of being outside of the doors radius
 
@@ -123,7 +123,31 @@ make bonus
 
 ## Dependencies
 
-- MiniLibX
+**MiniLibX**
+
+If the program is not run on a 42 school computer:
+
+Download the MiniLibX library and add it to the cub3d directory.
+
+https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#installation
+
+Now a part of the Makefile needs to be changed:
+
+from:
+```
+#make:
+$(CC) $(OFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(NAME)
+#bonus:
+$(CC) $(BONUSOFILES) ./lib/libft.a -lmlx -lXext -lX11 -lm -o $(BONUS_NAME)
+```
+
+[only for linux] to:
+```
+#make:
+$(CC) $(OFILES) ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o $(NAME)
+#bonus:
+$(CC) $(BONUSOFILES) ./lib/libft.a ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a -lXext -lX11 -lm -o $(BONUS_NAME)
+```
 
 ---
 
